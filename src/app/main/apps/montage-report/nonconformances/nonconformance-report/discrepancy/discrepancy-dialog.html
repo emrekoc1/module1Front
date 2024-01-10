@@ -1,0 +1,76 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="discrepancyForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>No</mat-label>
+                    <input matInput placeholder="No" name="no" formControlName="no" required type="number" min="0"/>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Hata Kodu</mat-label>
+                    <input matInput placeholder="Hata Kodu" name="defectCode" formControlName="defectCode" required />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Miktar</mat-label>
+                    <input matInput placeholder="Miktar" name="quantity"
+                        formControlName="quantity" required type="number" min="0" />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Hata Tanımı</mat-label>
+                    <input matInput placeholder="Hata Tanımı" name="defectDescription"
+                        formControlName="defectDescription" required />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>İşlemler</mat-label>
+                    <input matInput placeholder="İşlemler" name="traveler" formControlName="traveler" required />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>İşlemci</mat-label>
+                    <input matInput placeholder="İşlemci" name="operator" formControlName="operator" />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Denetçi</mat-label>
+                    <input matInput placeholder="Denetçi" name="inspector" formControlName="inspector"/>
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-button class="save-button" (click)="matDialogRef.close([discrepancyForm])"
+            [disabled]="discrepancyForm.invalid" aria-label="Kaydet">
+            {{submitTitle}}
+        </button>
+
+    </div>
+</div>

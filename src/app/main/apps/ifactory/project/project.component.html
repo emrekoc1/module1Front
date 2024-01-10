@@ -1,0 +1,86 @@
+<div id="project" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    alarm_on
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Proje
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button [routerLink]="'/apps/ifactory/project/single-project'"
+                class="add-project-button fuse-white mt-24 mt-md-0">
+                <span>Yeni Proje Ekle</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto;
+        padding: 10px;">
+
+            <dx-data-grid class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true" [focusedRowIndex]="0"
+                [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="true">
+
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+
+                <dxi-column cellTemplate="no" caption="No">
+                </dxi-column>
+                <dxi-column dataField="name" caption="Adı">
+                </dxi-column>
+                <dxi-column dataField="type" caption="Tip">
+                </dxi-column>
+                <dxi-column cellTemplate="createdDate" caption="Oluşturulma Tarihi">
+                </dxi-column>
+                <dxi-column cellTemplate="update" caption="Düzenle">
+                </dxi-column>
+                <dxi-column cellTemplate="delete" caption="Sil">
+                </dxi-column>
+
+                <div *dxTemplate="let data of 'no'">
+                    
+                </div>
+                <div *dxTemplate="let data of 'createdDate'">
+                    {{data.data.createdDate | date:'dd.MM.yyyy'}}
+                </div>
+
+                <div *dxTemplate="let data of 'update'">
+                    <button style="margin: 3px;color:white;background-color: #677790;height: 31px;"
+                        (click)="routeLink(data.data._id)" type="button" class="btn ">
+                        Düzenle
+                    </button>
+                </div>
+
+                <div *dxTemplate="let data of 'delete'">
+                    <button style="margin: 3px;color:white;background-color: #c80808;height: 31px;"
+                        (click)="deleteShift(data.data._id)" type="button" class="btn ">
+                        Sil
+                    </button>
+                </div>
+            </dx-data-grid>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

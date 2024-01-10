@@ -1,0 +1,257 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style = "background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header" style = "background-color:#0074b4"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button
+                    mat-icon-button
+                    class="mr-0 mr-sm-16"
+                    [routerLink]="'/apps/anket'"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}"
+                >
+                    <div class="h2">Yeni Anket</div>
+                    <div class="subtitle secondary-text">
+                        <span>Anket</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+          
+
+          
+
+            <button
+                mat-raised-button
+                class="save-product-button"
+                
+                (click)="addBatch()"
+            >
+                <span>EKLE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <form
+                    name="batchForm"
+                    [formGroup]="batchForm"
+                    class="product w-100-p"
+                    fxLayout="column"
+                    fxFlex
+                >
+                    <mat-tab-group>
+                       
+                        <mat-tab label="Anket Bilgileri">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Anket Başlığı</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Anket Başlığı"
+                                        name="name"
+                                        formControlName="baslik"
+                                        [(ngModel)]="anketBasligi"
+                                        required
+
+                                    />
+                                </mat-form-field>
+
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Anket Açıklaması</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Anket Açıklaması"
+                                        name="name"
+                                        formControlName="aciklama"
+                                        [(ngModel)]="anketAciklama"
+                                        required
+                                    />
+                                </mat-form-field>
+                                
+                          
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Yayın Departmanı</mat-label>
+                                    <mat-select placeholder="Anket Departmanı"
+                                    name="name" (selectionChange)="onChangeDepartman($event)"
+                                    formControlName="departman"
+                                    required multiple>
+                                        <mat-option value="0">Tüm Departmanlar</mat-option>
+                                        <mat-option  *ngFor="let calisma of departman" value="{{calisma.id}}">{{calisma.description}}</mat-option>
+                                      
+                                    </mat-select>
+                                   
+                                </mat-form-field>
+                             
+                                <mat-slide-toggle formControlName="isactive" name="isactive">Anket Aktif</mat-slide-toggle>
+                                
+                            </div>
+                        </mat-tab>
+                    
+                        <mat-tab label="Sorular">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Soru Başlığı</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="Soru Başlığı"
+                                        name="name"
+                                        [(ngModel)]="soruBaslik"
+                                        formControlName="soruText"
+                                        required
+                                    />
+                                </mat-form-field>
+                                  <mat-form-field 
+                                appearance="outline"
+                                floatLabel="always"
+                                class="w-100-p"
+                            >
+                                <mat-label>Soru Tipi</mat-label>
+                                <mat-select  [(ngModel)]="soruTipi" placeholder="Soru Tipi"
+                                name="name" formControlName="soruType"
+                                required>
+                                <mat-option  value="0">Seçim Yapınız</mat-option>
+                                    <mat-option  value="1">Çoklu Seçim</mat-option>
+                                    <mat-option  value="2">Doğrusal Ölçek</mat-option>
+                                    <mat-option  value="3">Açık Uçlu</mat-option>
+                                    <mat-option  value="4">Tek Seçim</mat-option>
+                                </mat-select>
+                               
+                            </mat-form-field>
+
+                            <div   *ngIf="soruTipi === '1' ">
+                                <mat-label *ngFor="let label of label">{{label.id}} - {{label.value}}<br></mat-label><br>
+                        
+                                <mat-form-field >
+                                  
+                                 
+                                  <ng-container appearance="outline"
+                                  floatLabel="always"
+                                  class="w-100-p">
+                                  <input matInput   type="text" placeholder="Metin Cevabı" [(ngModel)]="soruCevabi"  formControlName="cokluText"
+                                  required>
+                              </ng-container>
+                                
+                                 <br>
+                                </mat-form-field>
+                                <button mat-raised-button
+                                class="save-product-button"
+                                (click)="multiKayit()">Yeni Ekle</button>
+                            </div>
+                          
+                              <ng-container *ngIf="soruTipi === '2'">
+                                <mat-form-field
+                                appearance="outline"
+                                floatLabel="always"
+                                class="w-100-p"
+                            >
+                                <mat-label>Doğrusal Ölçek Değerini Giriniz</mat-label>
+                                <input
+                                    matInput
+                                    type="number"
+                                    placeholder="Doğrusal Ölçek 5/10/4"
+                                    name="number"
+                                    [(ngModel)]="sayiDegeri" formControlName="radioSecim"
+                                    required
+                                />
+                            </mat-form-field>
+                              </ng-container>
+
+                       
+                              
+                              <ng-container *ngIf="soruTipi === '3'">
+                               
+                           
+                            <mat-label>Açık Uçlu Soru oluştur</mat-label>
+                           
+                              </ng-container>
+                             
+                              <div   *ngIf="soruTipi === '4' ">
+                                <mat-label *ngFor="let label of label">{{label.id}} - {{label.value}}<br></mat-label><br>
+                        
+                                <mat-form-field >
+                                  
+                                 
+                                  <ng-container appearance="outline"
+                                  floatLabel="always"
+                                  class="w-100-p">
+                                  <input matInput   type="text" placeholder="Tek Cevap Seçeneği" [(ngModel)]="soruCevabi"  formControlName="tekilText"
+                                  required>
+                              </ng-container>
+                                
+                                 <br>
+                                </mat-form-field>
+                                <button mat-raised-button
+                                class="save-product-button"
+                                (click)="multiKayit()">Yeni Ekle</button>
+                            </div>
+                              <button
+                              mat-raised-button
+                              class="save-product-button"
+                              
+                              (click)="soruKayit()"
+                          >
+                              <span>Soru Kayıt</span>
+                          </button>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Kayıt Kontrol">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <h1>
+                                    {{anketBasligi}}
+                                </h1>
+                                <h4>{{anketAciklama}}</h4>
+                                <div *ngFor="let arrayKontrol of soruArray">
+                                  <p>
+                                    {{arrayKontrol.sorubasligi}},    {{arrayKontrol.soruType}},    {{arrayKontrol.soruIcerik}}
+                                  </p>
+                                    
+                                </div>
+                            </div>
+                        </mat-tab>
+                      
+                    </mat-tab-group>
+                </form>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

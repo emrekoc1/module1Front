@@ -1,0 +1,33 @@
+.example-card {
+    max-width: 20%;
+  }
+  .egitimList{
+    color:black;
+    text-align: right;
+    display: inline-block;
+    border: 1px solid #c2c2c2; /* Kare çizmek için kenarlık ekleyin */
+    padding: 10px; /* İçerideki içeriği düzgün hizalamak için iç içe boşluk ekleyin */
+    text-decoration: none; /* Alt çizgiyi kaldırın */
+  }
+
+
+  #courset {
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  #courset:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+  .hide-controls{
+    width: 20vh;
+    height: 20vh;
+  }
+.total-like {
+  font-size: 12px; /* Örnek bir font büyüklüğü */
+  margin-left: 4px; /* İkon ile miktar arasında boşluk bırakabilirsiniz */
+  vertical-align: middle; /* Dikey hizalama */
+  /* Diğer stil özelliklerini burada belirtebilirsiniz */
+}

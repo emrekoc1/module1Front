@@ -1,0 +1,52 @@
+<div class="custom-appointment-form">
+  <!-- Form buraya gelecek -->
+  <!-- Özelleştirilmiş görev ekleme formu -->
+  <h2>Yeni Görev Ekle</h2>
+  <form [formGroup]="appointmentForm" (ngSubmit)="saveAppointment()">
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <input matInput placeholder="Görev Adı" formControlName="text" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <textarea matInput placeholder="Açıklama" formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <input matInput type="datetime-local" placeholder="Başlangıç Tarihi" formControlName="startDate" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+      <input matInput type="datetime-local" placeholder="Bitiş Tarihi" formControlName="endDate" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>İş Atanacak Kişi</mat-label>
+      <input type="text" placeholder="İş Atanacak Kişi" charset="UTF-8" aria-label="Number" matInput [formControl]="incumbent"
+        [matAutocomplete]="auto" (optionSelected)="onOptionSelected($event)"  required>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.user_id">
+          {{ option.user_name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <a id="buttonClas" mat-raised-button (click)="acKapa()"><span *ngIf="!isChecked">Tekrar Eden İş Oluştur</span><span
+      [ngClass]="{'mat-warn': isChecked === true}"  *ngIf="isChecked">Tekrar Eden İş İptal</span></a>
+
+    <div class="" *ngIf="isChecked">
+
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <mat-label>Tekrar Tipi</mat-label>
+        <mat-select formControlName="selected" (selectionChange)="onChangeDepartman($event)">
+          <mat-option value="WEEKLY">Haftalık</mat-option>
+          <mat-option value="DAILY">Günlük</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <a *ngFor="let gunler of gunler" mat-raised-button 
+      [ngClass]="{'mat-warn': secilenTekrarGun === gunler.value}" 
+      (click)="secilenGun(gunler.value)">{{gunler.name}}</a>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+        <input matInput type="number" placeholder="Tekrar Sayısı" formControlName="numberField" required>
+      </mat-form-field>
+    </div>
+    <button id="buttonClas" mat-raised-button   type="submit">Görev Ekle</button>
+  </form>
+
+
+</div>

@@ -1,0 +1,293 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Operasyon - Makina - İş istasyonu
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <!-- ADD BUTTON -->
+
+            <mat-menu #menu="matMenu">
+                <button [routerLink]="'/apps/ifactory/add_operation'" mat-menu-item>
+                    <span class="material-icons">add</span>
+                    <span> Yeni Operasyon Ekle</span>
+
+                </button>
+                <button [routerLink]="'/apps/ifactory/add_machine'" mat-menu-item>
+                    <span class="material-icons">add</span>
+                    <span> Yeni Makina Ekle</span>
+
+                </button>
+                <button [routerLink]="'/apps/ifactory/add_work_station'" mat-menu-item>
+                    <span class="material-icons">add</span>
+                    <span> Yeni İş istasyonu Ekle</span>
+
+                </button>
+            </mat-menu>
+            <button mat-raised-button class="add-product-button fuse-white mt-24 mt-md-0" mat-button
+                [matMenuTriggerFor]="menu">
+                <span>İşlemler</span>
+                <span class="material-icons">
+                    add
+                </span>
+            </button>
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto;
+        padding: 10px;">
+            <mat-tab-group [(selectedIndex)]="selectedIndex" dynamicHeight>
+
+                <mat-tab label="Operasyonlar">
+
+                    <dx-data-grid class="dx-card wide-card" [dataSource]="operations_data" [showBorders]="true"
+                        [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                        [columnAutoWidth]="true" [columnHidingEnabled]="false" [showRowLines]="true">
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                        </dxo-pager>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+                        <dxi-column dataField="name" caption="Operasyon">
+                        </dxi-column>
+                        <dxi-column dataField="workStation.name" caption="İstasyon">
+                        </dxi-column>
+                        <dxi-column cellTemplate="type" caption="Tip">
+                        </dxi-column>
+                        <dxi-column cellTemplate="time" caption="Süre">
+                        </dxi-column>
+                        <dxi-column cellTemplate="operator_entrys" caption="Operatör İşlemleri">
+                        </dxi-column>
+                        <dxi-column cellTemplate="update" caption="Düzenle">
+                        </dxi-column>
+
+                        <div *dxTemplate="let datalar of 'type'" style="cursor: pointer">
+                            <p *ngIf="datalar.data.type == 0">Normal </p>
+                            <p *ngIf="datalar.data.type == 1">Kalite Kontrol </p>
+                        </div>
+                        <div *dxTemplate="let datalar of 'operator_entrys'" style="cursor: pointer">
+                            <div *ngFor="let values of datalar.data.operationValues">
+                                {{values.name}} -
+                                {{values.unite}} -
+                                {{values.normalValue}} -
+                                {{values.minValue}} -
+                                {{values.maxValue}}
+                            </div>
+                        </div>
+                        <div *dxTemplate="let data of 'time'">
+                            {{data.data.time|exponentialStrength}}
+
+                        </div>
+                        <div *dxTemplate="let datalar of 'update'">
+                            <button mat-raised-button color="accent" (click)="this.go_to_update_operation(datalar.data._id)"  type="button"
+                               > Güncelle
+                            </button>
+                        </div>
+
+                
+                    </dx-data-grid>
+
+
+                </mat-tab>
+
+                <mat-tab label="Makinalar">
+
+
+
+                    <dx-data-grid class="dx-card wide-card" [dataSource]="machines_data" [showBorders]="true"
+                        [focusedRowIndex]="0" [columnAutoWidth]="true" [columnHidingEnabled]="false"
+                        [showRowLines]="true">
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                        </dxo-pager>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+                        <dxi-column dataField="name" caption="Adı">
+                        </dxi-column>
+                        <dxi-column cellTemplate="status" caption="Durum">
+                        </dxi-column>
+                        <dxi-column dataField="machineNumber" caption="Kod">
+                        </dxi-column>
+                        <dxi-column dataField="description" caption="Açıklama">
+                        </dxi-column>
+                        <dxi-column cellTemplate="update" caption="Düzenle">
+                        </dxi-column>
+                        <div *dxTemplate="let datalar of 'status'" style="text-align: center;">
+
+                            <div class="machine_waiting" *ngIf="datalar.data.status==0">Bekliyor</div>
+                            <div class="machine_working" *ngIf="datalar.data.status==1">Çalışıyor</div>
+                            <div class="machine_stoped" *ngIf="datalar.data.status==2">Duruyor</div>
+                            <div class="machine_errored" *ngIf="datalar.data.status==5">Arızalı</div>
+                        </div>
+
+                        <div *dxTemplate="let datalar of 'update'">
+                            <mat-menu #menu="matMenu">
+                                <button color="primary" (click)="get_machine_stop();
+                                this.selectedMachineStatusName='Çalışıyor';
+                                this.selectedMachineStatusId=1;
+                                this.selectedMachineName=datalar.data.name;
+                                this.selectedMachineID=datalar.data._id;
+                                openDialog(changeMachineStatus,'auto')" mat-menu-item>
+                                    <span class="material-icons">play_arrow</span>
+                                    <span> Çalışıyor</span>
+                                </button>
+                                <button color="accent" (click)="get_machine_stop();
+                                this.selectedMachineStatusName='Duruyor';
+                                this.selectedMachineStatusId=2;
+                                this.selectedMachineName=datalar.data.name;
+                                this.selectedMachineID=datalar.data._id;
+                                openDialog(changeMachineStatus,'auto')" mat-menu-item>
+                                    <span class="material-icons">highlight_off</span>
+                                    <span> Duruyor</span>
+                                </button>
+                                <button color="warn" (click)="get_machine_stop();
+                                this.selectedMachineStatusName='Arızalı';
+                                this.selectedMachineStatusId=5;
+                                this.selectedMachineName=datalar.data.name;
+                                this.selectedMachineID=datalar.data._id;
+                                openDialog(changeMachineStatus,'auto')" mat-menu-item>
+                                    <span class="material-icons">build</span>
+                                    <span> Arızalı</span>
+                                </button>
+                            </mat-menu>
+                            <button mat-icon-button style="background: coral;"
+                                aria-label="Example icon button with a vertical three dot icon" mat-button
+                                [matMenuTriggerFor]="menu">
+
+                                <span class="material-icons">
+
+                                    build
+                                </span>
+                            </button>
+                            <button style="margin-left:5px;" mat-raised-button color="accent"
+                                (click)="this.go_to_update_machine(datalar.data._id)">Güncelle
+                            </button>
+
+                        </div>
+
+
+                    </dx-data-grid>
+
+
+
+                </mat-tab>
+
+                <mat-tab label="İş istasyonları">
+
+
+                    <dx-data-grid class="dx-card wide-card" [dataSource]="workstations_data" [showBorders]="true"
+                        [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                        [columnAutoWidth]="true" [columnHidingEnabled]="false" [showRowLines]="true">
+                        <dxo-paging [pageSize]="10"></dxo-paging>
+                        <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                        </dxo-pager>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+                        <dxi-column dataField="name" caption="Operasyon">
+                        </dxi-column>
+                        <dxi-column dataField="machines.length" caption="Makina Sayısı">
+                        </dxi-column>
+                        <dxi-column cellTemplate="update" caption="Düzenle">
+                        </dxi-column>
+
+
+
+                        <div *dxTemplate="let datalar of 'update'">
+                            <button mat-raised-button color="accent"
+                                (click)="this.go_to_update_work_station(datalar.data._id)">Güncelle
+                            </button>
+                        </div>
+
+                        <div *dxTemplate="let data of 'detail'">
+                            <div class="master-detail-caption">Qr Code</div>
+                            <qrcode *ngIf="data.data.qr" [qrdata]="data.data.qr" [size]="100" [level]="'M'">
+                            </qrcode>
+                            <hr>
+                            <dx-data-grid [dataSource]="data.data.machines" [showBorders]="true"
+                                [columnAutoWidth]="true">
+                                <dxi-column dataField="name" caption="Adı"></dxi-column>
+                                <dxi-column dataField="machineNumber" caption="Makina No">
+                                </dxi-column>
+
+                            </dx-data-grid>
+                        </div>
+                    </dx-data-grid>
+
+
+                </mat-tab>
+            </mat-tab-group>
+
+
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>
+
+
+<ng-template #changeMachineStatus>
+    <div class="modal-body bg-gray">
+        <div class="row">
+            <div class="col-12 vertical-tabs">
+                <div class="tab-content col-12 border-0">
+                    <div class="tab-pane active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4>Durumunu Değiştirmek İstediğiniz Makina: <bold>{{selectedMachineName}}</bold></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="text-gray">Durum Değiştirme Sebebi</label>
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-select 
+                                                        placeholder="Sebep" formControlName="name">
+                                                        <mat-option *ngFor="let dep of stopreason" value="{{dep.name}}">
+                                                            {{dep.name}}</mat-option>
+                                                    </mat-select>
+                                                    </mat-form-field>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 bg-white text-center py-1">
+                    <button class="btn btn-success mr-1" type="submit"
+                        (click)="change_machine_status($event, selectedMachineID, selectedMachineStatusId); close();"><span>Durum Değiştir</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

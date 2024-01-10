@@ -1,0 +1,193 @@
+<div id="shift" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/ifactory/shifts'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    alarm_on
+                </mat-icon>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="sentS_id">
+                        {{(shiftForm ? ('Vardiya ' + shiftForm.value.shift_id) : '' ) || ''}}
+                    </div>
+                    <div class="h2" *ngIf="!sentS_id">
+                        Yeni Vardiya
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Vardiya Bilgileri</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-shift-button" [disabled]="shiftForm?.invalid|| shiftForm?.pristine"
+                type="submit" (click)="submitShift()">
+                <span>{{sentS_id ? 'Kaydet': 'Ekle'}}</span>
+            </button>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="shiftForm" [formGroup]="shiftForm" class="shift w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                        <mat-tab label="Temel Bilgiler">
+
+                            <div fusePerfectScrollbar class="tab-content p-24">
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Vardiya ID</mat-label>
+                                    <input matInput placeholder="Vardiya ID" name="shift_id" formControlName="shift_id"
+                                        required />
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Açıklama</mat-label>
+                                    <textarea matInput placeholder="Açıklama" name="description"
+                                        formControlName="description" rows="4">
+                                    </textarea>
+                                </mat-form-field>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                        <mat-label>Geçerlilik Başlangıç Tarihi</mat-label>
+                                        <input matInput [matDatepicker]="startPicker"
+                                            placeholder="Geçerlilik Başlangıç Tarihi" name="active_date_start"
+                                            formControlName="active_date_start" required>
+                                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #startPicker></mat-datepicker>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                        <mat-label>Geçerlilik Bitiş Tarihi</mat-label>
+                                        <input matInput [matDatepicker]="endPicker"
+                                            placeholder="Geçerlilik Bitiş Tarihi" name="active_date_end"
+                                            [min]="shiftForm.value.active_date_start" formControlName="active_date_end"
+                                            required>
+                                        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #endPicker></mat-datepicker>
+                                    </mat-form-field>
+
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                        <mat-label>Gün Başlangıç Saati</mat-label>
+                                        <input matInput placeholder="Gün Başlama Zamanı" name="day_start_at"
+                                            formControlName="day_start_at" required type="time" />
+                                    </mat-form-field>
+
+                                    <mat-checkbox appearance="outline" floatLabel="always" fxFlex="45" matInput
+                                        name="is_active" formControlName="is_active">Aktif mi?
+                                    </mat-checkbox>
+
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab *ngIf="sentS_id" label="Zaman Aralıkları">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <button mat-raised-button class="mb-12" (click)="openTimeIntervalDialog(null, null)">
+                                    <span>Zaman Aralığı Ekle</span>
+                                </button>
+
+                                <mat-table #table [dataSource]="timeIntervalDataSource"
+                                    [@animateStagger]="{value:'50'}">
+                                    <ng-container matColumnDef="id">
+                                        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                                        <mat-cell *matCellDef="let timeInterval; let i = index;">{{i + 1}}</mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="name">
+                                        <mat-header-cell *matHeaderCellDef>Adı</mat-header-cell>
+                                        <mat-cell *matCellDef="let timeInterval; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{timeInterval.controls['name'].value}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="starttime">
+                                        <mat-header-cell *matHeaderCellDef>Başlama Zamanı (Dakika Cinsinden)
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let timeInterval; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{timeInterval.controls['starttime'].value}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="endtime">
+                                        <mat-header-cell *matHeaderCellDef>Bitiş Zamanı (Dakika Cinsinden)
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let timeInterval; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{timeInterval.controls['endtime'].value}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="buttons">
+                                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                        <mat-cell *matCellDef="let timeInterval; let i = index;">
+                                            <div fxFlex="row" fxLayoutAlign="end center">
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="openTimeIntervalDialog(timeInterval, i)" type="button">
+                                                    <mat-icon class="amber-fg">edit</mat-icon>
+                                                </button>
+
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="deleteTimeInterval(i)" type="button">
+                                                    <mat-icon class="amber-fg">delete</mat-icon>
+                                                </button>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="timeIntervalDisplayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: timeIntervalDisplayedColumns;"></mat-row>
+                                </mat-table>
+
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

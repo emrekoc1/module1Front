@@ -1,0 +1,111 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#3296c8"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header " style="background-color:#3296c8" fxLayout="column" fxLayoutAlign="center center"
+            fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }">
+                    notifications_active
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }" style="color:white">
+                    Egitimler
+
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- <span style="color:#000">Yeni Montaj Siparişi Ekle</span>
+        </button> -->
+            <!-- / ADD BUTTON -->
+            <!-- ADD BUTTON -->
+            <button mat-raised-button class="mat-focus-indicator primary mat-button mat-button-base"
+                [routerLink]="'/apps/egitimler/add-egitim'" *ngIf="user_type === 1 || user_type === 0">
+                <span style="color:#000!important">Eğitim Oluştur</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto; padding: 10px">
+
+            <div id="printable" class="courses" fxLayout="row wrap" fxLayoutAlign="center"
+                [@animateStagger]="{value:'50'}">
+
+                <div class="course" id="courset" style="padding: 10px;margin-left: 20px;"
+                   fxFlex="33" fxFlex.gt-xs="33"
+                    *ngFor="let boxs of egitimler" fxFlex.gt-sm="33" [@animate]="{value:'*',params:{y:'100%'}}">
+                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+
+                        <div class="content" fxLayout="column" style="padding: 10;font-size:x-large"
+                            fxLayoutAlign="center center" fxFlex="1 1 auto">
+                            {{boxs.Name}}
+
+                        </div>
+
+                        <div d="printable" class="course" fxLayout="row wrap" fxLayoutAlign="center"
+                            [@animateStagger]="{value:'50'}">
+                            <div class="course"  fxFlex="80" (click)="egitimAc(boxs.id,boxs.Katagori)"
+                                fxFlex.gt-xs="80" fxFlex.gt-sm="80" [@animate]="{value:'*',params:{y:'100%'}}">
+                                <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+                                    <div class="box_type bosta">
+                                        <img class="hide-controls" 
+                                            [src]="boxs.Video" (click)="egitimAc(boxs.id,boxs.Katagori)">
+                                            
+                                   
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="course"  *ngIf="user_type === 1 || user_type === 0"  fxFlex="10"
+                                fxFlex.gt-xs="10" fxFlex.gt-sm="10" [@animate]="{value:'*',params:{y:'100%'}}">
+                                <section>
+
+                                    <div class="example-button-row">
+                                        <div class="example-flex-container">
+
+                                            <div class="example-button-container">
+                                                <button mat-mini-fab color="warn" (click)="egitimSil(boxs.id)"
+                                                    aria-label="Example icon button with a filter list icon">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div class="example-button-container">
+                                                <button mat-mini-fab aria-label="Example icon button with a home icon">
+                                                    <mat-icon aria-hidden="false" aria-label="Edit icon"[routerLink]="['/apps/egitimler/egitim-update', boxs.id]"
+                                                        fontIcon="edit">edit</mat-icon>
+
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- / CONTENT CARD -->
+        </div>
+        <!-- / CENTER -->
+    </div>
+
+</div>

@@ -1,0 +1,140 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/home'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Yeni Haber</div>
+                    <div class="subtitle secondary-text">
+                        <span>Haberler</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <button mat-raised-button class="save-product-button" [routerLink]="'/apps/home/userAdd'">
+                <span>Kullanıcı Ekle</span>
+            </button>
+
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+
+
+                <mat-tab-group>
+
+                    <mat-tab label="Kullanıcı Listesi">
+
+                        <div id="printable" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+                            <div class="course" style="padding: 1;height: 160rem;" fxFlex="100" fxFlex.gt-xs="100"
+                                fxFlex.gt-sm="100" [@animate]="{value:'*',params:{y:'100%'}}">
+                                <div class="course" id="course" style="padding: 1;height: 20rem;" fxFlex="50"
+                                    fxFlex.gt-xs="50" fxFlex.gt-sm="50" [@animate]="{value:'*',params:{y:'100%'}}">
+                                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                                        <div class="content" fxLayout="column" fxLayoutAlign="  " fxFlex="1 1 auto">
+                                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                                <mat-form-field>
+                                                    <input matInput (keyup)="applyFilter($event.target.value)"
+                                                        placeholder="Filtrele">
+                                                </mat-form-field>
+                                                <table mat-table [dataSource]="filteredData" class="mat-elevation-z8">
+
+                                                    <!-- Sicil Column -->
+                                                    <ng-container matColumnDef="sicil">
+                                                        <th mat-header-cell *matHeaderCellDef>Sicil No</th>
+                                                        <td mat-cell *matCellDef="let row">{{ row.sicil }}</td>
+                                                    </ng-container>
+
+                                                    <!-- Kullanıcı Adı Column -->
+                                                    <ng-container matColumnDef="user_name">
+                                                        <th mat-header-cell *matHeaderCellDef>Kullanıcı Adı</th>
+                                                        <td mat-cell *matCellDef="let row">{{ row.user_name }}</td>
+                                                    </ng-container>
+
+                                                    <!-- İşlem Column -->
+                                                    <ng-container matColumnDef="islem">
+                                                        <th mat-header-cell *matHeaderCellDef>İşlem</th>
+                                                        <td mat-cell *matCellDef="let row">
+                                                            <button  mat-button (click)="update(row)">GÜNCELLE</button>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="islem2">
+                                                        <th mat-header-cell *matHeaderCellDef>İşlem</th>
+                                                        <td mat-cell *matCellDef="let row">
+                                                            <button  mat-button (click)="deleteUser(row.user_id)">Sil</button>
+                                                        </td>
+                                                    </ng-container>
+
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="course" *ngIf = "formGor" id="course" style="padding: 1;height: 20rem;" fxFlex="50"
+                                    fxFlex.gt-xs="50" fxFlex.gt-sm="50" [@animate]="{value:'*',params:{y:'100%'}}">
+                                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                                        <div class="content" fxLayout="column" fxLayoutAlign="  " fxFlex="1 1 auto">
+                                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                                <form [formGroup]="form" class="product w-100-p" fxLayout="column" fxFlex>
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>Sicil No</mat-label>
+                                                        <input matInput placeholder="Sicil No." name="sicil" formControlName="sicil" required />
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>Kullanıcı Adı</mat-label>
+                                                        <input matInput placeholder="Adı Soyadı" name="user_name" formControlName="user_name" required />
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>Mail</mat-label>
+                                                        <input matInput placeholder="E-Mail" name="mail" formControlName="mail" required />
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>Şifre</mat-label>
+                                                        <input matInput placeholder="Şifre" name="pasword_" formControlName="pasword_" required />
+                                                    </mat-form-field>
+                                                    <mat-slide-toggle formControlName="isactive">Kullanıcı Aktif</mat-slide-toggle>
+                                                    <mat-slide-toggle formControlName="isdelete">Kullanıcı Sil</mat-slide-toggle>
+                                                   <button  type="submit" (click)="updateUser()"> Kaydet </button>
+                                                </form>
+                                                
+                                           
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+
+
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

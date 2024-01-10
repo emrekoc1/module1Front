@@ -1,0 +1,35 @@
+<div id="printable" style="width: 1200px; height: 1000px;" fxLayout="row wrap" fxLayoutAlign="center"
+    [@animateStagger]="{value:'50'}">
+    <div class="course" style="padding: 1;height: 20rem;" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="100"
+        [@animate]="{value:'*',params:{y:'100%'}}">
+        <div class="course" id="course" style="padding: 1;height: 20rem;" fxFlex="100" fxFlex.gt-xs="100"
+            fxFlex.gt-sm="100" [@animate]="{value:'*',params:{y:'100%'}}">
+            <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                <div class="content" fxLayout="column" fxLayoutAlign="  " fxFlex="1 1 auto">
+
+                   
+                    <h2>{{haber_basligi}}</h2>
+                    <p>{{ haber_aciklmasi | slice:0:150 }}<br>
+                        {{ haber_aciklmasi | slice:150:300 }}<br>
+                        {{ haber_aciklmasi | slice:300:450 }}<br>
+                        {{ haber_aciklmasi | slice:450:600 }}<br>
+                        {{ haber_aciklmasi | slice:600:750 }}<br>
+                        {{ haber_aciklmasi | slice:750:900 }}<br>
+                    </p>
+                    <h3>Fotoğraflar</h3>
+                    <mat-grid-list cols="2" rowHeight="2:1">
+                        <mat-grid-tile *ngFor="let calismaKitabi of calismaKitabi"> <img style=" width: 44rem;
+                            height: 30rem;
+                            max-width: 50rem;
+                            max-height: 28,125rem;" [src]="calismaKitabi.photo" alt=""></mat-grid-tile>
+                    
+
+                    </mat-grid-list>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

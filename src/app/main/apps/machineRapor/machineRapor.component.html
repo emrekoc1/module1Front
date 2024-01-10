@@ -1,0 +1,105 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- CONTENT CARD -->
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <div class="courses" fxLayout="row wrap" fxLayoutAlign="center">
+
+                <div fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="25" [ngClass]=""
+                    *ngFor="let course of machines.data" style="padding: 20px;box-shadow: 10px 10px;">
+                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto" >
+
+                        <mat-card>
+                            <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row"
+                                fxLayoutAlign.gt-sm="start start">
+
+                                <!-- Widget 2 -->
+                                <div class="widget" *ngIf="!is_departman" fxFlex="50" fxFlex.gt-sm="100">
+
+                                    <div class="row">
+                                        <div class="col-md-4" style ="padding: 10px;text-align: center;">
+
+                                            <span style="font-weight:bold;font-size: large;">    Makina Adı : </span>{{course.machineName}}
+
+                                        </div>
+                                        <div class="col-md-4" style ="padding: 10px;text-align: center;">
+
+                                            <span style="font-weight:bold;font-size: large;"> Operasyon Adı : </span>{{course.operationName}}
+
+                                        </div>
+                                        <div class="col-md-4" style ="padding: 10px;text-align: center;">
+                                            <span style="font-weight:bold;font-size: large;"> Ürün Adı :</span> {{course.input_product_code}}
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="widget" *ngIf="!is_departman" fxFlex="100" fxFlex.gt-sm="100">
+                                    <div class="row">
+                                        <div class="col-md-4" style ="padding: 10px;text-align: center;">
+                                            <span style="font-weight:bold;font-size: large;">Operatör Adı :</span> 
+                                            {{course.operatorList[course.operatorList.length-1].operatorName}}
+
+
+
+                                        </div>
+                                        <div class="col-md-4" style="padding:10px;font-size: large;color: cyan;text-align: center;">
+
+                                            <span style="font-weight:bold;font-size: large;"> Üretim Adedi :</span>{{course.produced}}
+
+                                        </div>
+                                      
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </mat-card>
+
+                    </div>
+
+
+
+
+                    <!--     
+                    <div class="course-content"fxLayout="column" fxFlex="1 1 auto">
+    
+                        <div class="header warn" fxLayout="row" fxLayoutAlign="center center">
+    
+                            <div class="category" fxFlex>
+                                Makina Adı:{{course.machineName}}
+                            </div>
+                            <div class="category" fxFlex>
+                                Ürün Adı : {{course.input_product_code}}
+                            </div>
+    
+    
+    
+                        </div>
+    
+                        <div class="content warn" fxLayout="column" fxLayoutAlign="center center" style="text-align: center;" fxFlex="1 1 auto">
+                            <div class="h1">Operasyon : {{course.operationName}} </div>
+                            <div class="h1">Operatör : {{course.operatorList[course.operatorList.length-1].operatorName}}</div>
+                            <div class="updated" style="text-align: center;">Üretim Adedi :{{course.produced}} </div>
+                        </div>
+    
+    
+    
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,125 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style = "background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div
+            class="header" style = "background-color:#0074b4"
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button
+                    mat-icon-button
+                    class="mr-0 mr-sm-16"
+                    [routerLink]="'/apps/talep'"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div
+                    fxLayout="column"
+                    fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}"
+                >
+                    <div class="h2">Yeni duyru</div>
+                    <div class="subtitle secondary-text">
+                        <span>duyrular</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+          
+
+          
+
+            <button
+                mat-raised-button
+                class="save-product-button"
+                
+                (click)="addBatch()"
+            >
+                <span>EKLE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <form
+                    name="batchForm"
+                    [formGroup]="batchForm"
+                    class="product w-100-p"
+                    fxLayout="column"
+                    fxFlex
+                >
+                    <mat-tab-group>
+                       
+                        <mat-tab label="duyru Bilgileri">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Talep Başlığı</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="İstek Başlığı"
+                                        name="name"
+                                        formControlName="header"
+                                        required
+                                    />
+                                </mat-form-field>
+
+                                <mat-form-field
+                                    appearance="outline"
+                                    floatLabel="always"
+                                    class="w-100-p"
+                                >
+                                    <mat-label>Talep Açıklaması</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="İstek Açıklaması"
+                                        name="name"
+                                        formControlName="description"
+                                        required
+                                    />
+                                </mat-form-field>
+
+                                <mat-form-field
+                                appearance="outline"
+                                floatLabel="always"
+                                class="w-100-p"
+                            >
+                                <mat-label>Talep Birimi</mat-label>
+                                <input
+                                    matInput
+                                    placeholder="Talep Birimi"
+                                    name="name"
+                                    formControlName="birim"
+                                    required
+                                />
+                            </mat-form-field>
+
+                            </div>
+                        </mat-tab>
+                    
+
+                      
+                    </mat-tab-group>
+                </form>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

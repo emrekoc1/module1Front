@@ -1,0 +1,56 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Girdi {{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form *ngIf="!loading" [formGroup]="inputFormGroup">
+
+            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                    <mat-label>Girdi</mat-label>
+                    <mat-select placeholder="Girdi" name="p_name" formControlName="p_name" required>
+                        <mat-select-search [items]="products" [filterProperty]="'name'" [placeholderLabel]="'Girdi'"
+                            (getFilteredItems)="getFilteredProducts($event)">
+                        </mat-select-search>
+                        <mat-option *ngFor="let product of filteredProducts" [value]="product">
+                            {{product.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                    <mat-label>Planlanan Miktar</mat-label>
+                    <input matInput placeholder="Planlanan Miktar" name="p_planned_quantity" type="number"
+                        formControlName="p_planned_quantity" required />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                    <mat-label>Girdi Tipi</mat-label>
+                    <mat-select placeholder="Girdi Tipi" name="p_type" formControlName="p_type" required>
+                        <mat-option value="1">Ana Parça</mat-option>
+                        <mat-option value="2">Ekstra Parça</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-button class="save-button" (click)="save()" [disabled]="inputForm.invalid" aria-label="Kaydet">
+            Kaydet
+        </button>
+
+    </div>
+</div>

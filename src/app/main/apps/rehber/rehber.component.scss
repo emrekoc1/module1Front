@@ -1,0 +1,16 @@
+.sticky-section {
+    position: sticky;
+    top: 0; /* Sayfanın üst kısmında sabit kalacak */
+    z-index: 1; /* Diğer içeriklerin önünde olması için gerekebilir */
+    background-color: white; /* İstenilen arka plan rengi */
+    padding: 10px; /* İstenilen dolgu (padding) değeri */
+  }
+  .scrollable-overlay {
+    overflow: hidden; /* İçeriğin scroll yapılabilirliğini gizleyin */
+    position: relative;
+  }
+  
+  .scrollable-overlay:hover {
+    overflow: auto; /* Fare bu alanın üzerine gelince scroll yapılabilir hale getirin */
+    z-index: 1; /* Diğer içeriklerin üzerinde olmasını sağlayın */
+  }

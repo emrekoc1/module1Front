@@ -1,0 +1,15 @@
+:host {
+
+    .folded:not(.unfolded) & {
+
+        .nav-link {
+
+            > .nav-link-title,
+            > .nav-link-badge {
+                opacity: 0;
+                color:#fff !important;
+                transition: opacity 200ms ease;
+            }
+        }
+    }
+}

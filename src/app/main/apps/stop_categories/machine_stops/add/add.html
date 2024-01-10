@@ -1,0 +1,83 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/stop_categories/machine-stops'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+                    <div class="h2" *ngIf="selected_machine_info">
+                        {{selected_machine_info.name}} Makinası İçin Duruş Sebebi Ekle
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Machine Stop Reasons Managament</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-product-button" [disabled]="this.add_form.invalid || this.is_click"
+                (click)="add_stop_reason_for_machine();this.is_click=true;">
+                <span>Ekle</span>
+            </button>
+
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+
+                <form name="add_form" [formGroup]="add_form" class="product w-100-p" fxLayout="column" fxFlex>
+
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <mat-form-field *ngIf="data_all_stop_category" appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Kategori Seçiniz</mat-label>
+                            <mat-select placeholder="Kategori Seçiniz Örn : Mola " (selectionChange)="get_reason_by_category($event.value)" formControlName="category">
+                                <mat-option *ngFor="let category of data_all_stop_category" value="{{category._id}}">
+                                    {{category.name}}</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field *ngIf="show_category_field" appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Sebep Seçiniz</mat-label>
+                            <mat-select placeholder="Sebep Seçiniz Örn : Çay Molası "  formControlName="reason">
+                                <mat-option *ngFor="let reason of selected_stop_reason_list" value="{{reason._id}}">
+                                    {{reason.name}}</mat-option>
+
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                </form>
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

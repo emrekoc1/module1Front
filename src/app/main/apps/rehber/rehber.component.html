@@ -1,0 +1,221 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+              
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Personel Sabit Telefonlar</div>
+                    <div class="subtitle secondary-text">
+                        <span>Sabit Telefon</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <button mat-raised-button class="save-product-button"  *ngIf="user_type === 1 || user_type === 0" [routerLink]="'/apps/rehber/userAdd'">
+                <span>Kullanıcı Ekle</span>
+            </button>
+
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+
+
+                <mat-tab-group>
+
+                    <mat-tab label="Kullanıcı Listesi">
+
+                        <div id="printable" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+                            <div class="course" style="padding: 1;height: 160rem;" fxFlex="100" fxFlex.gt-xs="100"
+                                fxFlex.gt-sm="100" [@animate]="{value:'*',params:{y:'100%'}}">
+                                <div class="course" id="course" style="padding: 1;height: 20rem;" fxFlex="50"
+                                    fxFlex.gt-xs="50" fxFlex.gt-sm="50" [@animate]="{value:'*',params:{y:'100%'}}">
+                                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                                        <div class="content" fxLayout="column" fxLayoutAlign="  " fxFlex="1 1 auto">
+                                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                                <mat-form-field>
+                                                    <input matInput (keyup)="applyFilter($event.target.value)"
+                                                        placeholder="Filtrele">
+                                                </mat-form-field>
+                                                <table mat-table [dataSource]="filteredData" class="mat-elevation-z8">
+
+                                                    <!-- Sicil Column -->
+                                                    <ng-container matColumnDef="sicil">
+                                                        <th mat-header-cell *matHeaderCellDef>Sicil No</th>
+                                                        <td mat-cell *matCellDef="let row">{{ row.sicil }}</td>
+                                                    </ng-container>
+
+                                                    <!-- Kullanıcı Adı Column -->
+                                                    <ng-container matColumnDef="user_name">
+                                                        <th mat-header-cell *matHeaderCellDef>Kullanıcı Adı</th>
+                                                        <td mat-cell *matCellDef="let row">{{ row.user_name }}</td>
+                                                    </ng-container>
+                                                    <!-- Kullanıcı Adı Column -->
+                                                    <ng-container matColumnDef="phone">
+                                                        <th mat-header-cell *matHeaderCellDef>Telefon Numarası</th>
+                                                        <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+                                                    </ng-container>
+                                                    <!-- Kullanıcı Adı Column -->
+                                                    <ng-container matColumnDef="islem">
+                                                        <th mat-header-cell *matHeaderCellDef></th>
+                                                        <td mat-cell *matCellDef="let row">
+
+                                                            <button mat-button *ngIf="user_type == 0" (click)="update(row)">GÜNCELLE</button>
+
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="islem2">
+                                                        <th mat-header-cell *matHeaderCellDef></th>
+                                                        <td mat-cell *matCellDef="let row">
+                                                            <button mat-button (click)="goruntule(row)">GÖR</button>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="islem3">
+                                                        <th mat-header-cell *matHeaderCellDef></th>
+                                                        <td mat-cell *matCellDef="let row">
+                                                            <button mat-button *ngIf="user_type == 0"  (click)="delete(row.id)">sil</button>
+                                                        </td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="course" *ngIf="formGor" id="course" style="padding: 1;height: 20rem;"
+                                    fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="50"
+                                    [@animate]="{value:'*',params:{y:'100%'}}">
+                                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                                        <div class="content" fxLayout="column" fxLayoutAlign="  " fxFlex="1 1 auto">
+                                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                                <form [formGroup]="form" class="product w-100-p" fxLayout="column"
+                                                    fxFlex>
+                                                    <mat-form-field appearance="outline" floatLabel="always"
+                                                        class="w-100-p">
+                                                        <mat-label>Sicil No</mat-label>
+                                                        <input matInput placeholder="Sicil No." name="sicil"
+                                                            formControlName="sicil" required />
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always"
+                                                        class="w-100-p">
+                                                        <mat-label>Kullanıcı Adı</mat-label>
+                                                        <input matInput placeholder="Adı Soyadı" name="user_name"
+                                                            formControlName="user_name" required />
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always"
+                                                        class="w-100-p">
+                                                        <mat-label>Telefon Numarası</mat-label>
+                                                        <input matInput placeholder="Telefon Numarası" name="phone"
+                                                            formControlName="phone" required />
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always"
+                                                    class="w-100-p">
+                                                    <mat-label>user_id</mat-label>
+                                                    <input matInput placeholder="user_id" name="user_id"
+                                                        formControlName="user_id" required />
+                                                </mat-form-field>
+
+                                                    <button type="submit" (click)="updateUser()"> Kaydet </button>
+                                                </form>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="course sticky-section"  *ngIf="showForm"    id="course" style="padding: 1;height: 20rem;"
+                                    fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="50"
+                                    [@animate]="{value:'*',params:{y:'100%'}}">
+                                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                                        <div class="content" fxLayout="column" fxLayoutAlign="  " fxFlex="1 1 auto">
+                                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                                <form [formGroup]="form" class="product w-100-p" fxLayout="column"
+                                                    fxFlex>
+                                                    <mat-form-field appearance="outline" floatLabel="always"
+                                                        class="w-100-p">
+                                                        <mat-label>Sicil No</mat-label>
+                                                        <input matInput placeholder="Sicil No." name="sicil"
+                                                            formControlName="sicil" required />
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always"
+                                                        class="w-100-p">
+                                                        <mat-label>Kullanıcı Adı</mat-label>
+                                                        <input matInput placeholder="Adı Soyadı" name="user_name"
+                                                            formControlName="user_name" required />
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always"
+                                                        class="w-100-p">
+                                                        <mat-label>Telefon Numarası</mat-label>
+                                                        <input matInput placeholder="Telefon Numarası" name="phone"
+                                                            formControlName="phone" required />
+                                                    </mat-form-field>
+
+                                                </form>
+                                            </div>
+                                            <div class="tab-content p-24 scrollable-overlay" fusePerfectScrollbar>
+                                               <h1> Beraber Çalıştığı Kişiler</h1>
+                                                <table mat-table [dataSource]="departmanFiltre"
+                                                    class="mat-elevation-z8">
+
+                                                    <!-- Sicil Column -->
+                                                    <ng-container matColumnDef="sicil">
+                                                        <th mat-header-cell *matHeaderCellDef>Sicil No</th>
+                                                        <td mat-cell *matCellDef="let row">{{ row.sicil }}</td>
+                                                    </ng-container>
+
+                                                    <!-- Kullanıcı Adı Column -->
+                                                    <ng-container matColumnDef="user_name">
+                                                        <th mat-header-cell *matHeaderCellDef>Kullanıcı Adı</th>
+                                                        <td mat-cell *matCellDef="let row">{{ row.user_name }}</td>
+                                                    </ng-container>
+                                                    <!-- Kullanıcı Adı Column -->
+                                                    <ng-container matColumnDef="phone">
+                                                        <th mat-header-cell *matHeaderCellDef>Telefon Numarası</th>
+                                                        <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+                                                    </ng-container>
+                                                    <!-- Kullanıcı Adı Column -->
+                                             
+                                                
+
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                                                </table>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+
+
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,86 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/boxes/list'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+                    <div class="h2">
+                        Yeni Kutu Ekle
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Kutu Ekleme Kısmı</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-product-button" [disabled]="newboxes.invalid || isClick"
+                (click)="add_new_boxes()">
+                <span *ngIf="!isClick">EKLE</span>
+                <img *ngIf="isClick" src="../../../../../../assets/img/spinner.gif" width="40px">
+            </button>
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="newboxes" [formGroup]="newboxes" class="product w-100-p" fxLayout="column" fxFlex>
+
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Tip Seçiniz</mat-label>
+                            <mat-select placeholder="Kutu Tipi" formControlName="box_type">
+                                <mat-option value="1"> Montaj Kutusu </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Kapasite</mat-label>
+                            <mat-select placeholder="Kutu Kapasitesi" formControlName="capacity">
+                                <mat-option *ngFor="let capacity of boxCapacityList" value="{{capacity}}"> {{capacity}} Hücreli </mat-option>
+               
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Adet</mat-label>
+                            <input matInput placeholder="Kaç Adet Eklemek İstiyorsunuz" name="name" type="number"
+                                formControlName="quantity" required>
+                        </mat-form-field>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

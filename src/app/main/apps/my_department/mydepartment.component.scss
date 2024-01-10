@@ -1,0 +1,38 @@
+.menu {
+  color: #fff;
+  text-align: center;
+  vertical-align: center;
+  height: 70px;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+  background-color: #0077d8;
+  border-radius: 10px;
+}
+
+li {
+  list-style-type: none;
+  display: inline-block;
+  margin-right: 10px;
+  
+  transition: all 0.3s ease; /* Tüm geçişler yumuşak olacak */
+  padding: 10px 20px; /* Yazı içeriğini genişletmek için */
+}
+
+li:hover {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #005fa3; /* Üzerine gelindiğinde arka plan rengini değiştir */
+  transform: translateY(-5px);
+  font-size: 1.1em;
+  cursor: pointer; /* İmleci bir el işaretine dönüştür */
+}
+.secilenClass{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #005fa3; /* Üzerine gelindiğinde arka plan rengini değiştir */
+  transform: translateY(-5px);
+  font-size: 1.1em;
+}

@@ -1,0 +1,150 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/ifactory/managament/m'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+                    <div class="h2">
+                        Yeni Makina Ekle
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Fabrika Yönetim</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-product-button"
+                [disabled]="new_machine_form.invalid || this.is_click " (click)="add_new_machine()">
+                <span>EKLE</span>
+            </button>
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+                <form name="new_operation_form" [formGroup]="new_machine_form" class="product w-100-p" fxLayout="column"
+                    fxFlex>
+
+                    <mat-tab-group>
+                        <mat-tab label="Basit Bilgiler">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div class="row text-center" >
+                                    <div class="col" fxFlex.gt-sm="40" style="margin: 10px;">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Adı</mat-label>
+                                            <input matInput placeholder="Makina Adı" name="name" formControlName="name"
+                                                required>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Açıklama</mat-label>
+                                            <input matInput placeholder="Açıklama" name="description"
+                                                formControlName="description" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col" fxFlex.gt-sm="40"style="margin: 10px;" > 
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Kod</mat-label>
+                                    <input matInput placeholder="Makina Kodu" name="code"
+                                        formControlName="machineNumber" required>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Departman Seçiniz</mat-label>
+                                    <mat-select (selectionChange)="select_departman($event.value)" placeholder="Departman" formControlName="departmant">
+                                        <mat-option *ngFor="let dep of all_departmants" value="{{dep._id}}">
+                                            {{dep.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" *ngIf="show_work_station_select">
+                                    <mat-label>İş İstasyonu Seçiniz</mat-label>
+                                    <mat-select placeholder="İş istasyonu" formControlName="workstation">
+                                        <mat-option *ngFor="let work_station of filtered_work_station" value="{{work_station._id}}">
+                                            {{work_station.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            
+                                </div>
+                                <div class="row">
+                                    <div class="col" fxFlex.gt-sm="40"style="margin: 10px;">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Hız</mat-label>
+                                            <input matInput placeholder="Minimum Hız / DK" name="speedLineMax"
+                                                formControlName="speedLineMin" required>
+                                        </mat-form-field>
+                                   
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Duruş</mat-label>
+                                            <input matInput placeholder="Minumum Duruş / DK" name="stopPeriodMin"
+                                                formControlName="stopPeriodMin" required>
+                                        </mat-form-field>
+                                       
+                                    </div>
+                                    <div class="col" fxFlex.gt-sm="40"style="margin: 10px;">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Hız</mat-label>
+                                            <input matInput placeholder="Maximum Hız / DK" name="speedLineMax"
+                                                formControlName="speedLineMax" required>
+                                        </mat-form-field>
+        
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Duruş</mat-label>
+                                            <input matInput placeholder="Maximum Duruş / DK" name="stopPeriodMax"
+                                                formControlName="stopPeriodMax" required>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                             
+                        
+                            
+                            
+                            </div>
+
+                        </mat-tab>
+                 
+
+
+
+
+                    
+
+
+
+                    </mat-tab-group>
+
+
+
+                </form>
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

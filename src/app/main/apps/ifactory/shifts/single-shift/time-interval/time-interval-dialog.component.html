@@ -1,0 +1,50 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">İşlem Kontrolü {{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="timeIntervalForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Adı</mat-label>
+                    <input matInput placeholder="Adı" name="name" formControlName="name" required />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Başlangıç Saati</mat-label>
+                    <input matInput placeholder="Başlama Zamanı (Dakika Cinsinden)" name="starttime"
+                        formControlName="starttime" type="time" required />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Bitiş Saati</mat-label>
+                    <input matInput placeholder="Bitiş Zamanı (Dakika Cinsinden)" name="endtime"
+                        formControlName="endtime" type="time" required />
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-button class="save-button" (click)="matDialogRef.close([timeIntervalForm])"
+            [disabled]="timeIntervalForm.invalid" aria-label="Kaydet">
+            {{submitTitle}}
+        </button>
+
+    </div>
+</div>

@@ -1,0 +1,22 @@
+
+
+
+<dx-data-grid id="gridContainer" [dataSource]="data" keyExpr="id" [showBorders]="true" [hoverStateEnabled]="true">
+    <dxo-filter-row [visible]="showFilterRow"></dxo-filter-row>
+    <dxi-column dataField="ekipman_no" [width]="50" caption="Ekipman Numarası"></dxi-column>
+    <dxi-column dataField="ekipman_name" [width]="150" caption="Ekipman Adı"> </dxi-column>
+    <dxi-column dataField="ekipman_type" [width]="50" caption="Ekipman Tipi"></dxi-column>
+    <dxi-column dataField="birimi" [width]="130" caption="Ekipman Birimi"> </dxi-column>
+    <dxi-column dataField="sorumlusu" [width]="130" caption="Ekipman Sorumlusu"></dxi-column>
+    <dxi-column dataField="durumu" [width]="100" caption="Durumu"></dxi-column>
+    <dxi-column dataField="son_kalibrasyon" [width]="100" format="d/M/yyyy" caption="Kalibrasyon Gelme Tarihi"
+        dataType="date"></dxi-column>
+    <dxi-column dataField="gonderme_tarihi" [width]="100" format="d/M/yyyy" caption="Kalibrasyon Bitiş tarihi"
+        dataType="date"></dxi-column>
+    <dxo-master-detail [enabled]="true" template="detail" ></dxo-master-detail>
+    <div *dxTemplate="let employee of 'detail'">
+        
+            <button mat-button color="accent" (click)="dataIs(employee.data.ekipman_no)" > Kalifikasyon gir</button>
+        <app-getkalibrasyon [key]="employee.data.id"></app-getkalibrasyon>
+    </div>
+</dx-data-grid>

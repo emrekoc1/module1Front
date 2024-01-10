@@ -1,0 +1,96 @@
+
+            <button mat-raised-button class="mat-focus-indicator primary mat-button mat-button-base"
+            [routerLink]="'/apps/mydepartment/evrak-add'" *ngIf="user_type === 1 || user_type === 0">
+            <span style="color:#000!important">Dokuman Evrak Ekle</span>
+        </button>
+            <button mat-raised-button class="mat-focus-indicator primary mat-button mat-button-base"
+                [routerLink]="'/apps/mydepartment/evrak-katagori-add'" *ngIf="user_type === 1 || user_type === 0">
+                <span style="color:#000!important">Kategori Oluştur</span>
+            </button>
+      
+        <div class="content-card" style="overflow-y: auto; padding: 10px">
+
+            <div id="printable" class="courses" fxLayout="row wrap" fxLayoutAlign="center"
+                [@animateStagger]="{value:'50'}">
+
+                <div class="course" id="" style="padding: 10px;margin-left: 20px;" fxFlex="50" fxFlex.gt-xs="50"
+                    fxFlex.gt-sm="50" [@animate]="{value:'*',params:{y:'100%'}}">
+                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrele">
+                        </mat-form-field>
+                      
+                        <mat-accordion class="example-headers-align">
+                            <mat-expansion-panel *ngFor="let dataAcordion of filteredData" [expanded]="step === dataAcordion.id" (opened)="setStep(dataAcordion.id)" hideToggle>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{dataAcordion.name}}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        {{dataAcordion.description}}
+                                        
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <table mat-table [dataSource]="dataAcordion.icindekiler" class="mat-elevation-z8">
+
+                                    <!-- Sicil Column -->
+                                    <ng-container matColumnDef="belge_no">
+                                        <th mat-header-cell *matHeaderCellDef>Belge No</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.belge_no }}</td>
+                                    </ng-container>
+        
+                                    <!-- Kullanıcı Adı Column -->
+                                    <ng-container matColumnDef="belge_adi">
+                                        <th mat-header-cell *matHeaderCellDef>Belge Adı</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.belge_adi }}</td>
+                                    </ng-container>
+                                    <!-- Kullanıcı Adı Column -->
+                                    <ng-container matColumnDef="belge_aciklama">
+                                        <th mat-header-cell *matHeaderCellDef>Belge Açıklaması</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.belge_aciklama }}</td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="revizyon_no">
+                                        <th mat-header-cell *matHeaderCellDef>Revizyon</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.revizyon_no }}</td>
+                                    </ng-container>
+                                    <!-- Kullanıcı Adı Column -->
+                                    <ng-container matColumnDef="islem">
+                                        <th mat-header-cell *matHeaderCellDef></th>
+                                        <td mat-cell *matCellDef="let row">
+        
+                                            <button mat-button *ngIf="user_type == 0"
+                                                [routerLink]="['/apps/evrak/evrak-update', row.id]">GÜNCELLE</button>
+        
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="islem2">
+                                        <th mat-header-cell *matHeaderCellDef></th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <button mat-button (click)="egitimAc(row.belge_url)">GÖR</button>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="islem3">
+                                        <th mat-header-cell *matHeaderCellDef></th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <button mat-button *ngIf="user_type == 0" (click)="evrakSil(row.id)">sil</button>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+                              
+                                <mat-action-row>
+                                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                                </mat-action-row>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- / CONTENT CARD -->
+        </div>
+   

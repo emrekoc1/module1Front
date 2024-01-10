@@ -1,0 +1,62 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/home'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Yeni Haber</div>
+                    <div class="subtitle secondary-text">
+                        <span>Haberler</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <button mat-raised-button class="save-product-button"  (click)="onMultipleSubmit()">
+                <span>Haber Ekle</span>
+            </button>
+
+
+           
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+               
+                <form name="form" [formGroup]="form" class="product w-100-p" fxLayout="column" fxFlex>
+                    <mat-tab-group>
+                        <mat-tab label="Haber Bilgileri">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                          
+                                <div class="mat-form-field w-100-p">
+                                    <mat-label>Menu Resmi Ekle</mat-label>
+                                    <img [src]="images" alt="Haber Resmi" *ngIf="images" />
+                                    <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+                                </div>
+                           </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </form>
+         
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

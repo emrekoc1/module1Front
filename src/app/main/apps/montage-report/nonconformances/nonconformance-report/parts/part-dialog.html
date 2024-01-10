@@ -1,0 +1,64 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="partForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Stok No.</mat-label>
+                    <input matInput placeholder="Stok No." name="partNo" formControlName="partNo" required />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Parça Adı</mat-label>
+                    <input matInput placeholder="Parça Adı" name="partName" formControlName="partName" required />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Açıklama</mat-label>
+                    <input matInput placeholder="Açıklama" name="description" formControlName="description" required />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Giren Seri No.</mat-label>
+                    <input matInput placeholder="Giren Seri No." name="inputSerialNo" formControlName="inputSerialNo"
+                        required />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Çıkan Seri No.</mat-label>
+                    <input matInput placeholder="Çıkan Seri No." name="outputSerialNo" formControlName="outputSerialNo"
+                        required />
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-button class="save-button" (click)="matDialogRef.close([partForm])" [disabled]="partForm.invalid"
+            aria-label="Kaydet">
+            {{submitTitle}}
+        </button>
+
+    </div>
+</div>

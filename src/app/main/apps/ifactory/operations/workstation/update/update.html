@@ -1,0 +1,114 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/ifactory/managament/w'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+                    <div class="h2">
+                         İş İstasyonu Yönetimi
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Fabrika Yönetim</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <mat-menu #menu="matMenu">
+                <button [disabled]=" this.is_click " (click)="update_work_stations()" mat-menu-item>
+                    <span class="material-icons">
+                        sync_alt
+                    </span>
+                    <span> Güncelle</span>
+
+                </button>
+                <button [disabled]=" this.is_click " mat-menu-item (click)="delete_work_stations()">
+                    <span class="material-icons">
+                        remove_circle
+                    </span>
+                    <span> Sil</span>
+
+                </button>
+            </mat-menu>
+            <button mat-raised-button class="add-product-button fuse-white mt-24 mt-md-0" mat-button
+                [matMenuTriggerFor]="menu">
+                <span>İşlem</span>
+                <span class="material-icons">
+                    keyboard_arrow_down
+                </span>
+            </button>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+                <form name="new_work_station_form" [formGroup]="new_work_station_form" class="product w-100-p"
+                    fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+                        <mat-tab label="Basit Bilgiler">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Adı</mat-label>
+                                    <input matInput placeholder="Operasyon Adı" name="name" formControlName="name"
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Kod</mat-label>
+                                    <input matInput placeholder="Operasyon Kodu" name="code" formControlName="code"
+                                        required>
+                                </mat-form-field> 
+                                     <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Departman Seçiniz</mat-label>
+                                    <mat-select 
+                                        placeholder="Departman" formControlName="departmant">
+                                        <mat-option *ngFor="let dep of all_departmants" value="{{dep._id}}">
+                                            {{dep.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                        </mat-tab>
+                   
+
+
+                      
+
+
+                    </mat-tab-group>
+
+
+
+                </form>
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

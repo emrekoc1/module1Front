@@ -1,0 +1,180 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto;">
+
+
+            <!-- <span style="color:#000">Yeni Montaj Siparişi Ekle</span>
+    </button> -->
+            <!-- / ADD BUTTON -->
+            <!-- ADD BUTTON -->
+            <button mat-raised-button class="mat-focus-indicator primary mat-button mat-button-base"
+                [routerLink]="'/apps/home/add-haber'" *ngIf="user_type === 1 || user_type === 0">
+                <span style="color:#000!important">Haber Ekle</span>
+            </button>
+            <button mat-raised-button class="mat-focus-indicator primary mat-button mat-button-base"
+                [routerLink]="'/apps/home/userAdmin'" *ngIf="user_type === 0">
+                <span style="color:#000!important">Kullanıcıları Yönet</span>
+            </button>
+            <button mat-raised-button class="mat-focus-indicator primary mat-button mat-button-base"
+                [routerLink]="'/apps/home/yapilacaklar'" *ngIf="user_type === 0">
+                <span style="color:#000!important">Yapılacaklar Listesi</span>
+            </button>
+            <div class="course-content" fxLayout="column" fxFlex="1 1 auto" [@animate]="{value:'*',params:{x:'100%'}}">
+                <div class="content" fxLayout="column" fxLayoutAlign="  " fxFlex="1 1 auto">
+                    <div class="" style="padding: 30px; margin-top: 20px;">
+                        <div id="printable" fxLayout="row wrap" fxLayoutAlign="center" *ngIf="haberGeldi"
+                            [@animateStagger]="{value:'100'}">
+                            <div class="haberSlider">
+                                <div class="content-wrapper">
+                                    <div class="image-container">
+
+                                        <img class="imgHaber" [src]="calismaDuzelt[currentIndex].photo"
+                                            (click)="haberAc(calismaDuzelt[currentIndex].pdfurl)" alt="Resim">
+                                        <mat-card-title class="image-title">{{ calismaDuzelt[currentIndex].aciklama
+                                            }}</mat-card-title>
+
+
+                                    </div>
+                                </div>
+                                <div class="thumbnails">
+                                    <ng-container *ngFor="let item of calismaDuzelt; let i = index">
+                                        <img class="thumbnail" [src]="item.photo" alt="Önizleme"
+                                            (click)="setCurrentIndex(i)" />
+                                    </ng-container>
+                                </div>
+                                <mat-card-actions class="actions">
+
+                                    <button mat-button
+                                        (click)="openNewsDetail(calismaDuzelt[currentIndex])">Oku</button>
+                                    <button mat-button (click)="likeButton(calismaDuzelt[currentIndex].id)">
+                                        <mat-icon style="color: red;" aria-hidden="false" aria-label="beğeni simgesi"
+                                            fontIcon="favorite">favorite</mat-icon>
+                                        <span class="total-like">{{ calismaDuzelt[currentIndex].total_like
+                                            }}</span></button>
+
+                                    <button mat-button
+                                        [routerLink]="['/apps/home/update-haber', calismaDuzelt[currentIndex].id]"
+                                        color="warn" *ngIf="user_type === 1 || user_type === 0">
+                                        <mat-icon aria-hidden="false" aria-label="Edit icon"
+                                            fontIcon="edit">edit</mat-icon>
+                                    </button>
+
+                                    <button mat-button (click)="sil(calismaDuzelt[currentIndex].id)" color="warn"
+                                        *ngIf="user_type === 1 || user_type === 0">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                    <button mat-button (click)="goBackward()" color="warn"
+                                        [disabled]="currentIndex === 0">Geri</button>
+                                    <button mat-button (click)="goForward()" color="warn"
+                                        [disabled]="currentIndex === calismaDuzelt.length - 1">İleri</button>
+                                </mat-card-actions>
+
+                            </div>
+                            <div class="sikKullanilanlar">
+                                Sık Kullanılan Linkler
+                                <div class="divKontrol">
+                                    <a href="" class="listeLink" (click)="flowToken()"> Flow Griş</a>
+                                </div>
+                                <div class="divKontrol">
+                                    <a class="listeLink" [routerLink]="'/apps/ik/2'">Tunrike Geçmişini Gör</a>
+                                </div>
+
+                                <div class="divKontrol">
+                                    <a class="listeLink" [routerLink]="'/apps/anket'">Anketlere Git</a>
+                                </div>
+                                <div class="divKontrol">
+                                    <a class="listeLink" [routerLink]="'/apps/rehber'">Telefon Numara
+                                        Bul</a>
+                                </div>
+                                <div class="divKontrol">
+                                    <a class="listeLink" [routerLink]="'/apps/bodro'">Bordro İşlemleri</a>
+                                </div>
+                                <div class="divKontrol">
+                                    <a class="listeLink" [routerLink]="'/apps/bilgiIslem/1'">Donanım Talep Et</a>
+                                </div>
+                                <div class="divKontrol">
+                                    <a class="listeLink" [routerLink]="'/apps/ulastirma/1'">Araç Talep Et</a>
+                                </div>
+                                <div class="divKontrol">
+                                    <a class="listeLink" (click)="birimSecim()">Birim Sayfama Git</a>
+                                </div>
+
+
+
+
+
+
+                            </div>
+                           
+
+
+                            <div id="eskiHaberler" fxLayout="row wrap" fxLayoutAlign="center"
+                                [@animateStagger]="{value:'50'}">
+
+                                <div fxLayout="row" fxFlex="80">
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Haber Ara</mat-label>
+                                        <input matInput placeholder="Haber Ara"
+                                            (keyup)="applyFilter($event.target.value)" required />
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxFlex="20">
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>SIRALA</mat-label>
+                                        <mat-select placeholder="SIRALA" required>
+                                            <mat-option value="1">YÜKSEK</mat-option>
+                                            <mat-option value="2">ORTA </mat-option>
+                                            <mat-option value="3">DÜŞÜK</mat-option>
+                                        </mat-select>
+
+
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayout="row" fxFlex="20" *ngFor="let calismaDuzelt of filteredData"
+                                    [@animate]="{value:'*',params:{y:'50%'}}">
+                                    <div class="conteiner">
+                                        <div class="image-container1">
+
+                                            <img class="imgHaber1" [src]="calismaDuzelt.photo"
+                                                (click)="haberAc(calismaDuzelt.pdfurl)" alt="Resim">
+                                            <mat-card-title class="image-title1">{{ calismaDuzelt.aciklama
+                                                }}</mat-card-title>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+
+                            <!-- / CENTER -->
+                        </div>
+                        <div id="printable" fxLayout="row wrap" fxLayoutAlign="center" *ngIf="!haberGeldi"
+                        [@animateStagger]="{value:'100'}">
+                        <div class="haberSlider">
+                            Haberler Getiriliyor....
+
+                        </div>
+
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>

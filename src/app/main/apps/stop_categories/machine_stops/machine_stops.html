@@ -1,0 +1,122 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/batchs'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+                    <div class="h2">
+                        Makina Duruş Sebepleri Yönetimi
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Machine Stop Reasons Managament</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-product-button" [routerLink]="'/apps/stop_categories/machine-stops/add-all-machine-stop'">
+                <span>Tüm Makinalara Sebep Tanımla</span>
+            </button>
+
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <dx-data-grid class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true"
+                    [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                    [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="true">
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                    </dxo-pager>
+                    <dxo-filter-row [visible]="true"></dxo-filter-row>
+                    <dxi-column dataField="name" caption="Makina Adı"></dxi-column>
+                    <dxi-column cellTemplate="date1" caption="Oluşturma Tarihi"></dxi-column>
+
+                    <dxi-column cellTemplate="islem" caption="İşlem"></dxi-column>
+
+
+                    <div *dxTemplate="let datalar of 'date1'">
+                        <div [innerHTML]="'TEXT' |timeago:datalar.data.createdDate">
+                        </div>
+                    </div>
+
+                    <div *dxTemplate="let datalar of 'islem'">
+                        <button 
+                            (click)="go_to_add_machine_stop_reason(datalar.data._id)"
+                            type="button" class="btn btn-info">
+                            Sebep Tanımla
+                        </button>
+
+                    </div>
+                    <div *dxTemplate="let a of 'detail'">
+                        <div class="bulutify-row">
+
+                            <div class="bulutify-column">
+                                <dx-data-grid *ngIf="a.data.stop_reason_list" [dataSource]="a.data.stop_reason_list"
+                                    [showBorders]="true" [columnAutoWidth]="true">
+                                    <dxi-column dataField="name" caption="Duruş Sebebi"></dxi-column>
+                                    <dxi-column dataField="stop_catergory_name" caption="Duruş Kategori"></dxi-column>
+                                    <dxi-column cellTemplate="delete" caption="sil"></dxi-column>
+
+
+                                    <div *dxTemplate="let datalar of 'delete'">
+                                        <button class="btn btn-danger"
+                                            (click)="this.selected_machine_id= a.data._id;this.selected_reason_id =datalar.data._id;openDialog(delete_stop_category_from_machine_form,'auto','10%');">sil</button>
+
+                                    </div>
+
+
+                                </dx-data-grid>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </dx-data-grid>
+
+
+
+
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>
+
+<ng-template #delete_stop_category_from_machine_form style="text-align: center;">
+    <div class="bulutify_row" style="width: 100%;text-align: center;">
+        <button class="btn btn-danger btn-block" (click)="delete_stop_category_from_machine()">sil</button>
+    </div>
+
+</ng-template>

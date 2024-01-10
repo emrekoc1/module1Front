@@ -1,0 +1,84 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#3296c8"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header " style="background-color:#3296c8" fxLayout="column" fxLayoutAlign="center center"
+            fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }" style="color:white">
+                    print
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }" style="color:white">
+                    Talep Yönetimi
+                </span>
+            </div> <button mat-raised-button 
+            [routerLink]="'/apps/talep/add-talep'"
+             
+                class="mat-focus-indicator primary mat-button mat-button-base">
+                <span style="color:#000!important">Bakım Onarım Talebi Oluştur</span>
+            </button><button mat-raised-button 
+                class="mat-focus-indicator primary mat-button mat-button-base">
+                <span style="color:#000!important">İnsan Kaynakları Talebi Oluştur</span>
+            </button>
+            <!-- / APP TITLE -->
+
+
+
+            <!-- <span style="color:#000">Yeni Montaj Siparişi Ekle</span>
+        </button> -->
+            <!-- / ADD BUTTON -->
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto; padding: 10px">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>
+                        Yaptığınız talepler
+                    </h3>
+                </div>
+                <div class="col-md-12">
+
+                    <div class="col-md-6">
+                        <div class="h-300 w-100-p" fxLayoutAlign="center" style="padding: 10px;">
+                            <dx-data-grid id="gridContainer" title="Açılan Talepleriniz" [dataSource]="calisma" keyExpr=""
+                                [showBorders]="true">
+
+                                <dxo-selection mode="single"></dxo-selection>
+
+                                <dxi-column dataField="created_date" width="15%" caption="Talep Tarihi"></dxi-column>
+                                <dxi-column dataField="status" width="15%" caption="Talep Durumu"></dxi-column>
+                                <dxi-column dataField="departman" width="15%" caption="Talep Birimi"></dxi-column>
+                                <dxi-column dataField="header" width="15%" caption="Talep Başlığı"></dxi-column>
+                                <dxi-column dataField="description" width="15%" caption="Talep Açıklaması"></dxi-column>
+
+
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+
+
+
+                            </dx-data-grid>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

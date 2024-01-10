@@ -1,0 +1,414 @@
+<div id="shift" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/montage-report/nonconformances'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    dashboard
+                </mat-icon>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">
+                        Uygunsuzluk Bildirimi
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button type="submit" (click)="submitReport()">
+                <span>Kaydet</span>
+            </button>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <mat-tab-group>
+
+                    <mat-tab label="Genel Bilgiler">
+
+                        <div fusePerfectScrollbar class="tab-content p-24">
+
+                            <form *ngIf="reportForm" name="reportForm" [formGroup]="reportForm" fxLayout="column"
+                                fxFlex>
+
+                                <div fxLayout="row">
+
+                                    <div fxLayout="column">
+
+                                        <div fxLayout="row">
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>Rapor Tipi(GKR/ÜKR)</mat-label>
+                                                <input matInput name="reportType" placeholder="Rapor Tipi(GKR/ÜKR)"
+                                                    formControlName="reportType" />
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>Uygunsuzluk Bildirim No.</mat-label>
+                                                <input matInput name="noticeNumber"
+                                                    placeholder="Uygunsuzluk Bildirim No."
+                                                    formControlName="noticeNumber" />
+                                            </mat-form-field>
+                                        </div>
+
+                                        <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                            <mat-label>Rapor Tarihi</mat-label>
+                                            <input matInput name="reportDate" [matDatepicker]="reportDate"
+                                                placeholder="Rapor Tarihi" formControlName="reportDate">
+                                            <mat-datepicker-toggle matSuffix [for]="reportDate">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #reportDate></mat-datepicker>
+                                        </mat-form-field>
+
+                                    </div>
+
+                                    <div fxLayout="column">
+
+                                        <div fxLayout="row">
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Stok No.</mat-label>
+                                                <input matInput name="stockNo" placeholder="Stok No."
+                                                    formControlName="stockNo" />
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Rev</mat-label>
+                                                <input matInput name="revisionNumber" placeholder="Rev"
+                                                    formControlName="revisionNumber" />
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Seri/Parti No.</mat-label>
+                                                <input matInput name="serialNumber" placeholder="Seri/Parti No."
+                                                    formControlName="serialNumber" />
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div fxLayout="row">
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Parça Tanımı</mat-label>
+                                                <input matInput name="partDescription" placeholder="Parça Tanımı"
+                                                    formControlName="partDescription" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>İşlem No.</mat-label>
+                                                <input matInput name="operationNumber" placeholder="İşlem No."
+                                                    formControlName="operationNumber" />
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div fxLayout="row">
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Proje</mat-label>
+                                                <input matInput name="project" placeholder="Proje"
+                                                    formControlName="project" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Donatıcı Kodu</mat-label>
+                                                <input matInput name="supplierCode" placeholder="Donatıcı Kodu"
+                                                    formControlName="supplierCode" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>İşEmri/GKI No.</mat-label>
+                                                <input matInput name="workOrderNumber" placeholder="İşEmri/GKI No."
+                                                    formControlName="workOrderNumber" />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayout="column">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Parti Hacmi</mat-label>
+                                            <input matInput name="lotSize" placeholder="Parti Hacmi"
+                                                formControlName="lotSize" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Örnek Hacmi</mat-label>
+                                            <input matInput name="sampleSize" placeholder="Örnek Hacmi"
+                                                formControlName="sampleSize" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Örnek Red Miktarı</mat-label>
+                                            <input matInput name="sampleRejectQuantity" placeholder="Örnek Red Miktarı"
+                                                formControlName="sampleRejectQuantity" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Red Miktarı</mat-label>
+                                            <input matInput name="rejectQuantity" placeholder="Red Miktarı"
+                                                formControlName="rejectQuantity" />
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div fxLayout="row">
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>Ürün Kalitesi</mat-label>
+                                        <input matInput name="quality" placeholder="Ürün Kalitesi"
+                                            formControlName="quality" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>Üretim</mat-label>
+                                        <input matInput name="manufacturing" placeholder="Üretim"
+                                            formControlName="manufacturing" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>Satın Alma</mat-label>
+                                        <input matInput name="purchasing" placeholder="Satın Alma"
+                                            formControlName="purchasing" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>Müşteri</mat-label>
+                                        <input matInput name="customer" placeholder="Müşteri"
+                                            formControlName="customer" />
+                                    </mat-form-field>
+                                </div>
+
+                                <form *ngIf="dispositionForm" name="dispositionForm" [formGroup]="dispositionForm">
+                                    <!--Disposition Section-->
+                                    <div fxLayout="column">
+                                        <div fxLayout="row">
+
+                                            <mat-checkbox appearance="outline" floatLabel="always" fxFlex="45" matInput
+                                                name="materialReviewBoard" formControlName="materialReviewBoard">
+                                                MRB(MIK)?
+                                            </mat-checkbox>
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>Ref. UB No.</mat-label>
+                                                <input matInput name="materialReviewBoardNo" placeholder="Ref. UB No."
+                                                    formControlName="materialReviewBoardNo" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                                <mat-label>Karar Tarihi</mat-label>
+                                                <input matInput name="dispositionDate" [matDatepicker]="dispositionDate"
+                                                    placeholder="Rapor Tarihi" formControlName="dispositionDate">
+                                                <mat-datepicker-toggle matSuffix [for]="dispositionDate">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #dispositionDate></mat-datepicker>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>OGK/Use-As-Is-Qty</mat-label>
+                                                <input matInput name="useAsIsQuantity" placeholder="OGK/Use-As-Is-Qty"
+                                                    formControlName="useAsIsQuantity" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>Geçersiz/Void Qty</mat-label>
+                                                <input matInput name="voidQuantity" placeholder="Geçersiz/Void Qty"
+                                                    formControlName="voidQuantity" />
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxLayout="row">
+                                            <mat-checkbox appearance="outline" floatLabel="always" fxFlex="45" matInput
+                                                name="cap" formControlName="cap">CAP(DOF)?
+                                            </mat-checkbox>
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>CAP(DÖF) No.</mat-label>
+                                                <input matInput name="capNo" placeholder="CAP(DÖF) No."
+                                                    formControlName="capNo" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>Yeniden İşlem</mat-label>
+                                                <input matInput name="reworkQuantity" placeholder="Yeniden İşlem"
+                                                    formControlName="reworkQuantity" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>Onarım Miktarı</mat-label>
+                                                <input matInput name="repairQuantity" placeholder="Onarım Miktarı"
+                                                    formControlName="repairQuantity" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>Hurda Miktarı</mat-label>
+                                                <input matInput name="scrapQuantity" placeholder="Hurda Miktarı"
+                                                    formControlName="scrapQuantity" />
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" floatLabel="always">
+                                                <mat-label>İade Miktarı</mat-label>
+                                                <input matInput name="returnQuantity" placeholder="İade Miktarı"
+                                                    formControlName="returnQuantity" />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                                <div fxLayout="column">
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>ACİL EYLEM PLANI(MAX:24 SAAT)</mat-label>
+                                        <input matInput name="immediateActionPlan"
+                                            placeholder="ACİL EYLEM PLANI(MAX:24 SAAT)"
+                                            formControlName="immediateActionPlan" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>KESİN EYLEM PLANI(MAX:7 GÜN)</mat-label>
+                                        <input matInput name="definitiveActionPlan"
+                                            placeholder="KESİN EYLEM PLANI(MAX:7 GÜN)"
+                                            formControlName="definitiveActionPlan" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>MÜŞTERİ TARAFINDAN VERİLEN KARAR(VAR İSE)</mat-label>
+                                        <input matInput name="decisionByCustomer"
+                                            placeholder="MÜŞTERİ TARAFINDAN VERİLEN KARAR(VAR İSE)"
+                                            formControlName="decisionByCustomer" />
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row">
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>Sorumlu Bölüm</mat-label>
+                                        <input matInput name="responsibleDepartment" placeholder="Sorumlu Bölüm"
+                                            formControlName="responsibleDepartment" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                        <mat-label>KR Kapanma Tarihi ve Onayı</mat-label>
+                                        <input matInput name="reportClosingDate" [matDatepicker]="reportClosingDate"
+                                            placeholder="KR Kapanma Tarihi ve Onayı"
+                                            formControlName="reportClosingDate">
+                                        <mat-datepicker-toggle matSuffix [for]="reportClosingDate">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #reportClosingDate></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </mat-tab>
+
+                    <mat-tab label="Sebepler">
+
+                        <div fusePerfectScrollbar class="tab-content p-24">
+
+                            <button mat-raised-button class="mb-12" (click)="openDiscrepancyDialog(null, false)">
+                                <span>Hata Sebebi Ekle</span>
+                            </button>
+
+                            <dx-data-grid class="dx-card wide-card" [dataSource]="discrepanciesDataSource"
+                                [showBorders]="true" [focusedRowIndex]="0"
+                                [masterDetail]="{ enabled: true, template: 'detail' }" [columnAutoWidth]="true"
+                                [columnHidingEnabled]="true" [showRowLines]="true">
+
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]"
+                                    [showInfo]="true">
+                                </dxo-pager>
+
+                                <dxi-column dataField="no" caption="No">
+                                </dxi-column>
+                                <dxi-column dataField="defectCode" caption="Hata Kodu">
+                                </dxi-column>
+                                <dxi-column dataField="quantity" caption="Miktar">
+                                </dxi-column>
+                                <dxi-column dataField="defectDescription" caption="Hata Tanımı">
+                                </dxi-column>
+                                <dxi-column dataField="traveler" caption="İşlemler">
+                                </dxi-column>
+                                <dxi-column dataField="operator" caption="İşlemci">
+                                </dxi-column>
+                                <dxi-column dataField="inspector" caption="Denetçi">
+                                </dxi-column>
+                                <dxi-column cellTemplate="düzenle" caption="Düzenle">
+                                </dxi-column>
+                                <dxi-column cellTemplate="sil" caption="Sil">
+                                </dxi-column>
+
+                                <div *dxTemplate="let data of 'düzenle'">
+                                    <button style="margin: 3px;color:white;background-color: #677790;height: 31px;"
+                                        (click)="openDiscrepancyDialog(data.data, true)" type="button" class="btn ">
+                                        Düzenle
+                                    </button>
+                                </div>
+
+                                <div *dxTemplate="let data of 'sil'">
+                                    <button style="margin: 3px;color:white;background-color: #c80808;height: 31px;"
+                                        (click)="deleteDiscrepancy(data.data.no)" type="button" class="btn ">
+                                        Sil
+                                    </button>
+                                </div>
+
+                            </dx-data-grid>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Değiştirilen Parçalar">
+
+                        <div fusePerfectScrollbar class="tab-content p-24">
+
+                            <button mat-raised-button class="mb-12" (click)="openPartsDialog(null, false)">
+                                <span>Parça Ekle</span>
+                            </button>
+
+                            <dx-data-grid class="dx-card wide-card" [dataSource]="partsDataSource" [showBorders]="true"
+                                [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                                [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="true">
+
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]"
+                                    [showInfo]="true">
+                                </dxo-pager>
+
+                                <dxi-column dataField="partNo" caption="Stok No">
+                                </dxi-column>
+                                <dxi-column dataField="partName" caption="Parça Adı">
+                                </dxi-column>
+                                <dxi-column dataField="inputSerialNo" caption="Giren Seri No.">
+                                </dxi-column>
+                                <dxi-column dataField="outputSerialNo" caption="Çıkan Seri No.">
+                                </dxi-column>
+                                <dxi-column dataField="description" caption="Açıklama">
+                                </dxi-column>
+                                <dxi-column cellTemplate="düzenle" caption="Düzenle">
+                                </dxi-column>
+                                <dxi-column cellTemplate="sil" caption="Sil">
+                                </dxi-column>
+
+                                <div *dxTemplate="let data of 'düzenle'">
+                                    <button style="margin: 3px;color:white;background-color: #677790;height: 31px;"
+                                        (click)="openPartsDialog(data.data, true)" type="button" class="btn ">
+                                        Düzenle
+                                    </button>
+                                </div>
+
+                                <div *dxTemplate="let data of 'sil'">
+                                    <button style="margin: 3px;color:white;background-color: #c80808;height: 31px;"
+                                        (click)="deletePart(data.data.partNo)" type="button" class="btn ">
+                                        Sil
+                                    </button>
+                                </div>
+
+                            </dx-data-grid>
+                        </div>
+                    </mat-tab>
+
+
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

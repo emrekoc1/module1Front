@@ -1,0 +1,368 @@
+<div id="newbom" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/montage/bom/list'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div class="newbom-image mr-8 mr-sm-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{bom?.name || ''}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        Yeni Reçete
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Reçete Bilgileri</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-newbom-button" [disabled]="newBomForm?.invalid"
+                *ngIf="pageType ==='new'" (click)="addNewBom()">
+                <span>Ekle</span>
+            </button>
+
+            <button mat-raised-button class="save-newbom-button"
+                [disabled]="newBomForm?.invalid || newBomForm?.pristine" *ngIf="pageType ==='edit'"
+                (click)="saveNewBom()">
+                <span>Kaydet</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form *ngIf="pageType !== ''" name="newBomForm" [formGroup]="newBomForm" class="newbom w-100-p"
+                    fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                        <mat-tab label="Temel Bilgiler">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Reçete Adı</mat-label>
+                                    <input matInput placeholder="Reçete Adı" name="bomName" formControlName="bomName"
+                                        required />
+                                    <!-- <div *ngIf="newBomFormControllers.bomName.errors" class="invalid-feedback">
+                                        <div *ngIf="newBomFormControllers.bomName.errors.required">Reçete Adı
+                                            Gereklidir.
+                                        </div>
+                                    </div> -->
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Reçete Tipi</mat-label>
+                                    <mat-select placeholder="Reçete Tipi" name="bom_type" formControlName="bom_type">
+                                        <mat-option *ngFor="let custom of customData" [value]="custom.name">
+                                            {{custom.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <!-- <div *ngIf="newBomFormControllers.bom_type.errors" class="invalid-feedback">
+                                        <div *ngIf="newBomFormControllers.bom_type.errors.required">Reçete Tipi Gereklidir.
+                                        </div>
+                                    </div> -->
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Reçete Parça Tipi</mat-label>
+                                    <mat-select placeholder="Reçete Parça Tipi" name="bom_part_type"
+                                        formControlName="bom_part_type">
+                                        <mat-select-search [items]="bomPartTypes" [filterProperty]="'name'" [placeholderLabel]="'Reçete Parça Tipi'"
+                                            (getFilteredItems)="getFilteredBomPartTypes($event)">
+                                        </mat-select-search>
+                                        <mat-option *ngFor="let bomPartType of filteredBomPartTypes" [value]="bomPartType.value">{{ bomPartType.name }}</mat-option>
+                                    </mat-select>
+                                    <!-- <div *ngIf="newBomFormControllers.bom_type.errors" class="invalid-feedback">
+                                        <div *ngIf="newBomFormControllers.bom_type.errors.required">Reçete Tipi
+                                            Gereklidir.
+                                        </div>
+                                    </div> -->
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Oluşturan Kişi</mat-label>
+                                    <input matInput placeholder="Oluşturan Kişi" name="bomCreatedUser"
+                                        formControlName="bomCreatedUser" [value]="currentUser.fullName" required
+                                        disabled>
+                                    <!-- <select class="form-control" formControlName="bomCreatedUser"
+                                        [ngClass]="{ 'is-invalid': newBomFormControllers.bomCreatedUser.errors }">
+                                        <option *ngFor="let operator of this.user_informations_list; let i = index">
+                                        <option>
+                                            {{currentUser.fullName}}
+                                        </option>
+                                    </select> -->
+                                    <!-- <div *ngIf="newBomFormControllers.bomCreatedUser.errors" class="invalid-feedback">
+                                        <div *ngIf="newBomFormControllers.bomCreatedUser.errors.required">Oluşturan Kişi
+                                            Seçilmelidir.
+                                        </div>
+                                    </div> -->
+                                </mat-form-field>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Parçalar">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <button mat-raised-button class="add-part-button"
+                                    (click)="openPartDialog('add', null, null)">
+                                    <span>Dürbün/Parça Ekle</span>
+                                </button>
+
+                                <mat-table #table [dataSource]="partDataSource" [@animateStagger]="{value:'50'}">
+                                    <ng-container matColumnDef="id">
+                                        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                                        <mat-cell *matCellDef="let part; let i = index;">{{part.value.id}}</mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="partName">
+                                        <mat-header-cell *matHeaderCellDef>Dürbün/Parça Adı</mat-header-cell>
+                                        <mat-cell *matCellDef="let part; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{part.value.partName}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="isAssinged">
+                                        <mat-header-cell *matHeaderCellDef>Atanan Kişi</mat-header-cell>
+                                        <mat-cell *matCellDef="let part; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{part.value.isAssinged}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="buttons">
+                                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                        <mat-cell *matCellDef="let part; let i = index;">
+                                            <div fxFlex="row" fxLayoutAlign="end center">
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="openPartDialog('edit', part, i)">
+                                                    <mat-icon class="amber-fg">edit</mat-icon>
+                                                </button>
+
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="deletePart(i)">
+                                                    <mat-icon class="amber-fg">delete</mat-icon>
+                                                </button>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="partDisplayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: partDisplayedColumns;"></mat-row>
+                                </mat-table>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Test Operasyonları">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <button mat-raised-button class="add-quality-control-operation-button"
+                                    (click)="openTestOperationDialog('add', null, null)">
+                                    <span>Test Operasyonu Ekle</span>
+                                </button>
+
+                                <mat-table #table [dataSource]="testOperationDataSource"
+                                    [@animateStagger]="{value:'50'}">
+                                    <ng-container matColumnDef="id">
+                                        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                                        <mat-cell *matCellDef="let testOperation; let i = index;">{{i + 1}}</mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="operation">
+                                        <mat-header-cell *matHeaderCellDef>Operasyon</mat-header-cell>
+                                        <mat-cell *matCellDef="let testOperation; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{testOperation.controls['operation'].value.name}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="waitTimeStr">
+                                        <mat-header-cell *matHeaderCellDef>Test Zamanı</mat-header-cell>
+                                        <mat-cell *matCellDef="let testOperation; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{testOperation.controls['wait_time_str'].value}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="testQuantityPercentage">
+                                        <mat-header-cell *matHeaderCellDef>Test Yüzdesi (%)</mat-header-cell>
+                                        <mat-cell *matCellDef="let testOperation; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{testOperation.controls['test_quantity_percentage'].value}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="buttons">
+                                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                        <mat-cell *matCellDef="let testOperation; let i = index;">
+                                            <div fxFlex="row" fxLayoutAlign="end center">
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="openTestOperationDialog('edit', testOperation, i)">
+                                                    <mat-icon class="amber-fg">edit</mat-icon>
+                                                </button>
+
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="deleteQualityControlOperations(i)">
+                                                    <mat-icon class="amber-fg">delete</mat-icon>
+                                                </button>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="testOperationDisplayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: testOperationDisplayedColumns;"></mat-row>
+                                </mat-table>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Kalite Kontrol Operasyonları">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <button mat-raised-button class="add-quality-control-operation-button"
+                                    (click)="openQualityControlOperationDialog('add', null, null)">
+                                    <span>Kalite Kontrol Operasyonu Ekle</span>
+                                </button>
+
+                                <mat-table #table [dataSource]="qualityControlOperationDataSource"
+                                    [@animateStagger]="{value:'50'}">
+                                    <!-- Id Column -->
+                                    <ng-container matColumnDef="id">
+                                        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                                        <mat-cell *matCellDef="let qualityControlOperation; let i = index;">{{i + 1}}
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Name Column -->
+                                    <ng-container matColumnDef="operation">
+                                        <mat-header-cell *matHeaderCellDef>Operasyon</mat-header-cell>
+                                        <mat-cell *matCellDef="let qualityControlOperation; let i = index;">
+                                            <p class="text-truncate font-weight-600">
+                                                {{qualityControlOperation.controls['operation'].value.name}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Buttons Column -->
+                                    <ng-container matColumnDef="buttons">
+                                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                        <mat-cell *matCellDef="let qualityControlOperation; let i = index;">
+                                            <div fxFlex="row" fxLayoutAlign="end center">
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="openQualityControlOperationDialog('edit', qualityControlOperation, i)">
+                                                    <mat-icon class="amber-fg">edit</mat-icon>
+                                                </button>
+
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="deleteQualityControlOperations(i)">
+                                                    <mat-icon class="amber-fg">delete</mat-icon>
+                                                </button>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="qualityControlOperationDisplayedColumns">
+                                    </mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: qualityControlOperationDisplayedColumns;">
+                                    </mat-row>
+                                </mat-table>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="İşlem Kontrol Listesi">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <button mat-raised-button class="add-todo-button"
+                                    (click)="openTodoListDialog('add', null, null)">
+                                    <span>İşlem Kontrolü Ekle</span>
+                                </button>
+
+                                <mat-table #table [dataSource]="todoListDataSource" [@animateStagger]="{value:'50'}">
+                                    <!-- Id Column -->
+                                    <ng-container matColumnDef="id">
+                                        <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                                        <mat-cell *matCellDef="let todo; let i = index;">{{i + 1}}</mat-cell>
+                                    </ng-container>
+
+                                    <!-- Name Column -->
+                                    <ng-container matColumnDef="desc">
+                                        <mat-header-cell *matHeaderCellDef>İşlem</mat-header-cell>
+                                        <mat-cell *matCellDef="let todo; let i = index;">
+                                            <p class="text-truncate font-weight-600">{{todo.controls['desc'].value}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Buttons Column -->
+                                    <ng-container matColumnDef="buttons">
+                                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                        <mat-cell *matCellDef="let todo; let i = index;">
+                                            <div fxFlex="row" fxLayoutAlign="end center">
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="openTodoListDialog('edit', todo, i)">
+                                                    <mat-icon class="amber-fg">edit</mat-icon>
+                                                </button>
+
+                                                <button mat-icon-button class="save-newbom-button"
+                                                    (click)="deleteToDoList(i)">
+                                                    <mat-icon class="amber-fg">delete</mat-icon>
+                                                </button>
+                                            </div>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="todoListDisplayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: todoListDisplayedColumns;"></mat-row>
+                                </mat-table>
+
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

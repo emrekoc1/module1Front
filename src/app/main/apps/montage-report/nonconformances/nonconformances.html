@@ -1,0 +1,77 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    dashboard
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Uygunsuzluk Raporları
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto;
+        padding: 10px;">
+
+            <dx-data-grid class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true" [focusedRowIndex]="0"
+                [masterDetail]="{ enabled: true, template: 'detail' }" [columnAutoWidth]="true"
+                [columnHidingEnabled]="true" [showRowLines]="true">
+
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+
+                <dxi-column dataField="report.serialNumber" caption="Seri No./Bulutify Kodu">
+                </dxi-column>
+                <dxi-column dataField="report.partDescription" caption="Dürbün">
+                </dxi-column>
+                <dxi-column cellTemplate="report.createdDate" caption="Oluşturma Tarihi">
+                </dxi-column>
+                <dxi-column dataField="report.createdUser" caption="Oluşturan">
+                </dxi-column>
+                <dxi-column cellTemplate="tamir" caption="Tamir">
+                </dxi-column>
+                <dxi-column cellTemplate="fire" caption="Fire">
+                </dxi-column>
+
+                <div *dxTemplate="let data of 'report.createdDate'">
+                    {{data.data.report.createdDate | date:'dd.MM.yyyy'}}
+                </div>
+
+                <div *dxTemplate="let data of 'tamir'">
+                    <button style="margin: 3px;color:white;background-color: #677790;height: 31px;"
+                        (click)="routeTamir(data.data._id)" type="button" class="btn ">
+                        Düzenle
+                    </button>
+                </div>
+
+                <div *dxTemplate="let data of 'fire'">
+                    <button *ngIf="data.data.form" style="margin: 3px;color:white;background-color: #677790;height: 31px;"
+                        (click)="routeFire(data.data._id)" type="button" class="btn ">
+                        Düzenle
+                    </button>
+                </div>
+
+            </dx-data-grid>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

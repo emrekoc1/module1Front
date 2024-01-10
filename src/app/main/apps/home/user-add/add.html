@@ -1,0 +1,124 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/home'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Yeni Haber</div>
+                    <div class="subtitle secondary-text">
+                        <span>Kullanıcılar</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <button mat-raised-button class="save-product-button"  (click)="newUser()">
+                <span>Haber Ekle</span>
+            </button>
+
+
+           
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+               
+                <div class="tab-content p-24" fusePerfectScrollbar>
+                    <form [formGroup]="form" class="product w-100-p" fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Sicil No</mat-label>
+                            <input matInput placeholder="Sicil No." name="sicil" formControlName="sicil" required />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Kullanıcı Adı</mat-label>
+                            <input matInput placeholder="Adı Soyadı" name="user_name" formControlName="user_name" required />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Mail</mat-label>
+                            <input matInput placeholder="E-Mail" name="mail" formControlName="mail" required />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                          
+                            <mat-label>Departmanı</mat-label>
+                            <mat-select placeholder="Departman"
+                            name="name" 
+                            formControlName="departman"
+                            required>
+                                <mat-option  *ngFor="let calisma of departman1" value="{{calisma.id}}">{{calisma.description}}</mat-option>
+                              
+                            </mat-select>
+                           
+                        
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Kullanıcı Tipi</mat-label>
+                            <mat-select placeholder="Kullanıcı Tipi"
+                            name="user_type"
+                            formControlName="user_type"
+                            required>
+                                <mat-option value="0">ADMIN</mat-option>
+                                <mat-option value="1">YONETİCİ</mat-option>
+                                <mat-option value="2">İADERİ</mat-option>
+                                <mat-option value="3">TEKNİSYEN</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Şifre</mat-label>
+                            <input matInput placeholder="Şifre" name="pasword_" formControlName="pasword_" required />
+                        </mat-form-field>
+                        <mat-slide-toggle formControlName="isactive">Kullanıcı Aktif</mat-slide-toggle>
+                   
+                    </form>
+                    
+               
+
+                </div>
+                <!-- <div style="text-align: center">
+                    <form>      
+                      <div>
+                        <input type="file" name="image" (change)="selectImage($event)" />
+                      </div>
+                      <br>
+                      <div>
+                        <button type="submit" (click)="onSubmit()">Upload</button>
+                      </div>
+                    </form>
+                  </div>
+                  
+                  <hr>
+                  <h2 style="text-align: center">Multiple</h2>
+                  <div style="text-align: center">
+                    <form>      
+                      <div>
+                        <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+                      </div>
+                      <br>
+                      <div>
+                        <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
+                      </div>
+                    </form>
+                  </div> -->
+              
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

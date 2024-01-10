@@ -1,0 +1,63 @@
+<div #thisWindow class="dialog-content-wrapper">
+
+    <div fxLayout="column" fxLayoutAlign="center">
+
+        <div id="printable" class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+
+            <div class="course" style="padding: 0;height: 20rem;" *ngFor="let box of data.boxes" fxFlex="100"
+                fxFlex.gt-xs="50" fxFlex.gt-sm="16.66" [@animate]="{value:'*',params:{y:'100%'}}">
+                <div class="course-content " style="padding: 0;" fxLayout="column" fxFlex="1 1 auto">
+
+                    <div class="content" fxLayout="column" style="padding: 0;" fxLayoutAlign="top center"
+                        fxFlex="1 1 auto">
+                        <div class="box_type bosta" *ngIf="box.status == 0 ">Boşta ({{box.status}}) </div>
+                        <div class="box_type uretim"
+                            *ngIf="box.status == 1 || box.status == 2 || box.status == 6 || box.status == 9">
+                            Üretim ({{box.status}}) </div>
+                        <div class="box_type quality" *ngIf="box.status == 3">Kalite Kontrol ({{box.status}})
+                        </div>
+                        <div class="box_type rework" *ngIf="box.status == 4 || box.status == 5">
+                            Rework Kutusu ({{box.status}}) </div>
+                        <div class="box_type depo" *ngIf="box.status == 8 || box.status == 10">
+                            Depo ({{box.status}}) </div>
+                        <qrcode [qrdata]="box.qr" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
+                    </div>
+                    <div class="content" fxLayout="column" style="padding: 0; font-size:x-large"
+                        fxLayoutAlign="top center" fxFlex="1 1 auto">
+                        {{box.code}}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="noprint" class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+
+            <div class="course" style="padding: 0;height: 20rem;" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="16.66"
+                [@animate]="{value:'*',params:{y:'100%'}}">
+                <div class="course-content " style="padding: 0;" fxLayout="column" fxFlex="1 1 auto">
+
+                    <div class="content" fxLayout="column" style="padding: 0;" fxLayoutAlign="top center"
+                        fxFlex="1 1 auto">
+                        <button mat-raised-button color="accent" (click)="print()">Çıktı al</button>
+                    </div>
+
+                </div>
+
+                <div class="course-content " style="padding: 0;" fxLayout="column" fxFlex="1 1 auto">
+
+                    <div class="content" fxLayout="column" style="padding: 0;" fxLayoutAlign="top center"
+                        fxFlex="1 1 auto">
+                        <button mat-raised-button color="accent" (click)="closeDialog()">Kapat</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

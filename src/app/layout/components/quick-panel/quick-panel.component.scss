@@ -1,0 +1,13 @@
+quick-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+   
+    min-width: 100px;
+    max-width: 100px;
+    z-index: 99;
+    background-color: rgba(168, 214, 236, 0); /* Renk ve saydamlık değeri (0 ile 1 arasında) */
+    .mat-slide-toggle-content {
+        flex: 1;
+    }
+}

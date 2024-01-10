@@ -1,0 +1,105 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/mydepartment'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <button mat-raised-button class="save-product-button" (click)="postMaterial()">
+                <span>Envanter Ekle</span>
+            </button>
+
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+
+                <div class="tab-content p-24" fusePerfectScrollbar>
+                    <form [formGroup]="form" name="form" class="product w-100-p" fxLayout="column" fxFlex>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Ekipman No</mat-label>
+                            <input matInput placeholder="Ekipman No" name="ekipman_no" formControlName="ekipman_no"
+                                required />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Ekipman İsmi</mat-label>
+                            <input matInput placeholder="Ekipman İsmi" name="ekipman_name"
+                                formControlName="ekipman_name" required />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Ekipman Tipi</mat-label>
+                            <input matInput placeholder="Ekipman Tipi" name="ekipman_type"
+                                formControlName="ekipman_type" required />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Birim</mat-label>
+                            <select matNativeControl placeholder="Verilen Birim" name="birimi" formControlName="birimi">
+                                <option value="" selected></option>
+                                <option *ngFor="let department of department" [value]="department.id">
+                                    {{department.name}}
+                                </option>
+                            </select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>sorumlusu</mat-label>
+                            <input matInput placeholder="sorumlusu" name="sorumlusu" formControlName="sorumlusu"
+                                required />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Durumu</mat-label>
+                            <select matNativeControl placeholder="durumu" name="durumu" formControlName="durumu">
+                                <option value="" selected></option>
+                                <option *ngFor="let status of status" [value]="status.id">{{status.name}}</option>
+                            </select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Kalibrasyondan Gelme Tarihi</mat-label>
+                            <input matInput [matDatepicker]="picker" placeholder="son_kalibrasyon"
+                                name="son_kalibrasyon" formControlName="son_kalibrasyon">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Kalibrasyon Bitiş Tarihi</mat-label>
+                            <input matInput [matDatepicker]="picker2" placeholder="gonderme_tarihi"
+                                name="gonderme_tarihi" formControlName="gonderme_tarihi">
+                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+
+                        </mat-form-field>
+
+
+
+
+                    </form>
+
+
+
+                </div>
+
+
+
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

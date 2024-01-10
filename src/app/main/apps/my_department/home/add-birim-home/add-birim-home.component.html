@@ -1,0 +1,42 @@
+
+
+    <div class="center">
+     
+        <div class="content-card">
+        
+            <div class="content">
+               
+                <form name="form" [formGroup]="form" class="product w-100-p" fxLayout="column" fxFlex>
+                
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Haber Başlığı</mat-label>
+                                    <input matInput placeholder="Haber Başlığı" name="baslik" formControlName="baslik"
+                                        required />
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Haber Açıklaması</mat-label>
+                                    <textarea matInput placeholder="Haber Açıklaması" name="aciklama" formControlName="aciklama" required></textarea>
+
+                                </mat-form-field>
+                                <div class="mat-form-field w-100-p">
+                                    <mat-label>Haber Resmi Ekle</mat-label>
+                                   <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+                                </div>
+                                <div class="mat-form-field w-100-p">
+                                    <button mat-raised-button class="save-product-button"  (click)="onMultipleSubmit()">
+                                        <span>Haber Ekle</span>
+                                    </button>
+                                </div>
+                           </div>
+             
+                </form>
+
+           
+            
+            </div>
+          
+        </div>
+        
+    </div>

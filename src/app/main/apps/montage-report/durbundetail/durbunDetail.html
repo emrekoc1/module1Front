@@ -1,0 +1,844 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    dashboard
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Tamir Raporları
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+            <div>
+                {{this.start_date}} - {{this.finish_date}} Tarihleri arasında görüntüleme yapmaktasınız
+            </div>
+
+            <!-- ADD BUTTON -->
+            <app-add-search (startdate)="startdate($event)" (finishdate)="finishdate($event)">
+            </app-add-search>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto; padding: 20px;">
+
+            <mat-form-field class="example-form-field">
+                <mat-label>Aranan Dürbün</mat-label>
+                <input matInput type="text" placeholder="Dürbün Seri Numarası Giriniz" (input)="handleKeyup($event)">
+            </mat-form-field>
+
+            <button mat-fab color="warn" (click)="searchData()">
+                    Ara
+                  
+                </button>
+
+
+
+            <div class="content" *ngIf="is_data_load==true">
+                <div class="row">
+
+                    <mat-tab-group [(selectedIndex)]="selectedIndex">
+                        <mat-tab label="Basit Bilgiler">
+                            <div class="tab-content p-24" fusePerfectScrollbar style="text-align: right;">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+
+
+
+                                            <div class="left mr-lg-32">
+
+
+
+                                                <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
+
+                                                    <!-- Widget 2 -->
+                                                    <div class="widget" fxFlex="100" fxFlex.gt-sm="30">
+
+                                                        <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+                                                            <div class="cyan-500" fxLayout="row" fxLayoutAlign="center center">
+
+                                                                <div class="h-60" style="font-size:20px" fxLayoutAlign="center center">
+                                                                    Dürbün Detayı
+                                                                </div>
+
+
+
+                                                            </div>
+
+                                                            <div class="h-400 w-100-p" fxLayoutAlign="center" style="padding: 10px;">
+
+                                                                <!-- <app-add-firereport1 [dataGet]="this.dataGet" [dataGet2]="this.dataGetProduct"></app-add-firereport1> -->
+                                                                <table class="simple invoice-table">
+                                                                    <thead>
+                                                                        <tr>
+
+                                                                        </tr>
+                                                                        <tr>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody *ngFor="let items of dataGet">
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                Ürün Kodu:
+                                                                            </th>
+                                                                            <td>
+                                                                                {{items.code}} / {{items.bulutify_code}}
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                Durum
+                                                                            </th>
+                                                                            <td>
+                                                                                {{items.status}}
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                Başlangıç Saat
+                                                                            </th>
+                                                                            <td>
+                                                                                {{items.createdDate}}
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                Başlangıç Tarihi
+                                                                            </th>
+
+                                                                            <td>
+                                                                                {{items.createdDate}}
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                Bitiş
+                                                                            </th>
+                                                                            <td *ngIf="items.status != 2" style="color:aqua">
+                                                                                Devam Ediyor
+                                                                            </td>
+                                                                            <td *ngIf="items.status == 2">
+                                                                                {{items.updatedDate}}
+                                                                            </td>
+
+                                                                        </tr>
+
+                                                                        <tr *ngIf="items.bom_part_type == 1">
+                                                                            <th scope="row">
+                                                                                Depo Sevk Tarihi
+                                                                            </th>
+                                                                            <td>
+
+                                                                                <!-- {{items.startedDate| date: 'dd/MM/yyyy h:mm:ss a'}} -->
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr *ngIf="items.bom_part_type == 1">
+                                                                            <th scope="row">
+                                                                                Depo Kutu Kodu
+                                                                            </th>
+                                                                            <td>
+                                                                                <!-- {{items.updatedDate | date: 'dd/MM/yyyy h:mm:ss a'}} -->
+                                                                            </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                Cihaz Tamir Sayısı
+                                                                            </th>
+                                                                            <td>
+                                                                                <!-- {{items.wastage_reason_list.lenght}} -->
+                                                                            </td>
+
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="widget" fxFlex="100" fxFlex.gt-sm="70">
+
+                                                        <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+                                                            <div class="cyan-500" fxLayout="row" fxLayoutAlign="center center">
+
+                                                                <div class="h-60" style="font-size:20px" fxLayoutAlign="center center">
+                                                                    Ölçüm Sonuçları
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                            <div class="h-400 w-100-p" fxLayoutAlign="center" style="padding: 10px;">
+                                                                <!-- <app-add-firereport1 [dataGet]="this.dataGet" [dataGet2]="this.dataGetProduct"></app-add-firereport1> -->
+                                                                <dx-data-grid class="dx-card wide-card" [dataSource]="operasyonList" [showBorders]="false" [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }" [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="false" [rowAlternationEnabled]="true">
+                                                                    <dxo-paging [pageSize]="20"></dxo-paging>
+                                                                    <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+                                                                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                                                                    </dxo-pager>
+                                                                    <!-- <dxo-filter-row [visible]="false"></dxo-filter-row> -->
+                                                                    <dxi-column dataField="operationName.name" caption="Operasyon Adı"></dxi-column>
+                                                                    <dxi-column cellTemplate="status" caption="Durumu"></dxi-column>
+                                                                    <dxi-column cellTemplate="time" caption="Bekleme Süresi Tarihi"></dxi-column>
+                                                                    <dxi-column cellTemplate="startDate" caption="Oluşturma Tarihi"></dxi-column>
+                                                                    <dxi-column cellTemplate="updatedDate" caption="Tamamlanma Tarihi"></dxi-column>
+                                                                    <dxi-column caption="Operator" dataField="operatorList">
+                                                                        <dxi-column dataField="operatorList[0].operatorName" caption="Operator İsmi"></dxi-column>
+                                                                        <dxi-column cellTemplate="operatorList[0].startDate" caption="Başlama"></dxi-column>
+                                                                        <dxi-column cellTemplate="operatorList[0].endDate" caption="Bitiş"></dxi-column>
+                                                                        <div *dxTemplate="let datalar of 'startDate'">
+                                                                            <div [innerHTML]="
+                                                                            datalar.data.startDate  | date: 'yyyy/MM/dd h:mm:ss a'">
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div *dxTemplate="let datalar of 'endDate'">
+                                                                            <div [innerHTML]="
+                                                                            datalar.data.endDate  | date: 'yyyy/MM/dd h:mm:ss a'">
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </dxi-column>
+
+                                                                    <div *dxTemplate="let datalar of 'status'">
+                                                                        <div *ngIf="datalar.data.status == 0">Başlamamış</div>
+                                                                        <div *ngIf="datalar.data.status == 1">Devam Ediyor</div>
+                                                                        <div *ngIf="datalar.data.status == 2">Tamamlanmış</div>
+                                                                    </div>
+                                                                    <div *dxTemplate="let datalar of 'time'">
+                                                                        <div *ngIf="datalar.data.operationName.time>3600000">
+
+                                                                            {{datalar.data.operationName.time/3600000}} Saat</div>
+
+                                                                    </div>
+
+                                                                    <div *dxTemplate="let datalar of 'startDate'">
+                                                                        <div [innerHTML]="
+                                                                                 datalar.data.startDate  | date: 'yyyy/MM/dd h:mm:ss a'"></div>
+                                                                    </div>
+                                                                    <div *dxTemplate="let datalar of 'updatedDate'">
+                                                                        <div *dxTemplate="let datalar of 'status'">
+                                                                            <div *ngIf="datalar.data.status == 0">Başlamamış</div>
+                                                                            <div *ngIf="datalar.data.status == 1">Devam Ediyor</div>
+                                                                            <div *ngIf="datalar.data.status == 2">
+                                                                                <div [innerHTML]="
+                                                                                datalar.data.updatedDate  | date: 'yyyy/MM/dd h:mm:ss a'">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                    <div *dxTemplate="let a of 'detail'">
+
+                                                                        <dx-data-grid class="workorders" *ngIf="a.data.operationName.operationValues" [dataSource]="a.data.operationName.operationValues" [showBorders]="true" [columnAutoWidth]="true">
+                                                                            <dxi-column cellTemplate="name" caption="Ölçüm Adı"></dxi-column>
+                                                                            <dxi-column dataField="unite" caption="Birim"></dxi-column>
+                                                                            <dxi-column cellTemplate="normalValue" caption="Sonuç"></dxi-column>
+
+
+                                                                            <div *dxTemplate="let datalar of 'name'">
+                                                                                {{ datalar.data.name }}
+                                                                            </div>
+                                                                            <div *dxTemplate="let datalar of 'normalValue'">
+                                                                                {{ datalar.data.normalValue }}
+                                                                            </div>
+
+                                                                        </dx-data-grid>
+                                                                    </div>
+                                                                </dx-data-grid>
+                                                            </div>
+                                                            <!-- <div class="h-400 w-100-p" *ngIf="is_data_load==true && is_data_load_product==true" fxLayoutAlign="center" style="padding: 10px;">
+                                                                <app-add-firereport1 [dataGet]="this.dataGet" [dataGet2]="this.dataGetProduct"></app-add-firereport1>
+            
+                                                            </div> -->
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <!-- Widget 3 -->
+
+                                                    <!-- / Widget 3 -->
+
+                                                    <!-- Widget 4 -->
+
+                                                    <!-- / Widget 4 -->
+
+                                                </div>
+                                                <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
+                                                    <div class="widget" fxFlex="100" fxFlex.gt-sm="100">
+
+                                                        <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+                                                            <div class="cyan-500" fxLayout="row" fxLayoutAlign="center center">
+
+
+                                                                <div class="h-60" style="font-size:20px" fxLayoutAlign="center center">
+
+                                                                    Departmanı Makina Fire Sebepleri
+
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="h-400 w-100-p" fxLayoutAlign="center" style="padding: 10px;">
+                                                                <!-- <app-add-firereport1 [dataGet]="this.dataGet" [dataGet2]="this.dataGetProduct"></app-add-firereport1> -->
+                                                                <table class="simple invoice-table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">#</th>
+                                                                            <th scope="col">Country</th>
+                                                                            <th scope="col">Area</th>
+                                                                            <th scope="col">Population</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr *ngFor="let operasyon of operasyonList">
+                                                                            <th scope="row">{{operasyon.operationName.name}}</th>
+                                                                            <td>
+                                                                                AASDASDASDASD
+                                                                            </td>
+
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <!-- <div class="h-400 w-100-p" *ngIf="is_data_load &&  !is_departman" fxLayoutAlign="center" style="padding: 10px;"> -->
+                                                            <!-- <app-add-report3 [dataGet]="this.dataGet"></app-add-report3> -->
+                                                            <!-- </div> -->
+                                                            <!-- <div class="h-400 w-100-p" *ngIf="is_report_311c==true && is_departman==true " fxLayoutAlign="center" style="padding: 10px;"> -->
+                                                            <!-- <app-add-report7 [selectDep]="this.selectdep" [machine_data]="this.report311c" [selectedc2]="selectedc2"></app-add-report7> -->
+
+                                                            <!-- </div> -->
+                                                            <!-- <div *ngIf="!is_departman">
+                                                                <div class="h-400 w-100-p" *ngIf="!is_data_load" fxLayoutAlign="center" style="padding: 10px;">
+                                                                    <div class="fb-item">
+                                                                        <div class="first-section-wrapper">
+                                                                            <div class="gravatar">
+                                                                                <ngx-skeleton-loader appearance="circle" [theme]="{ width: '15rem', height: '15rem' }">
+                                                                                </ngx-skeleton-loader>
+                                                                            </div>
+                                                                            <div class="gravatar-title">
+                                                                                <div>
+                                                                                    <ngx-skeleton-loader [theme]="{ width: '70px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                                </div>
+                                                                                <div>
+                                                                                    <ngx-skeleton-loader [theme]="{
+                                                                                width: '20rem',
+                                                                                'border-radius': '0',
+                                                                                height: '15px',
+                                                                                'margin-bottom': '10px'
+                                                                              }"></ngx-skeleton-loader>
+                                                                                    <div>
+                                                                                        <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                                    </div>
+            
+            
+                                                                                    <ngx-skeleton-loader [theme]="{
+                                                                                width: '20rem',
+                                                                                'border-radius': '0',
+                                                                                height: '15px',
+                                                                                'margin-bottom': '10px'
+                                                                              }"></ngx-skeleton-loader>
+                                                                                </div>
+                                                                                <div>
+            
+                                                                                    <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="second-section-wrapper">
+                                                                            <div>
+            
+                                                                                <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                            </div>
+                                                                            <div>
+            
+                                                                                <ngx-skeleton-loader [theme]="{ width: '32rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                            </div>
+                                                                            <div>
+            
+                                                                                <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                            </div>
+                                                                            <div>
+            
+                                                                                <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+
+                                                            <!-- </div> -->
+
+
+                                                        </div>
+                                                        <!-- / Widget 2 -->
+
+                                                        <!-- Widget 3 -->
+
+
+
+                                                    </div>
+
+
+
+
+
+                                                </div>
+                                                <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
+                                                    <div class="widget" fxFlex="100" fxFlex.gt-sm="100">
+
+                                                        <div class="fuse-card auto-width mb-32" [ngClass.gt-sm]="'mb-0 mr-32'">
+                                                            <div class="cyan-500" fxLayout="row" fxLayoutAlign="center center">
+
+
+                                                                <div class="h-60" style="font-size:20px" fxLayoutAlign="center center">
+
+                                                                    Departmanı Makina Fire Sebepleri
+
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="h-400 w-100-p" fxLayoutAlign="center" style="padding: 10px;">
+                                                                <!-- <app-add-firereport1 [dataGet]="this.dataGet" [dataGet2]="this.dataGetProduct"></app-add-firereport1> -->
+                                                                <dx-data-grid class="dx-card wide-card" [dataSource]="operasyonList1" [showBorders]="false" [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }" [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="false" [rowAlternationEnabled]="true">
+                                                                    <dxo-paging [pageSize]="20"></dxo-paging>
+                                                                    <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+                                                                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                                                                    </dxo-pager>
+                                                                    <!-- <dxo-filter-row [visible]="false"></dxo-filter-row> -->
+                                                                    <dxi-column dataField="operationName.name" caption="Operasyon Adı"></dxi-column>
+                                                                    <dxi-column cellTemplate="status" caption="Durumu"></dxi-column>
+                                                                    <dxi-column cellTemplate="time" caption="Bekleme Süresi Tarihi"></dxi-column>
+                                                                    <dxi-column cellTemplate="startDate" caption="Oluşturma Tarihi"></dxi-column>
+                                                                    <dxi-column cellTemplate="updatedDate" caption="Tamamlanma Tarihi"></dxi-column>
+                                                                    <dxi-column caption="Operator" dataField="operatorList">
+                                                                        <dxi-column dataField="operatorName" caption="Operator İsmi"></dxi-column>
+                                                                        <dxi-column cellTemplate="startDate" caption="Başlama"></dxi-column>
+                                                                        <dxi-column cellTemplate="endDate" caption="Bitiş"></dxi-column>
+                                                                        <div *dxTemplate="let datalar of 'startDate'">
+                                                                            <div [innerHTML]="
+                                                                            datalar.data.startDate  | date: 'yyyy/MM/dd h:mm:ss a'">
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div *dxTemplate="let datalar of 'endDate'">
+                                                                            <div [innerHTML]="
+                                                                            datalar.data.endDate  | date: 'yyyy/MM/dd h:mm:ss a'">
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </dxi-column>
+
+                                                                    <div *dxTemplate="let datalar of 'status'">
+                                                                        <div *ngIf="datalar.data.status == 0">Başlamamış</div>
+                                                                        <div *ngIf="datalar.data.status == 1">Devam Ediyor</div>
+                                                                        <div *ngIf="datalar.data.status == 2">Tamamlanmış</div>
+                                                                    </div>
+                                                                    <div *dxTemplate="let datalar of 'time'">
+                                                                        <div *ngIf="datalar.data.operationName.time>3600000">
+
+                                                                            {{datalar.data.operationName.time/3600000}} Saat</div>
+
+                                                                    </div>
+
+                                                                    <div *dxTemplate="let datalar of 'startDate'">
+                                                                        <div [innerHTML]="
+                                                                                 datalar.data.startDate  | date: 'yyyy/MM/dd h:mm:ss a'"></div>
+                                                                    </div>
+                                                                    <div *dxTemplate="let datalar of 'updatedDate'">
+                                                                        <div *dxTemplate="let datalar of 'status'">
+                                                                            <div *ngIf="datalar.data.status == 0">Başlamamış</div>
+                                                                            <div *ngIf="datalar.data.status == 1">Devam Ediyor</div>
+                                                                            <div *ngIf="datalar.data.status == 2">
+                                                                                <div [innerHTML]="
+                                                                                datalar.data.updatedDate  | date: 'yyyy/MM/dd h:mm:ss a'">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                    <div *dxTemplate="let a of 'detail'">
+
+                                                                        <dx-data-grid class="workorders" *ngIf="a.data.inputs" [dataSource]="a.data.inputs" [showBorders]="true" [columnAutoWidth]="true">
+                                                                            <dxi-column cellTemplate="name" caption="Ölçüm Adı"></dxi-column>
+
+
+
+                                                                            <div *dxTemplate="let datalar of 'name'">
+                                                                                {{ datalar.data.p_name.name }}
+                                                                            </div>
+
+
+                                                                        </dx-data-grid>
+                                                                    </div>
+                                                                </dx-data-grid>
+                                                            </div>
+                                                            <!-- <div class="h-400 w-100-p" *ngIf="is_data_load &&  !is_departman" fxLayoutAlign="center" style="padding: 10px;"> -->
+                                                            <!-- <app-add-report3 [dataGet]="this.dataGet"></app-add-report3> -->
+                                                            <!-- </div> -->
+                                                            <!-- <div class="h-400 w-100-p" *ngIf="is_report_311c==true && is_departman==true " fxLayoutAlign="center" style="padding: 10px;"> -->
+                                                            <!-- <app-add-report7 [selectDep]="this.selectdep" [machine_data]="this.report311c" [selectedc2]="selectedc2"></app-add-report7> -->
+
+                                                            <!-- </div> -->
+                                                            <!-- <div *ngIf="!is_departman">
+                                                                <div class="h-400 w-100-p" *ngIf="!is_data_load" fxLayoutAlign="center" style="padding: 10px;">
+                                                                    <div class="fb-item">
+                                                                        <div class="first-section-wrapper">
+                                                                            <div class="gravatar">
+                                                                                <ngx-skeleton-loader appearance="circle" [theme]="{ width: '15rem', height: '15rem' }">
+                                                                                </ngx-skeleton-loader>
+                                                                            </div>
+                                                                            <div class="gravatar-title">
+                                                                                <div>
+                                                                                    <ngx-skeleton-loader [theme]="{ width: '70px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                                </div>
+                                                                                <div>
+                                                                                    <ngx-skeleton-loader [theme]="{
+                                                                                width: '20rem',
+                                                                                'border-radius': '0',
+                                                                                height: '15px',
+                                                                                'margin-bottom': '10px'
+                                                                              }"></ngx-skeleton-loader>
+                                                                                    <div>
+                                                                                        <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                                    </div>
+            
+            
+                                                                                    <ngx-skeleton-loader [theme]="{
+                                                                                width: '20rem',
+                                                                                'border-radius': '0',
+                                                                                height: '15px',
+                                                                                'margin-bottom': '10px'
+                                                                              }"></ngx-skeleton-loader>
+                                                                                </div>
+                                                                                <div>
+            
+                                                                                    <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="second-section-wrapper">
+                                                                            <div>
+            
+                                                                                <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                            </div>
+                                                                            <div>
+            
+                                                                                <ngx-skeleton-loader [theme]="{ width: '32rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                            </div>
+                                                                            <div>
+            
+                                                                                <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                            </div>
+                                                                            <div>
+            
+                                                                                <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+
+                                                            <!-- </div> -->
+
+
+                                                        </div>
+                                                        <!-- / Widget 2 -->
+
+                                                        <!-- Widget 3 -->
+
+
+
+                                                    </div>
+
+
+
+
+
+                                                </div>
+
+
+
+
+
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </mat-tab>
+                        <mat-tab label="Ölçüm Sonuçları">
+                            <div class="tab-content p-24" fusePerfectScrollbar style="text-align: right;">
+
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <mat-form-field class="example-form-field">
+                                                <mat-label>Aranan Dürbün</mat-label>
+                                                <input matInput type="text" placeholder="Dürbün Seri Numarası Giriniz" (input)="handleKeyup($event)">
+                                            </mat-form-field>
+
+                                            <button mat-fab color="warn" (click)="searchData()">
+                                                    Ara
+                                                  
+                                                </button>
+
+                                            <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'100'}">
+                                                <div *ngFor="let operasyon of operasyonList " fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="50">
+                                                    <div class="course h-50" *ngIf="operasyon.operationName.operationValues[0].name != ''" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="100" [ngClass]="" [@animate]="{value:'*',params:{y:'100%'}}">
+
+                                                        <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                                                            <div class="cyan-500" fxLayout="row" fxLayoutAlign="center center">
+
+                                                                <div class="h-60" style="font-size:20px" fxLayoutAlign="center center">
+                                                                    {{operasyon.operationName.name}}
+                                                                </div>
+
+
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <table class="simple invoice-table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                            </tr>
+                                                                            <tr>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody *ngFor="let operasyonValue of operasyon.operationName.operationValues">
+                                                                            <tr>
+
+                                                                                <td>
+                                                                                    {{operasyonValue.name}}
+                                                                                </td>
+
+
+
+                                                                                <td>
+                                                                                    {{operasyonValue.normalValue}} {{operasyonValue.unite}}
+
+                                                                                </td>
+
+                                                                            </tr>
+
+
+
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Eklenen Ürün Seri Numaraları">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar style="text-align: center;">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                                            <mat-form-field class="example-form-field">
+                                                <mat-label>Aranan Dürbün</mat-label>
+                                                <input matInput type="text" placeholder="Dürbün Seri Numarası Giriniz" (input)="handleKeyup($event)">
+                                            </mat-form-field>
+
+                                            <button mat-fab color="warn" (click)="searchData()">
+                                                    Ara
+                                                  
+                                                </button>
+
+
+                                            <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'100'}">
+                                                <div *ngFor="let operasyon of inputArray " fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="50">
+                                                    <div class="course h-50" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="100" [ngClass]="" [@animate]="{value:'*',params:{y:'100%'}}">
+
+                                                        <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                                                            <div class="cyan-500" fxLayout="row" fxLayoutAlign="center center">
+
+                                                                <div class="h-60" style="font-size:20px" fxLayoutAlign="center center">
+                                                                    {{operasyon.operasyon}}
+                                                                </div>
+
+
+
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4" *ngFor="let operasyoninputs of operasyon.data">
+                                                                    <table class="simple invoice-table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                            </tr>
+                                                                            <tr>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+
+                                                                                <td>
+                                                                                    {{operasyoninputs.urunName}} / {{operasyoninputs.serinumber}} {{operasyoninputs.operator}} / {{operasyoninputs.tarih}}
+
+                                                                                </td>
+
+
+
+
+
+                                                                            </tr>
+
+
+
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+            <div class="h-400 w-100-p" *ngIf="is_data_load==false" fxLayoutAlign="center" style="padding: 10px;">
+                <div class="fb-item">
+                    <div class="first-section-wrapper">
+                        <div class="gravatar">
+                            <ngx-skeleton-loader appearance="circle" [theme]="{ width: '15rem', height: '15rem' }">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class="gravatar-title">
+                            <div>
+                                <ngx-skeleton-loader [theme]="{ width: '70px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                            </div>
+                            <div>
+                                <ngx-skeleton-loader [theme]="{
+                            width: '20rem',
+                            'border-radius': '0',
+                            height: '15px',
+                            'margin-bottom': '10px'
+                          }"></ngx-skeleton-loader>
+                                <div>
+                                    <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                </div>
+
+
+                                <ngx-skeleton-loader [theme]="{
+                            width: '20rem',
+                            'border-radius': '0',
+                            height: '15px',
+                            'margin-bottom': '10px'
+                          }"></ngx-skeleton-loader>
+                            </div>
+                            <div>
+
+                                <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="second-section-wrapper">
+                        <div>
+
+                            <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                        </div>
+                        <div>
+
+                            <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                        </div>
+                        <div>
+
+                            <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                        </div>
+                        <div>
+
+                            <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / CONTENT CARD -->
+        </div>
+        <!-- / CENTER -->
+    </div>

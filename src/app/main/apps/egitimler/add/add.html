@@ -1,0 +1,122 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/egitimler'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Yeni Haber</div>
+                    <div class="subtitle secondary-text">
+                        <span>Eğitimler</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <button mat-raised-button class="save-product-button" (click)="onMultipleSubmit()">
+                <span>Eğitim Oluştur</span>
+            </button>
+         
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="form" [formGroup]="form" class="product w-100-p" fxLayout="column" fxFlex>
+                    <mat-tab-group>
+
+                        <mat-tab label="Haber Bilgileri">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Eğitim Başlığı</mat-label>
+                                    <input matInput placeholder="Eğitim Başlığı" name="baslik" formControlName="baslik"
+                                        required />
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Eğitim Açıklaması</mat-label>
+                                    <textarea matInput placeholder="Eğitim Açıklaması" name="aciklama"
+                                        formControlName="aciklama" required></textarea>
+
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Kategori Seçimi</mat-label>
+                                    <mat-select placeholder="Kategori" name="kategori"
+                                        (selectionChange)="onChangeDepartman($event)" formControlName="kategori"
+                                        required multiple>
+                                        <mat-option value="0">Tüm Departmanlar</mat-option>
+                                        <mat-option *ngFor="let calisma of departman"
+                                            value="{{calisma.id}}">{{calisma.description}}</mat-option>
+
+                                    </mat-select>
+
+                                </mat-form-field>
+                                <div class="mat-form-field w-100-p">
+                                    <mat-label>Eğitim Resmi Ekle</mat-label>
+                                    <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+                                </div>
+                            </div>
+                            
+                            <div class="upload-progress">
+                                
+                                <div class="progress-text">{{ uploadProgress.toFixed(0) }}%</div>
+
+                            </div>
+
+                        
+                        </mat-tab>
+                    </mat-tab-group>
+
+
+                </form>
+            
+                <!-- <div style="text-align: center">
+                    <form>      
+                      <div>
+                        <input type="file" name="image" (change)="selectImage($event)" />
+                      </div>
+                      <br>
+                      <div>
+                        <button type="submit" (click)="onSubmit()">Upload</button>
+                      </div>
+                    </form>
+                  </div>
+                  
+                  <hr>
+                  <h2 style="text-align: center">Multiple</h2>
+                  <div style="text-align: center">
+                    <form>      
+                      <div>
+                        <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+                      </div>
+                      <br>
+                      <div>
+                        <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
+                      </div>
+                    </form>
+                  </div> -->
+
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,109 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    inbox
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Kutu Listesi
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button [routerLink]="'/apps/boxes/add-boxes'"
+                class="add-box-button fuse-white mt-24 mt-md-0">
+                <span>Kutu Ekle</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <div class="content">
+
+                <div class="tab-content p-24" fusePerfectScrollbar>
+
+                    <form [formGroup]="filterForm">
+                        <div class="filters" fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="flex-start">
+
+                            <mat-form-field appearance="outline" class="category-selector w-50-p">
+                                <mat-label>Kapasite</mat-label>
+                                <mat-select formControlName="capacity">
+                                    <mat-option *ngFor="let capacity of boxCapacity" [value]="capacity.value">
+                                        {{ capacity.label }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <div class="example-button-row w-45-p">
+                                <button mat-raised-button (click)="getBoxesWithFilter()"
+                                    [disabled]="filterForm.invalid">
+                                    <span *ngIf="!this.isClick">Getir</span>
+                                    <img *ngIf="this.isClick" src="/assets/img/spinner.gif" width="40px">
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                    <button mat-raised-button (click)="getTodayBoxes()">Bugün Eklenen Kutular</button>
+                    <button mat-raised-button (click)="getLast20Box()">Son Eklenen 20 Kutu</button>
+                    <button mat-raised-button color="warn" (click)="getLast20ErrorBox()">Son 20 Hatalı Kutu</button>
+                    <button mat-raised-button (click)="print()">Çıktı Al</button>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div id="printable" class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+
+                    <div class="course" style="padding: 1;height: 20rem;" *ngFor="let box of filteredBoxes"
+                        fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="16.66" [@animate]="{value:'*',params:{y:'100%'}}">
+                        <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+
+                            <div class="content" fxLayout="column" style="padding: 0;font-size:x-large"
+                                fxLayoutAlign="center center" fxFlex="1 1 auto">
+                                {{box.code}}
+                            </div>
+
+                            <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+                                <div class="box_type bosta" *ngIf="box.status == 0 ">Boşta ({{box.status}}) </div>
+                                <div class="box_type uretim"
+                                    *ngIf="box.status == 1 || box.status == 2 || box.status == 6 || box.status == 9">
+                                    Üretim ({{box.status}}) </div>
+                                <div class="box_type quality" *ngIf="box.status == 3">Kalite Kontrol ({{box.status}})
+                                </div>
+                                <div class="box_type rework" *ngIf="box.status == 4 || box.status == 5">
+                                    Rework Kutusu ({{box.status}}) </div>
+                                <div class="box_type depo" *ngIf="box.status == 8 || box.status == 10">
+                                    Depo ({{box.status}}) </div>
+                                <qrcode [qrdata]="box.qrcode" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

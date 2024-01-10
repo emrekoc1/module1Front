@@ -1,0 +1,89 @@
+<div id="project" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/ifactory/project'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    alarm_on
+                </mat-icon>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="projectId">
+                        {{(projectForm ? ('Proje: ' + projectForm.value.name) : '' ) || ''}}
+                    </div>
+                    <div class="h2" *ngIf="!projectId">
+                        Yeni Proje
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Proje Bilgileri</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-shift-button" [disabled]="projectForm?.invalid|| projectForm?.pristine"
+                type="submit" (click)="submitShift()">
+                <span>{{projectId ? 'Kaydet': 'Ekle'}}</span>
+            </button>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="projectForm" [formGroup]="projectForm" class="project w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                        <mat-tab label="Temel Bilgiler">
+
+                            <div fusePerfectScrollbar class="tab-content p-24">
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Adı</mat-label>
+                                    <input matInput placeholder="Adı" name="name" formControlName="name"
+                                        required />
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Tip</mat-label>
+                                    <input matInput placeholder="Tip" name="type" formControlName="type"
+                                        required />
+                                </mat-form-field>
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

@@ -1,0 +1,97 @@
+export const locale = {
+    lang: 'en',
+    data: {
+        NAV: {
+            /** Main Categories */
+            factory: 'Departmant',
+            optic: 'Optic',
+            mydepartment:"Birimim",
+
+            montage: 'Montage',
+            about: 'About',
+            evrak:"Dökumanlar",
+            izinTalep: 'İzin Talep',
+            turnike: 'Turnike Bilgileri',
+            gorev: 'Görev Talep',
+            takvim:"Takvimim",
+            sehirIci:"Şehir İçi Talep",
+            sehirDisi:"Şehir İçi Talep",
+            acilPhone: 'Şirket İçi Acil Telefonlar',
+            yemekList: 'Aylık Yemek Listesi',
+            guzergah: 'Servis Güzergahları',
+            phone: 'Telefon Rehberi',
+            quit: 'Çıkış',
+            dilekSikayet:"Öneri  Kutusu",
+            yardımMasa: 'Yardım Masası ',
+            it: 'Bilgi İşlem ',
+            yazilimDestek: 'Yazılım Destek Talebi',
+            donanimDestek: 'Donanım Destek Talebi',
+            destekHizmet: 'Destek Hizmetleri ',
+            altYapi: 'Alt Yapı Talepleri',
+            iklimlendirme: 'İklimlendirme',
+            aydinlatma: 'Aydınlatma',
+            ulastirma: 'Ulaştırma ',
+            aracTalep: 'Araç Talep',
+            personelServis: 'Personel Servisi Talepleri',
+            machineRapor: "Çalışan İşler",
+            /** Fabrika Category */
+            dashboard: 'Dashboard',
+            main_settings: 'Main Settings',
+            management: 'Management',
+            employee: 'Employee',
+            shift: 'Shift',
+            home: "Anasayfa",
+            project_management: 'Project Management',
+            machine_stops: 'Machine Stops',
+            stop: 'Stop Management',
+            kokpit: 'Yönetim Raporları ve Kokpitler',
+            ik: 'İnsan Kaynakları İşlemleri ',
+            stop_category: 'Stop Category',
+            machine_stop_management: 'Machine Stop Management',
+            profil: 'Profile',
+            box_management: 'Box Management',
+            add_new_box: 'Add New Box',
+            boxes_list: 'All Boxes',
+            new_boxes_list: 'New Boxes List',
+            failMenager: "Eğitim",
+            /** Optik Category */
+            reports: 'Reports',
+            machine_reports: 'Machine Reports',
+
+            general_reports: 'General Reports',
+            production_detail: 'Production Detail',
+            isd_detail: 'ISD Detail',
+            fire_detail: 'Fire Detail',
+            rework_detail: 'Rework Detail',
+            rework_box_detail: 'Rework Box Detail',
+
+            new_bom: 'New Bom',
+
+            bom_management: 'Bom Management',
+
+            /** Montaj Category */
+            montage_reports: 'Montage Reports',
+            repair_detail: 'Repair Detail',
+            quality_control: 'Quality Control',
+            nonconformance: 'Nonconformance Detail',
+            egitim: "Education",
+            talepler: "Request",
+            bodro: 'Payroll',
+            anketler: 'Inquiry',
+            duyrular: 'Notification',
+            montage_section: 'Montage Section',
+            montage_bom: 'Montage Bom',
+            montage_add_bom: 'Add Bom',
+            montage_boms: 'Bom List',
+            excel_list: 'Excel List',
+
+            stock_management: 'Stock Management',
+
+            montage_box_management: 'Montage Box Management',
+
+            /** Hakkında Category */
+            bulutify: 'Bulutify',
+
+        },
+    },
+};

@@ -1,0 +1,109 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    alarm_on
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Vardiya
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button [routerLink]="'/apps/ifactory/shifts/single-shift'"
+                class="add-product-button fuse-white mt-24 mt-md-0">
+                <span>Yeni Vardiya Ekle</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto;
+        padding: 10px;">
+
+            <dx-data-grid class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true" [focusedRowIndex]="0"
+                [masterDetail]="{ enabled: true, template: 'detail' }" [columnAutoWidth]="true"
+                [columnHidingEnabled]="true" [showRowLines]="true">
+
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+
+                <dxi-column dataField="shift_id" caption="Shift ID">
+                </dxi-column>
+                <dxi-column dataField="description" caption="Açıklama">
+                </dxi-column>
+                <dxi-column cellTemplate="active_date_start" caption="Başlangıç Tarihi">
+                </dxi-column>
+                <dxi-column cellTemplate="active_date_end" caption="Bitiş Tarihi">
+                </dxi-column>
+                <dxi-column cellTemplate="is_active" caption="Durum">
+                </dxi-column>
+                <dxi-column cellTemplate="update" caption="Düzenle">
+                </dxi-column>
+                <dxi-column cellTemplate="delete" caption="Sil">
+                </dxi-column>
+
+                <div *dxTemplate="let data of 'active_date_start'">
+                    {{data.data.active_date_start | date:'dd.MM.yyyy'}}
+                </div>
+                <div *dxTemplate="let data of 'active_date_end'">
+                    {{data.data.active_date_end | date:'dd.MM.yyyy'}}
+                </div>
+                <div *dxTemplate="let data of 'is_active'">
+                    {{data.data.is_active ? 'Aktif' : 'Pasif'}}
+                </div>
+
+                <div *dxTemplate="let data of 'update'">
+                    <button style="margin: 3px;color:white;background-color: #677790;height: 31px;"
+                        (click)="routeLink(data.data._id)" type="button" class="btn ">
+                        Düzenle
+                    </button>
+                </div>
+
+                <div *dxTemplate="let data of 'delete'">
+                    <button style="margin: 3px;color:white;background-color: #c80808;height: 31px;"
+                        (click)="deleteShift(data.data._id)" type="button" class="btn ">
+                        sil
+                    </button>
+                </div>
+
+                <div *dxTemplate="let data of 'detail'">
+                    <dx-data-grid [dataSource]="data.data.time_interval" [showBorders]="true" [columnAutoWidth]="true">
+                        <dxi-column dataField="name" caption="Adı"></dxi-column>
+                        <dxi-column cellTemplate="starttime" caption="Başlangıç Saati">
+                        </dxi-column>
+                        <dxi-column cellTemplate="endtime" caption="Bitiş Saati">
+                        </dxi-column>
+                        <div *dxTemplate="let data of 'starttime'">
+                            {{getTimeFromMinutes(data.data.starttime)}}
+                        </div>
+                        <div *dxTemplate="let data of 'endtime'">
+                            {{getTimeFromMinutes(data.data.endtime)}}
+                        </div>
+
+                    </dx-data-grid>
+                </div>
+            </dx-data-grid>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

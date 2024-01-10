@@ -1,0 +1,133 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    dashboard
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Tamir Raporları
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+            <div>
+                {{this.start_date}} - {{this.finish_date}} Tarihleri arasında görüntüleme yapmaktasınız
+            </div>
+
+            <!-- ADD BUTTON -->
+            <app-add-search (startdate)="startdate($event)" (finishdate)="finishdate($event)">
+            </app-add-search>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto; padding: 20px;">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Departman Seçiniz</mat-label>
+                <mat-select [(value)]="selected" [(ngModel)]="selected" (ngModelChange)="selectItemsFonc($event)">
+                    <mat-option value="0">SİPARİŞ SEÇİNİZ</mat-option>
+                    <mat-option *ngFor="let data of dataOrder" value="{{data._id}}">{{data.siparisNo}}</mat-option>
+
+                </mat-select>
+            </mat-form-field>
+            <div class="content" *ngIf="is_data_load==true">
+
+
+
+                <dx-data-grid class="dx-card wide-card mb-24" [dataSource]="dataVar" [showBorders]="true" [columnAutoWidth]="true" [showRowLines]="true">
+
+                    <dxi-column dataField="operasyon" caption="Opesyon Adı"></dxi-column>
+                    <dxi-column dataField="v1count" caption="V1"></dxi-column>
+                    <dxi-column dataField="v2count" caption="V2"></dxi-column>
+                    <dxi-column dataField="v3count" caption="V3"></dxi-column>
+                    <dxi-column dataField="toplam" caption="Toplam"></dxi-column>
+                    <dxo-search-panel [visible]="true"></dxo-search-panel>
+                    <dxo-paging [pageSize]="50"></dxo-paging>
+                    <dxo-group-panel [visible]="true"></dxo-group-panel>
+                    <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+
+
+                    <dxo-export [enabled]="true"></dxo-export>
+
+                </dx-data-grid>
+
+
+
+
+
+            </div>
+            <div class="h-400 w-100-p" *ngIf="is_data_load==false" fxLayoutAlign="center" style="padding: 10px;">
+                <div class="fb-item">
+                    <div class="first-section-wrapper">
+                        <div class="gravatar">
+                            <ngx-skeleton-loader appearance="circle" [theme]="{ width: '15rem', height: '15rem' }">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class="gravatar-title">
+                            <div>
+                                <ngx-skeleton-loader [theme]="{ width: '70px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                            </div>
+                            <div>
+                                <ngx-skeleton-loader [theme]="{
+                            width: '20rem',
+                            'border-radius': '0',
+                            height: '15px',
+                            'margin-bottom': '10px'
+                          }"></ngx-skeleton-loader>
+                                <div>
+                                    <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                                </div>
+
+
+                                <ngx-skeleton-loader [theme]="{
+                            width: '20rem',
+                            'border-radius': '0',
+                            height: '15px',
+                            'margin-bottom': '10px'
+                          }"></ngx-skeleton-loader>
+                            </div>
+                            <div>
+
+                                <ngx-skeleton-loader [theme]="{ width: '170px', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="second-section-wrapper">
+                        <div>
+
+                            <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                        </div>
+                        <div>
+
+                            <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                        </div>
+                        <div>
+
+                            <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                        </div>
+                        <div>
+
+                            <ngx-skeleton-loader [theme]="{ width: '40rem', 'border-radius': '0', height: '15px' }"></ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

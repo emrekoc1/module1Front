@@ -1,0 +1,114 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/evrak'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Evrak Düzenle</div>
+                    <div class="subtitle secondary-text">
+                        <span>Evraklar</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <button mat-raised-button class="save-product-button"  (click)="onMultipleSubmit()">
+                <span>Evrak Kaydet</span>
+            </button>
+
+
+           
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+               
+                <form name="form" [formGroup]="form" class="product w-100-p" fxLayout="column" fxFlex>
+                    <mat-tab-group>
+
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label>Evrak Başlığı</mat-label>
+                                <input matInput placeholder="Evrak Başlığı" name="belge_adi"
+                                    formControlName="belge_adi" required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label>Evrak Açıklaması</mat-label>
+                                <input matInput placeholder="Evrak Açıklaması" name="belge_aciklama"
+                                    formControlName="belge_aciklama" required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label>Evrak No</mat-label>
+                                <input matInput placeholder="Evrak No" name="belge_no" formControlName="belge_no"
+                                    required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label>Revizyon Tarihi</mat-label>
+                                <input matInput placeholder="Revizyon Tarihi" name="revizyon_tarihi"
+                                    formControlName="revizyon_tarihi" required>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label>Revizyon No</mat-label>
+                                <textarea matInput placeholder="Revizyon No" name="revizyon_no"
+                                    formControlName="revizyon_no" required></textarea>
+                            </mat-form-field>
+
+                            <div class="mat-form-field w-100-p">
+                                <mat-label>Doküman Ekle</mat-label>
+                                <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+                            </div>
+                        </div>
+                    </mat-tab-group>
+                </form>
+                <!-- <div style="text-align: center">
+                    <form>      
+                      <div>
+                        <input type="file" name="image" (change)="selectImage($event)" />
+                      </div>
+                      <br>
+                      <div>
+                        <button type="submit" (click)="onSubmit()">Upload</button>
+                      </div>
+                    </form>
+                  </div>
+                  
+                  <hr>
+                  <h2 style="text-align: center">Multiple</h2>
+                  <div style="text-align: center">
+                    <form>      
+                      <div>
+                        <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+                      </div>
+                      <br>
+                      <div>
+                        <button type="submit" (click)="onMultipleSubmit()">Multiple Upload</button>
+                      </div>
+                    </form>
+                  </div> -->
+              
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,131 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    dashboard
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Üretim Raporları
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+            <div>
+                {{this.start_date}} - {{this.finish_date}} Tarihleri arasında görüntüleme yapmaktasınız
+            </div>
+
+            <!-- ADD BUTTON -->
+            <app-add-search (startdate)="startdate($event)" (finishdate)="finishdate($event)">
+            </app-add-search>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto; padding: 20px;">
+            <div class="content">
+
+                <mat-checkbox class="mb-12" (change)="checkboxChanged($event.checked)">Alt Takım/Parçalar</mat-checkbox>
+
+                <!-- <dx-data-grid class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true" [columnAutoWidth]="true" [showRowLines]="true">
+
+                    <dxi-column dataField="product[0]" caption="Ürün Adı"></dxi-column>
+                    <dxi-column dataField="isd" caption="ISD"></dxi-column>
+                    <dxi-column dataField="Rework" caption="Rework"></dxi-column>
+                    <dxi-column dataField="Fire" caption="Fire"></dxi-column>
+                    <dxi-column dataField="Produced" caption="Üretim"></dxi-column>
+                    <dxi-column dataField="vardiya" caption="Vardiya" [groupIndex]="0"></dxi-column>
+
+                    <dxo-search-panel [visible]="true"></dxo-search-panel>
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-group-panel [visible]="true"></dxo-group-panel>
+                    <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+
+                    <dxo-summary>
+                        <dxi-total-item column="product[0]" displayFormat="TOPLAM">
+                        </dxi-total-item>
+                        <dxi-total-item column="isd" displayFormat="{0}" summaryType="sum">
+                        </dxi-total-item>
+                        <dxi-total-item column="Rework" displayFormat=" {0}" summaryType="sum">
+                        </dxi-total-item>
+                        <dxi-total-item column="Fire" displayFormat="{0}" summaryType="sum">
+                        </dxi-total-item>
+                        <dxi-total-item column="Produced" displayFormat="{0}" summaryType="sum">
+                        </dxi-total-item>
+                    </dxo-summary>
+
+                </dx-data-grid> -->
+
+                <dx-data-grid id="gridContainer" [dataSource]="datacount" [columnAutoWidth]="true" [showBorders]="true" [allowColumnReordering]="true">
+                    <dxo-filter-row [visible]="true"></dxo-filter-row>
+                    <dxi-column dataField="product" caption="Proje">
+                    </dxi-column>
+
+                    <dxi-column caption="Vardiya 1" dataField="vardiya">
+
+                        <dxi-column caption="ISD" dataField="v1isd">
+                        </dxi-column>
+                        <dxi-column caption="Rework" dataField="v1rework">
+                        </dxi-column>
+                        <dxi-column caption="Fire" dataField="v1fire">
+                        </dxi-column>
+                        <dxi-column caption="Produced" dataField="v1product">
+                        </dxi-column>
+                    </dxi-column>
+                    <dxi-column caption="Vardiya 2" dataField="vardiya">
+
+                        <dxi-column caption="isd" dataField="v2isd">
+                        </dxi-column>
+                        <dxi-column caption="Rework" dataField="v2rework">
+                        </dxi-column>
+                        <dxi-column caption="Fire" dataField="v2fire">
+                        </dxi-column>
+                        <dxi-column caption="Produced" dataField="v2product">
+                        </dxi-column>
+                    </dxi-column>
+                    <dxi-column caption="Vardiya 3" dataField="vardiya">
+
+                        <dxi-column caption="isd" dataField="v3isd">
+                        </dxi-column>
+                        <dxi-column caption="Rework" dataField="v2rework">
+                        </dxi-column>
+                        <dxi-column caption="Fire" dataField="v3fire">
+                        </dxi-column>
+                        <dxi-column caption="Produced" dataField="v3product">
+                        </dxi-column>
+                    </dxi-column>
+
+
+                </dx-data-grid>
+                <div>
+                    <h6>NASIL ÇALIŞIR</h6>
+                    <small>
+                        ISD, bir ürün için üretilen miktardan rework ve fire miktarının çıkartılması ile oluşur.
+                    </small><br>
+                    <small>
+                        Filtrelemelerde Günlük, Aylık veya Yıllık olarak seçilen tarih aralığına göre
+                        yapabilirsiniz.
+                    </small><br>
+                    <small>Filtreleme esnasında eğer ilk kez aranan bir tarih var ise 4-10 sn sürecektir.
+                        Sonraki zamanlarda tekrar aynı tarih aralığı arandığında 30-50 ms sürecektir.
+                    </small><br>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

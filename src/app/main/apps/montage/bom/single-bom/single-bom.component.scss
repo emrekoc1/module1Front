@@ -1,0 +1,744 @@
+
+.parts_class1{
+    border:1px solid;
+    padding: 7px;
+    border-color: #c1c1c1;
+    margin-top: 10px;
+    background-color:#f3f0f9
+    
+}
+
+.parts_class2{
+    border: 1px solid;
+    padding: 7px;
+    border-color: #c1c1c1;
+    margin-top: 10px;
+    background-color:#ffcec1b5;
+    color: black;
+}
+
+.test button{
+    float: right;
+}
+.my_main_class{
+    display: flex;
+
+}
+.my_main_class .inputs{
+    width: 91%;
+    padding: 2px
+}
+.my_main_class .buttons{
+    margin-left: 10px;
+    width: 13%;
+}
+
+.my_main_class .partName{
+    width: 50%;
+}
+
+.my_main_class .Assinged{
+    width: 50%;
+    margin-left: 5px
+}
+
+.my_first_class{
+    display: flex;
+}
+
+.my_first_class .multipleInputs{
+    width: 33.3333%;
+    height: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+    
+}
+.my_first_class .multipleInputs .inline_class{
+    display: flex;
+    border: 1px solid;
+    padding: 11px;
+    border-color: #c1c1c1;  
+    
+}
+.my_first_class .multipleInputs .products{
+    width: 70%;
+}
+.my_first_class .multipleInputs .buttons{
+    float: right;
+}
+.my_first_class .operations {
+    width: 100%;
+}
+.my_first_class .operations .inline_class{
+    display: flex;
+    border: 1px solid;
+    padding: 11px;
+    margin-top: 5px;
+    border-color: #cbc6c6;  
+    background-color: #ffffff;
+    
+}
+.my_first_class .operations .inline_class .operation{
+     width: 25%;
+    display:flex;
+    justify-content: center;
+}
+.my_first_class .operations .inline_class .inputs{
+    width: 55%;
+    margin-left: 5px;
+    border: 1px solid;
+    padding: 6px;
+    max-height: 250px;
+    overflow-y: auto;
+    border-color: #c1c1c1; 
+}
+.my_first_class .operations .inline_class .inputs .inline_input_class{
+    width: 99%;
+    margin-left: 5px;
+    display: flex;
+    margin-top: 4px;
+    padding: 1px;
+}
+.my_first_class .operations .inline_class .inputs .inline_input_class .num{
+    margin-top: 9px;
+    display: flex;
+    width: 22px;
+    height: 22px;
+    justify-content: center;
+    font-size: 13px;
+    align-items: center;
+    background-color: #52c6db;
+    color: white;
+
+}
+.my_first_class .operations .inline_class .inputs .inline_input_class .products{
+    width: 50%;
+    margin-left: 5px;
+}
+.my_first_class .operations .inline_class .inputs .inline_input_class .planned_quantity{
+    width: 20%;
+    margin-left: 5px;
+}
+.my_first_class .operations .inline_class .inputs .inline_input_class .parca_tipi{
+    width: 30%;
+    margin-left: 5px;
+}
+.my_first_class .operations .inline_class .inputs .inline_input_class .buttons{
+    float: right;
+    margin-left: 5px;
+}
+.my_first_class .operations .inline_class .buttons{
+    float: right;
+    border-color: #c1c1c1;
+    display: flex;
+    justify-content: center;
+    margin-left: 1px;
+}
+.my_first_class .outputs{
+    width: 20%;
+    margin-left: 5px;
+    display:flex;
+    justify-content: center;
+}
+.main_bom_class {
+    display: flex;
+}
+.main_bom_class .bom_name{
+    width: 33.33%;
+}
+.main_bom_class .bom_type{
+    width: 33.33%;
+    margin-left: 5px;
+}
+.main_bom_class .bom_owner{
+    width: 33.33%;
+    margin-left: 5px;
+}
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.accordion_class{
+    display: flex;
+    
+}
+
+.accordion_class .divider{
+    height: 5px;
+    background: black;
+}
+.accordion_class .header{
+    width: 96%;
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 4px
+}
+
+.accordion_class .buttons{
+    float:right;
+}
+
+.loading_spinner{
+    display: flex;
+    justify-content: center;
+}
+
+.part_controllers_class{
+    
+}
+
+.part_controllers_class .header{
+    background-color: whitesmoke;
+    text-align: center;
+    font-size: 16px;
+    color: #475456;
+    padding: 12px;
+    border: 1px solid;
+    border-color: #dfdfdf;
+}
+
+
+.part_controllers_class .body{
+    background-color: #f6f6f6;
+    height: 300px;
+    justify-content: center;
+    padding: 10px;
+    display: flex;
+    overflow-y: auto;
+    
+}
+
+.part_controllers_class .body .parts{
+    width: 10%;
+    background-color: #bbbbbb;
+    color: #2e2a2a;
+    height: 33px;
+    font-size: 18px;
+    border: 1px solid;
+    text-align: center;
+    border-radius: 7%;
+    margin-left: 10px;
+}
+.part_controllers_class .body .parts .partName{
+ 
+}
+.part_controllers_class .body .parts .buttons{
+    background-color: #ffffff;
+    float: right;
+    display: flex;
+    
+}
+
+.part_controllers_class  .levels{
+    background-color: #cbeef5;
+    height: auto;
+    padding: 11px;
+    
+}
+.part_controllers_class  .levels .level {
+    display: flex;
+}
+.part_controllers_class  .levels .level .num{
+    margin-top: 9px;
+    display: flex;
+    width: 22px;
+    height: 22px;
+    justify-content: center;
+    font-size: 13px;
+    align-items: center;
+    background-color: #52c6db;
+    color: white;
+}
+.part_controllers_class  .levels .level .name{
+    background-color: #fbfbfb;
+    height: 59px;
+    margin: 10px;
+    border: 1px solid;
+    width: 100%;
+    display: flex;
+    padding: 10px;
+}
+.part_controllers_class  .levels .level .name .parts{
+    background-color: #0aa5b5;
+    width: 90%;
+    color: white;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 6px;
+    
+}
+.part_controllers_class  .levels .level .name .button{
+    background-color: #ffffff;
+    float: right;
+    display: flex;
+}
+
+.connection_class{
+    display: flex;
+    padding: 5px
+}
+.connection_class .connectParts{
+    width: 100%;
+}
+.connection_class .name{
+    width: 100%
+}
+.connection_class .first_state{
+    width: 26%;
+}
+.connection_class .sum_icon{
+    padding: 7px;
+}
+.connection_class .second_state{
+    width: 26.33%;
+}
+.connection_class .equals_state{
+    margin-left: 8px;
+    margin-right: 8px;
+    padding: 1px;
+}
+.connection_class .sum_of_state{
+    width: 32.33%;
+}
+.connection_class .buttons{
+    margin-left: 11px
+}
+
+.adding_connection_class {
+    display: flex;
+}
+
+.adding_connection_class .first{
+    width: 50%;
+    border: 1px solid;
+    border-color: #c9c0c0;
+    text-align: center;
+    padding: 16px;
+    border-radius: 2%;
+    margin-right: 5px;
+}
+.adding_connection_class .second{
+    width: 50%;
+    border: 1px solid;
+    border-color: #c9c0c0;
+    text-align: center;
+    padding: 16px;
+    border-radius: 2%;
+    margin-left: 5px;
+}
+
+.bom_result{
+    display: inline;
+}
+.bom_result .first{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    padding: 5px;
+    margin: 10px;
+}
+.durbun{
+    background-color: red;
+    width: 300px;
+    text-align: center;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.bom_result .third{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin: 10px;
+}
+.bom_result .second{
+    display: flex;
+    text-align: center;
+}
+.bom_result .second .first_first{
+    width: 33.333333%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+.bom_result .second .second_second{
+    width: 33.333333%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+.bom_result .second .third_third{
+    width: 33.333333%;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+}
+
+
+.test_operations{
+    background-color: gray;
+    padding: 1%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+@media only screen and (max-width:941px) {
+    .connection_class {
+        display: block;
+    }
+    .connection_class .first_state{
+        width: 100%;
+    }
+    .connection_class .second_state{
+        width: 100%;
+    }
+    .connection_class .sum_of_state{
+        width: 100%;
+    }
+    .connection_class .buttons{
+        display: flex;
+        margin-top: 10px;
+        margin-left: 0px;
+    }
+    .connection_class .buttons button{
+        width: 100%
+    }
+    .connection_class .sum_icon{
+        text-align: center
+    }
+    .connection_class .equals_state{
+        display: flex;
+        margin-top:10px;
+        margin-bottom: 10px;
+
+    }
+    .connection_class .equals_state button{
+        width: 100%
+        
+    }
+
+    .bom_header {
+        display: inline-block;
+    }
+
+
+    
+}
+
+
+
+@media only screen and (min-width:942px) and (max-width:1027px)  {
+    
+    .connection_class .first_state{
+        width: 23.3%;
+    }
+    .connection_class .second_state{
+        width: 23.3%;
+    }
+    .connection_class .sum_of_state{
+        width: 32.3%;
+    }
+
+
+    
+}
+
+@media only screen and (min-width:1028px) and (max-width:1200px)   {
+    
+    .connection_class .first_state{
+        width: 23.3%;
+    }
+    .connection_class .second_state{
+        width: 23.3%;
+    }
+    .connection_class .sum_of_state{
+        width: 32.3%;
+    }
+
+
+    
+}
+
+@media only screen and (min-width:1201px)   {
+    
+    .connection_class .first_state{
+        width: 26.3%;
+    }
+    .connection_class .second_state{
+        width: 26.3%;
+    }
+    .connection_class .sum_of_state{
+        width: 32.3%;
+    }
+
+
+    
+}
+
+
+.tree ul {
+	padding-top: 20px; position: relative;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.tree li {
+	float: left; text-align: center;
+	list-style-type: none;
+	position: relative;
+	padding: 20px 5px 0 5px;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.tree li::before, .tree li::after{
+	content: '';
+	position: absolute; top: 0; right: 50%;
+	border-top: 1px solid #ccc;
+	width: 50%; height: 20px;
+}
+.tree li::after{
+	right: auto; left: 50%;
+	border-left: 1px solid #ccc;
+}
+
+/*We need to remove left-right connectors from elements without 
+any siblings*/
+.tree li:only-child::after, .tree li:only-child::before {
+	display: none;
+}
+
+/*Remove space from the top of single children*/
+.tree li:only-child{ padding-top: 0;}
+
+/*Remove left connector from first child and 
+right connector from last child*/
+.tree li:first-child::before, .tree li:last-child::after{
+	border: 0 none;
+}
+/*Adding back the vertical connector to the last nodes*/
+.tree li:last-child::before{
+	border-right: 1px solid #ccc;
+	border-radius: 0 5px 0 0;
+	-webkit-border-radius: 0 5px 0 0;
+	-moz-border-radius: 0 5px 0 0;
+}
+.tree li:first-child::after{
+	border-radius: 5px 0 0 0;
+	-webkit-border-radius: 5px 0 0 0;
+	-moz-border-radius: 5px 0 0 0;
+}
+
+/*Time to add downward connectors from parents*/
+.tree ul ul::before{
+	content: '';
+	position: absolute; top: 0; left: 50%;
+	border-left: 1px solid #ccc;
+	width: 0; height: 20px;
+}
+
+.tree li a{
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+	text-decoration: none;
+	color: #666;
+	font-family: arial, verdana, tahoma;
+	font-size: 11px;
+	display: inline-block;
+	
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+/*Time for some hover effects*/
+/*We will apply the hover effect the the lineage of the element also*/
+.tree li a:hover, .tree li a:hover+ul li a {
+	background: #c8e4f8; color: #000; border: 1px solid #94a0b4;
+}
+/*Connector styles on hover*/
+.tree li a:hover+ul li::after, 
+.tree li a:hover+ul li::before, 
+.tree li a:hover+ul::before, 
+.tree li a:hover+ul ul::before{
+	border-color:  #94a0b4;
+}
+
+/*Thats all. I hope you enjoyed it.
+Thanks :)*/
+
+
+
+
+
+
+
+
+
+
+.main_class{
+    display:flex;
+    width:300px;
+    text-align: center;
+    justify-content: space-between;
+  }
+  .main_class .first{
+    width:48%;
+    border:1px solid;
+    height:30px;
+    position:relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .main_class .first .part1{
+   
+  }
+  .main_class .first .state1{
+    position:absolute;
+    top:32px;
+    left:50%;
+    height:30px;
+    width:1px;
+    background-color:black;
+    display:inline-block;
+  }
+  .main_class .second .state2{
+    position:absolute;
+    top:32px;
+    left:50%;
+    height:30px;
+    width:1px;
+    background-color:black;
+    display:inline-block;
+  }
+  .main_class .first .state3{
+    position: absolute;
+    top: 61px;
+    left: 50%;
+    height: 2px;
+    width: 56%;
+    background-color: black;
+    display: inline-block;
+  }
+  .main_class .second .state4{
+    position: absolute;
+    top: 61px;
+    left: -4%;
+    height: 2px;
+    width: 55%;
+    background-color: black;
+    display: inline-block;
+  }
+  .main_class .second .state5{
+    position: absolute;
+    top: 61px;
+    left: -4%;
+    height: 30px;
+    width: 1%;
+    background-color: black;
+    display: inline-block;
+  }
+  .main_class .second{
+    width:48%;
+    border:1px solid;
+    height:30px;
+    position:relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  
+  
+  .main_class2{
+    border:1px solid;
+    width:180px;
+    height:auto;
+    margin-top:41px;
+    margin-left:60px;
+    display:grid;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+ 
+
+  .main_class2 .part3{
+    margin-top:2px;
+    text-align: center;
+  }
+
+  .first_item_in_array .buttons{
+    margin-left: 64px;
+    color:red   
+  }
+
+  .bom_header{
+      display: flex;
+  }
+    .bom_header .head{
+        width: 98%;
+        font-size: 11px;
+        font-style: italic;
+        margin-right: 8px;
+        border: 1px solid;
+        border-color: #b5e5ee;
+        padding: 6px;
+        display: flex;
+        
+  }
+    .bom_header .head .info1{
+        width: 50%;
+    }
+    .bom_header .head .info2{
+        width: 50%;
+        display: flex;
+    }
+    .bom_header .head .info2 div{
+        width: 50%;
+        border: 1px solid;
+        margin-left: 7px;
+        text-align: center;
+    }
+    
+    .bom_header .buttons{
+        
+  }
+  .bom_header .buttons button{
+    background-color: #52c6db;
+    color: white;
+    width: 305px;
+    height: 32px;
+}

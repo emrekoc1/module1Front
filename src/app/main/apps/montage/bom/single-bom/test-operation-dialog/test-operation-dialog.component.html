@@ -1,0 +1,71 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Test Operasyonu {{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="testOperationForm">
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Test Operasyonu</mat-label>
+                    <mat-select placeholder="Test Operasyonu" name="bomType" formControlName="operation">
+                        <mat-select-search [items]="operations" [filterProperty]="'name'" [placeholderLabel]="'Test Operasyonu'"
+                            (getFilteredItems)="getFilteredOperations($event)">
+                        </mat-select-search>
+                        <mat-option *ngFor="let operation of filteredOperations" [value]="operation">
+                            {{operation.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                <mat-label>Gün</mat-label>
+                <input matInput #operationDay placeholder="Gün" formControlName="day" name="operationDay" type="number"
+                    formControlName="day" required
+                    (change)="change(operationDay.value, operationHour.value, operationMinute.value)" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                <mat-label>Saat</mat-label>
+                <input matInput #operationHour placeholder="Saat" formControlName="hour" name="operationDay"
+                    type="number" formControlName="hour" required
+                    (change)="change(operationDay.value, operationHour.value, operationMinute.value)" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                <mat-label>Dakika</mat-label>
+                <input matInput #operationMinute placeholder="Dakika" formControlName="minute" name="operationMinute"
+                    type="number" formControlName="minute" required
+                    (change)="change(operationDay.value, operationHour.value, operationMinute.value)" />
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Test Yüzdesi</mat-label>
+                    <span matPrefix>% &nbsp;</span>
+                    <input matInput placeholder="Test Yüzdesi" name="operationTestPercient" type="number"
+                        [ngModel]="100" required formControlName="test_quantity_percentage" />
+                </mat-form-field>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-button class="save-button" (click)="save()" [disabled]="testOperationForm.invalid"
+            aria-label="Kaydet">
+            Kaydet
+        </button>
+
+    </div>
+</div>

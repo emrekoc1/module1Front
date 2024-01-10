@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"></xsd:import>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"></xsd:element>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="type" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="mimetype" type="xsd:string"></xsd:attribute>
+              <xsd:attribute ref="xml:space"></xsd:attribute>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"></xsd:attribute>
+              <xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"></xsd:element>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"></xsd:attribute>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"></xsd:attribute>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"></xsd:attribute>
+              <xsd:attribute ref="xml:space"></xsd:attribute>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"></xsd:element>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"></xsd:attribute>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Non-calculated\ActionDesign\Actions\Close\Caption" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ActionDesign\Actions\Close\ShortCaption" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ActionDesign\Actions\Close\NullValuePrompt" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ActionDesign\Actions\Close\ConfirmationMessage" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ActionDesign\Actions\Close\ToolTip" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Non-calculated\ActionDesign\Actions\ColumnChooser\Caption" xml:space="preserve">
+    <value>Column Chooser</value>
+  </data>
+  <data name="ActionDesign\Actions\ColumnChooser\ShortCaption" xml:space="preserve">
+    <value>Column Chooser</value>
+  </data>
+  <data name="Non-calculated\ActionDesign\Actions\FilterEditor\Caption" xml:space="preserve">
+    <value>Filter Editor</value>
+  </data>
+  <data name="ActionDesign\Actions\FilterEditor\ShortCaption" xml:space="preserve">
+    <value>Filter Editor</value>
+  </data>
+  <data name="ActionDesign\Actions\ColumnChooser\NullValuePrompt" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ActionDesign\Actions\ColumnChooser\ConfirmationMessage" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ActionDesign\Actions\ColumnChooser\ToolTip" xml:space="preserve">
+    <value>Column Chooser</value>
+  </data>
+  <data name="Non-calculated\ActionDesign\Actions\Export\Caption" xml:space="preserve">
+    <value>Export to</value>
+  </data>
+  <data name="ActionDesign\Actions\Export\ShortCaption" xml:space="preserve">
+    <value>Export to</value>
+  </data>
+  <data name="ActionDesign\Actions\Export\NullValuePrompt" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ActionDesign\Actions\Export\ConfirmationMessage" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ActionDesign\Actions\Export\ToolTip" xml:space="preserve">
+    <value>Export to</value>
+  </data>
+  <data name="Non-calculated\Localization\Confirmations\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\Confirmations\Cancel\Value" xml:space="preserve">
+    <value>Unsaved changes will be lost. Do you want to proceed?</value>
+  </data>
+  <data name="Non-calculated\Localization\Confirmations\SaveChanges\Value" xml:space="preserve">
+    <value>Unsaved changes will be lost. Do you want to save your changes before exit?</value>
+  </data>
+  <data name="Non-calculated\Localization\DialogButtons\No\Value" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Non-calculated\Localization\DialogButtons\Yes\Value" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Non-calculated\Localization\DialogButtons\SaveChanges\Value" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="Non-calculated\Localization\DialogButtons\Discard\Value" xml:space="preserve">
+    <value>Discard changes</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\CannotUploadFile\Value" xml:space="preserve">
+    <value>Cannot upload the selected {0} file while another file is uploading.</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\ErrorPage\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\ErrorPage\ApplicationError\Value" xml:space="preserve">
+    <value>Application Error.</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\ErrorPage\ErrorOccurred\Value" xml:space="preserve">
+    <value>An error occurred while processing your request.</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\ErrorPage\RefreshPage\Value" xml:space="preserve">
+    <value>Refresh Page</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\ErrorPage\ShowDetails\Value" xml:space="preserve">
+    <value>Show Details</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\FileSizeLimit\Value" xml:space="preserve">
+    <value>File size must be less than {0} MB</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\ModifiedObjectWarning\Value" xml:space="preserve">
+    <value>You must save pending changes before editing this record.</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\PageIsNotFound\Value" xml:space="preserve">
+    <value>The requested page is not found.</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\ProcessViewShortcutAccessDenied\Value" xml:space="preserve">
+    <value>Access to this resource is prohibited. Please contact your admin for more information.</value>
+  </data>
+  <data name="Non-calculated\Localization\Messages\SelectItemToEdit\Value" xml:space="preserve">
+    <value>Select an item to edit</value>
+  </data>
+  <data name="Non-calculated\Localization\Security\Account\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\Security\Account\UserName\Value" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="Non-calculated\Localization\Security\LoginPage\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\Security\LoginPage\ExternalAuthorizationActionSeparator\Value" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="Non-calculated\Localization\Security\LoginPage\TryAgain\Value" xml:space="preserve">
+    <value>Try Again</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\Alert\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\Alert\CloseAll\Value" xml:space="preserve">
+    <value>({0}) Close All</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\Alert\IgnoreAllWarnings\Value" xml:space="preserve">
+    <value>Ignore All Warnings</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\Alert\Messages\Value" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\Alert\ShowAll\Value" xml:space="preserve">
+    <value>Show All</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ImageEdit\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ImageEdit\Cancel\Value" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ImageEdit\Change\Value" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ImageEdit\Remove\Value" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LoadingIndicator\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LoadingIndicator\Loading\Value" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ThemeSwitcher\Value" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ThemeSwitcher\Compact\Value" xml:space="preserve">
+    <value>Compact</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ThemeSwitcher\SelectLanguage\Value" xml:space="preserve">
+    <value>Select a language</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ThemeSwitcher\SizeMode\Value" xml:space="preserve">
+    <value>Size Mode</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\ThemeSwitcher\Standard\Value" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\SizeWarning\Header\Value" xml:space="preserve">
+    <value>Your browser window is too small</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\SizeWarning\Description\Value" xml:space="preserve">
+    <value>The layout editor can only be used on screens wider than 786px.</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\HideCustomizationForm\Value" xml:space="preserve">
+    <value>Hide Customization Form</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\CustomizeLayout\Value" xml:space="preserve">
+    <value>Customize Layout</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\ResetLayout\Value" xml:space="preserve">
+    <value>Reset Layout</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\BestFit\Value" xml:space="preserve">
+    <value>Best Fit</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\HideText\Value" xml:space="preserve">
+    <value>Hide Text</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Rename\Value" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\ShowText\Value" xml:space="preserve">
+    <value>Show Text</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\TextPosition\Value" xml:space="preserve">
+    <value>Text Position</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Top\Value" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Left\Value" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\MakeCollapsible\Value" xml:space="preserve">
+    <value>Make Collapsible</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\MakeNoncollapsible\Value" xml:space="preserve">
+    <value>Make Noncollapsible</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\ExpandGroup\Value" xml:space="preserve">
+    <value>Expand Group</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\CollapseGroup\Value" xml:space="preserve">
+    <value>Collapse Group</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\HideItem\Value" xml:space="preserve">
+    <value>Hide Item</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Group\Value" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Ungroup\Value" xml:space="preserve">
+    <value>Ungroup</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\CreateTabbedGroup\Value" xml:space="preserve">
+    <value>Create Tabbed Group</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\UngroupTabbedGroup\Value" xml:space="preserve">
+    <value>Ungroup Tabbed Group</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\DropSelected\Value" xml:space="preserve">
+    <value>Drop selected...</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Above\Value" xml:space="preserve">
+    <value>Above</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Below\Value" xml:space="preserve">
+    <value>Below</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Right\Value" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\Into\Value" xml:space="preserve">
+    <value>Into</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\ConvertSelectedGroupToTab\Value" xml:space="preserve">
+    <value>Convert Selected Group to Tab</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\ResetConfirmationMessage\Value" xml:space="preserve">
+    <value>You are about to reset your layout customizations. Do you want to proceed?</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\ContextMenu\ResetConfirmationTitle\Value" xml:space="preserve">
+    <value>Layout reset confirmation</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\TreeMenu\HeaderCustomization\Value" xml:space="preserve">
+    <value>Customization: </value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\TreeMenu\LayoutTreeView\Value" xml:space="preserve">
+    <value>Layout Tree View</value>
+  </data>
+  <data name="Non-calculated\Localization\VisualComponents\LayoutEditor\TreeMenu\HiddenItems\Value" xml:space="preserve">
+    <value>Hidden Items</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\ImagePropertyEditor\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\ImagePropertyEditor\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\LookupProperty\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\LookupProperty\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\ObjectProperty\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\ObjectProperty\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Boolean\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Boolean\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Byte\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Byte\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.DateTime\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:d}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.DateTime\DefaultEditMask" xml:space="preserve">
+    <value>d</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Decimal\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:C}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Decimal\DefaultEditMask" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Double\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:#,###,##0.##############################}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Double\DefaultEditMask" xml:space="preserve">
+    <value>#,###,##0.##############################</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Drawing.Image\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Drawing.Image\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Enum\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Enum\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Int16\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Int16\DefaultEditMask" xml:space="preserve">
+    <value>N0</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Int32\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Int32\DefaultEditMask" xml:space="preserve">
+    <value>N0</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Int64\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Int64\DefaultEditMask" xml:space="preserve">
+    <value>N0</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Single\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:#,###,##0.##############################}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Single\DefaultEditMask" xml:space="preserve">
+    <value>#,###,##0.##############################</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.String\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.String\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.TimeSpan\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.TimeSpan\DefaultEditMask" xml:space="preserve">
+    <value>([0-9]{1,5}\.)??(([0-9])|([0-1][0-9])|([2][0123])):[0-5][0-9]:[0-5][0-9](\.[0-9]{1,3})??</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Type\DefaultDisplayFormat" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.Type\DefaultEditMask" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.UInt16\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.UInt16\DefaultEditMask" xml:space="preserve">
+    <value>N0</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.UInt32\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.UInt32\DefaultEditMask" xml:space="preserve">
+    <value>N0</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.UInt64\DefaultDisplayFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
+  <data name="Non-calculated\ViewItems\PropertyEditors\System.UInt64\DefaultEditMask" xml:space="preserve">
+    <value>N0</value>
+  </data>
+</root>

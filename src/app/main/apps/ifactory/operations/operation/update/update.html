@@ -1,0 +1,217 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/ifactory/managament/o'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+                    <div class="h2">
+                        Yeni Operasyon Ekle
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>Operasyon Yönetim</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <mat-menu #menu="matMenu">
+                <button [disabled]=" this.isClick " (click)="updateOperations()" mat-menu-item>
+                    <span class="material-icons">
+                        sync_alt
+                    </span>
+                    <span> Güncelle</span>
+
+                </button>
+                <button [disabled]=" this.isClick " mat-menu-item (click)="deleteOperations()">
+                    <span class="material-icons">
+                        remove_circle
+                    </span>
+                    <span> Sil</span>
+
+                </button>
+            </mat-menu>
+            <button mat-raised-button class="add-product-button fuse-white mt-24 mt-md-0" mat-button [matMenuTriggerFor]="menu">
+                <span>İşlem</span>
+                <span class="material-icons">
+                    keyboard_arrow_down
+                </span>
+            </button>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+                <form name="newOperationForm" [formGroup]="newOperationForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+                        <mat-tab label="Basit Bilgiler">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div class="row">
+                                    <div class="col" fxFlex.gt-sm="30" style="margin: 10px;">
+
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Adı</mat-label>
+                                            <input matInput placeholder="Operasyon Adı" name="name" formControlName="name" required>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Kod</mat-label>
+                                            <input matInput placeholder="Operasyon Kodu" name="code" formControlName="code" required>
+                                        </mat-form-field>
+
+                                    </div>
+                                    <div class="col" fxFlex.gt-sm="30" style="margin: 10px;">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Kategori Tipi Seçiniz</mat-label>
+                                            <mat-select placeholder="Kategori Tipi" formControlName="workstation">
+                                                <mat-option *ngFor="let station of workStationList" value="{{station._id}}">
+                                                    {{station.name}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <mat-radio-group formControlName="type" aria-label="Select an option">
+                                            <mat-label>Operasyon Tipi * </mat-label><br><br>
+                                            <mat-radio-button value="0">Normal Operasyon </mat-radio-button><br>
+                                            <mat-radio-button value="1">Kalite Kontrol Operasyonu </mat-radio-button>
+                                            <br>
+                                        </mat-radio-group>
+
+                                    </div>
+                                </div>
+                                <div class="row" formGroupName="time">
+                                    <div class="col" fxFlex.gt-sm="30" style="margin: 10px;">
+
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Gün Giriniz</mat-label>
+                                            <input matInput placeholder="Gün Giriniz" type="number" name="day" formControlName="day" required>
+                                        </mat-form-field>
+
+
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Dakika Giriniz</mat-label>
+                                            <input matInput placeholder="Dakika Giriniz" type="number" name="day" formControlName="minute" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col" fxFlex.gt-sm="30" style="margin: 10px;">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Saat Giriniz</mat-label>
+                                            <input matInput placeholder="Saat Giriniz" type="number" name="hour" formControlName="hour" required>
+                                        </mat-form-field>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <mat-radio-group formControlName="operator_entery" aria-label="Select an option">
+                                        <mat-label>Operatörün Girmesi Gereken Değerler </mat-label><br><br>
+                                        <mat-radio-button value="1">Var </mat-radio-button><br>
+                                        <mat-radio-button value="0">Yok </mat-radio-button><br>
+                                    </mat-radio-group>
+
+
+                                    <div formArrayName="values" *ngIf="this.newOperationForm.value.operator_entery == '1'">
+                                        <div *ngFor="let item of OPERATORVALUES.controls; let pointIndex=index;index as i" [formGroupName]="pointIndex">
+
+                                            <div class="container" style="border: 1px solid;
+                                        padding: 12px;
+                                        border-color: #d7d1d1;" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+                                                <div class="item item-1" fxFlex="23%">
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>İşlem Adı</mat-label>
+                                                        <input matInput placeholder="İşlem Adı Giriniz" type="text" name="day" formControlName="name" required>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="item item-2" fxFlex="30%">
+
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>Birim</mat-label>
+                                                        <mat-select placeholder="Birim Seçiniz" formControlName="unite">
+                                                            <mat-option value="Adet">Adet</mat-option>
+                                                            <mat-option value="gr">Gram</mat-option>
+                                                            <mat-option value="kg">Kilogram</mat-option>
+                                                            <mat-option value="ton">Ton</mat-option>
+                                                            <mat-option value="ml">mililitre</mat-option>
+                                                            <mat-option value="l">litre</mat-option>
+                                                            <mat-option value="mm">milimetre</mat-option>
+                                                            <mat-option value="dm">desimetre</mat-option>
+                                                            <mat-option value="sm">santimetre</mat-option>
+                                                            <mat-option value="m">metre</mat-option>
+                                                            <mat-option value="km">kilometre</mat-option>
+                                                            <mat-option value="mil">mil</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="item item-3" fxFlex="37%">
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>Normal Değer</mat-label>
+                                                        <input matInput placeholder="Normal Değeri" type="text" name="day" formControlName="normalValue" required>
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>Min Değer</mat-label>
+                                                        <input matInput placeholder="Aralık Başlangıç" type="text" name="day" formControlName="minValue" required>
+                                                    </mat-form-field>
+                                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <mat-label>Max Değer</mat-label>
+                                                        <input matInput placeholder="Aralık Bitiş" type="text" name="day" formControlName="maxValue" required>
+                                                    </mat-form-field>
+
+                                                </div>
+                                                <div class="item item-3" fxFlex="10%">
+                                                    <dx-check-box formControlName="isOptional" [value]="true" [width]="80" text="Zorunlu">
+                                                    </dx-check-box><br><br>
+                                                    <button class="btn btn-secondary rounded-0 mr-1" (click)="AddOperatorValue()">Ekle</button>
+                                                    <button style="color:white;margin-top:5px;background-color: red;" *ngIf="pointIndex != 0" class="btn btn-secondary rounded-0 mr-1" (click)="DeleteOperatorValue(pointIndex)">X </button>
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+
+
+
+
+
+
+
+
+                    </mat-tab-group>
+
+
+
+                </form>
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

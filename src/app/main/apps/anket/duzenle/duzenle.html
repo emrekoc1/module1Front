@@ -1,0 +1,234 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/anket'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Yeni Anket</div>
+                    <div class="subtitle secondary-text">
+                        <span>Anket</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+
+
+
+            <button mat-raised-button class="save-product-button" (click)="addBatch()">
+                <span>EKLE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+
+                <mat-tab-group>
+
+                    <mat-tab label="Anket Bilgileri">
+                        <div *ngIf="data_geldi; else loading">
+                            <div class="tab-content p-24 anket" fusePerfectScrollbar>
+                                <h1>{{dataTamamlandi.anket_basligi}}</h1>
+                                <p>{{dataTamamlandi.anket_aciklama}}</p>
+                                <mat-slide-toggle  [(ngModel)]="dataTamamlandi.is_acitivite"  (change)="toggleAnketAktif(dataTamamlandi.anket_id,dataTamamlandi.is_acitivite)">Anket Aktif</mat-slide-toggle>
+
+                            </div>
+                            <div class="styleClass" *ngFor=" let dataSoru of dataTamamlandi.data ">
+                                <mat-label style="margin-left:5%;">{{dataSoru.soru_baslik}}</mat-label>
+
+                                <div class="sorular" *ngIf="dataSoru.soruType === 1 ">
+
+                                    <section *ngFor="let option of dataSoru.options" class="example-section">
+                                        <mat-checkbox class="example-margin"
+                                            (change)="cevapSecildi(dataSoru.soru_id, option.options,dataSoru.soruType,dataSoru.soru_baslik)">
+                                            <p> {{option.options}}</p>
+                                        </mat-checkbox>
+
+                                    </section>
+                                    <button mat-raised-button color="accent"
+                                        (click)="anketSoruGuncelle(dataSoru.soru_id)">SORUYU GÜNCELLE</button>
+                                        <button mat-raised-button color="accent"
+                                        (click)="anketSil(dataSoru.soru_id)">SORUYU SİL</button>
+                                    <div *ngIf ="guncelemeIstendi  && dataSoru.soru_id == secilenID">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Soru Başlığı</mat-label>
+                                            <input matInput [placeholder]="dataSoru.soru_baslik" name="name"
+                                                [(ngModel)]="dataSoru.soru_baslik" formControlName="soruText" required />
+                                        </mat-form-field>
+                                 
+
+                                        <div>
+                                            <div class="" *ngFor="let option of dataSoru.options">
+                                                <mat-label >
+                                                    {{option.options}}<br></mat-label>
+                                                <button mat-raised-button color="accent"
+                                        (click)="secenekSil(option.options_id)">SEÇENEĞİ SİL</button>
+                                        </div>
+                                          <br>
+
+                                            <mat-form-field>
+                                                <ng-container appearance="outline" floatLabel="always" class="w-100-p">
+                                                    <input matInput type="text" placeholder="Metin Cevabı"
+                                                        [(ngModel)]="soruCevabi"  required>
+                                                </ng-container>
+                                                <br>
+                                            </mat-form-field>
+                                            <button mat-raised-button class="save-product-button"
+                                                (click)="postOptions(dataTamamlandi.anket_id,dataSoru.soru_id,dataSoru.soruType,soruCevabi)">Yeni Ekle</button>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                                <div class="sorular" *ngIf="dataSoru.soruType === 4 ">
+                                    <mat-radio-group aria-label="Select an option">
+                                        <mat-radio-button *ngFor="let option of dataSoru.options"
+                                            (change)="cevapSecildi(dataSoru.soru_id, option.options,dataSoru.soruType,dataSoru.soru_baslik)"
+                                            [value]="option.options">
+                                            {{option.options}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                    <button mat-raised-button color="accent"
+                                        (click)="anketSoruGuncelle(dataSoru.soru_id)">SORUYU GÜNCELLE</button>
+                                        <button mat-raised-button color="accent"
+                                        (click)="anketSil(dataSoru.soru_id)">SORUYU SİL</button>
+                                        <div *ngIf ="guncelemeIstendi && dataSoru.soru_id == secilenID">
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Soru Başlığı</mat-label>
+                                                <input matInput [placeholder]="dataSoru.soru_baslik" name="name"
+                                                    [(ngModel)]="dataSoru.soru_baslik" formControlName="soruText" required />
+                                            </mat-form-field>
+                                     
+    
+                                            <div >
+                                                <div class="" *ngFor="let option of dataSoru.options">
+                                                    <mat-label >
+                                                        {{option.options}}<br></mat-label>
+                                                    <button mat-raised-button color="accent"
+                                            (click)="secenekSil(option.options_id)">SEÇENEĞİ SİL</button>
+                                            </div>
+                                            <mat-form-field>
+                                                <ng-container appearance="outline" floatLabel="always" class="w-100-p">
+                                                    <input matInput type="text" placeholder="Metin Cevabı"
+                                                        [(ngModel)]="soruCevabi"  required>
+                                                </ng-container>
+                                                <br>
+                                            </mat-form-field>
+                                            <button mat-raised-button class="save-product-button"
+                                                (click)="postOptions(dataTamamlandi.anket_id,dataSoru.soru_id,dataSoru.soruType,soruCevabi)">Yeni Ekle</button>
+                                        </div>
+                                        </div>
+
+                                </div>
+                                <div class="sorular" *ngIf="dataSoru.soruType === 2 ">
+                                    <mat-radio-group aria-label="Select an option">
+                                        <mat-radio-button *ngFor="let option of dataSoru.options"
+                                            (change)="cevapSecildi(dataSoru.soru_id, option.options,dataSoru.soruType,dataSoru.soru_baslik)"
+                                            [value]="option.options">
+                                            {{option.options}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                    <button mat-raised-button color="accent"
+                                        (click)="anketSoruGuncelle(dataSoru.soru_id)">SORUYU GÜNCELLE</button>
+                                        <button mat-raised-button color="accent"
+                                        (click)="anketSil(dataSoru.soru_id)">SORUYU SİL</button>
+                                        <div *ngIf ="guncelemeIstendi  && dataSoru.soru_id == secilenID">
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Soru Başlığı</mat-label>
+                                                <input matInput [placeholder]="dataSoru.soru_baslik" name="name"
+                                                    [(ngModel)]="dataSoru.soru_baslik" formControlName="soruText" required />
+                                            </mat-form-field>
+                                            
+                                            <div>
+                                                <div class="" *ngFor="let option of dataSoru.options">
+                                                    <mat-label >
+                                                        {{option.options}}<br></mat-label>
+                                                    <button mat-raised-button color="accent"
+                                            (click)="secenekSil(option.options_id)">SEÇENEĞİ SİL</button>
+                                            </div>
+                                              <br>
+    
+                                                <mat-form-field>
+                                                    <ng-container appearance="outline" floatLabel="always" class="w-100-p">
+                                                        <input matInput type="text" placeholder="Metin Cevabı"
+                                                            [(ngModel)]="soruCevabi"  required>
+                                                    </ng-container>
+                                                    <br>
+                                                </mat-form-field>
+                                                <button mat-raised-button class="save-product-button"
+                                                    (click)="postOptions(dataTamamlandi.anket_id,dataSoru.soru_id,dataSoru.soruType,soruCevabi)">Yeni Ekle</button>
+                                            </div>
+                                        </div>
+
+                                </div>
+                                <div class="sorular" *ngIf="dataSoru.soruType === 3 ">
+                                    <mat-form-field appearance="outline" floatLabel="always"
+                                        class="example-full-width w-100-p">
+                                        <mat-label></mat-label>
+                                        <textarea matInput
+                                            (input)="cevapGirildi(dataSoru.soru_id, $event.target.value,dataSoru.soru_baslik)"
+                                            placeholder="Cevabınızı Yazınız"></textarea>
+                                    </mat-form-field>
+
+                                    <button mat-raised-button color="accent"
+                                        (click)="anketSoruGuncelle(dataSoru.soru_id)">SORUYU GÜNCELLE</button>
+                                        <button mat-raised-button color="accent"
+                                        (click)="anketSil(dataSoru.soru_id)">SORUYU SİL</button>
+                                        <div *ngIf ="guncelemeIstendi  && dataSoru.soru_id == secilenID">
+                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                <mat-label>Soru Başlığı</mat-label>
+                                                <input matInput placeholder="Soru Başlığı" name="name"
+                                                    [(ngModel)]="soruBaslik" formControlName="soruText" required />
+                                            </mat-form-field>
+                                           
+    
+                                           
+                                            <ng-container >
+                                                <mat-label>Açık Uçlu Soru oluştur</mat-label>
+                                            </ng-container>
+                                          
+                                        </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="tab-content p-24 anket" #loading>
+                            <div *ngIf="!data_geldi">
+                                Anket Yükleniyor
+                            </div>
+
+                        </div>
+
+
+
+
+                    </mat-tab>
+
+
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

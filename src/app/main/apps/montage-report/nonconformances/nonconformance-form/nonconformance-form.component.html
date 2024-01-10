@@ -1,0 +1,339 @@
+<div id="shift" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/montage-report/nonconformances'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    dashboard
+                </mat-icon>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">
+                        Uygunsuzluk Ürün ve Malzeme Raporu Formu
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button type="submit" (click)="submitReport()">
+                <span>Kaydet</span>
+            </button>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <mat-tab-group>
+
+                    <mat-tab label="Genel Bilgiler">
+
+                        <form *ngIf="formForm" name="formForm" [formGroup]="formForm" class="w-100-p">
+
+                            <div fusePerfectScrollbar fxLayout="column" fxLayoutAlign="center" class="tab-content p-24">
+
+                                <div fxLayout="row" fxLayoutAlign="space-evenly">
+
+                                    <div fxLayout="column">
+                                        <mat-form-field appearance="outline" floatLabel="always">
+                                            <mat-label>Sipariş No.</mat-label>
+                                            <input matInput name="orderNumber" placeholder="Sipariş No."
+                                                formControlName="orderNumber" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always">
+                                            <mat-label>Stok No.</mat-label>
+                                            <input matInput name="stockNumber" placeholder="Stok No."
+                                                formControlName="stockNumber" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always">
+                                            <mat-label>Uygunsuzluk Adeti</mat-label>
+                                            <input matInput name="numberOfIncompatibility"
+                                                placeholder="Uygunsuzluk Adeti"
+                                                formControlName="numberOfIncompatibility" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always">
+                                            <mat-label>Seri Numarası</mat-label>
+                                            <input matInput name="serialNumber" placeholder="Seri Numarası"
+                                                formControlName="serialNumber" />
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div fxLayout="column">
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>İşEmri No.</mat-label>
+                                            <input matInput name="workOrderNumber" placeholder="İşEmri No."
+                                                formControlName="workOrderNumber" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Revizyon No.</mat-label>
+                                            <input matInput name="revisionNumber" placeholder="Revizyon No."
+                                                formControlName="revisionNumber" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>İşlem No.</mat-label>
+                                            <input matInput name="operationNumber" placeholder="İşlem No."
+                                                formControlName="operationNumber" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Tespit Edilen Bölüm</mat-label>
+                                            <input matInput name="department" placeholder="Tespit Edilen Bölüm"
+                                                formControlName="department" />
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div fxLayout="column">
+                                        <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                            <mat-label>Tarih</mat-label>
+                                            <input matInput name="formDate" [matDatepicker]="formDate"
+                                                placeholder="Tarih" formControlName="createdDate">
+                                            <mat-datepicker-toggle matSuffix [for]="formDate">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #formDate></mat-datepicker>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Parça Tanımı</mat-label>
+                                            <input matInput name="partDescription" placeholder="Parça Tanımı"
+                                                formControlName="partDescription" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Uygunsuzluk Tespit Eden</mat-label>
+                                            <input matInput name="createdUser" placeholder="Uygunsuzluk Tespit Eden"
+                                                formControlName="createdUser" />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                            <mat-label>Uygunsuzluk Bildirim No.</mat-label>
+                                            <input matInput name="uygunsuzlukBildirimNo"
+                                                placeholder="Uygunsuzluk Bildirim No."
+                                                formControlName="uygunsuzlukBildirimNo" />
+                                        </mat-form-field>
+                                    </div>
+
+                                </div>
+
+                                <div fxLayout="row" fxLayoutAlign="space-evenly">
+                                    <div class="h3 mr-8">Uygunsuzluk Tespit Edilen Aşama : </div>
+                                    <mat-radio-group name="stage" formControlName="stage"
+                                        aria-label="Uygunsuzluk Tespit Edilen Aşama">
+                                        <mat-radio-button value="Giriş Kalite">Giriş Kalite</mat-radio-button>
+                                        <mat-radio-button value="Ara Kontrol">Ara Kontrol</mat-radio-button>
+                                        <mat-radio-button value="Test">Test</mat-radio-button>
+                                        <mat-radio-button value="Üretim">Üretim</mat-radio-button>
+                                        <mat-radio-button value="Son Kontrol">Son Kontrol</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+
+                                <div class="mt-12" fxLayout="row" fxLayoutAlign="space-evenly">
+                                    <div class="h3 mr-8">Uygunsuzluk Sebebi : </div>
+                                    <mat-radio-group name="reasonForNonconformance"
+                                        formControlName="reasonForNonconformance" aria-label="Uygunsuzluk Sebebi">
+                                        <mat-radio-button value="İşçilik">İşçilik</mat-radio-button>
+                                        <mat-radio-button value="Revizyon">Revizyon</mat-radio-button>
+                                        <mat-radio-button value="Makine/Ekipman">Makine/Ekipman</mat-radio-button>
+                                        <mat-radio-button value="Üretim">Müşteri Kaynaklı</mat-radio-button>
+                                        <mat-radio-button value="Müşteri Kaynaklı">Malzeme</mat-radio-button>
+                                        <mat-radio-button value="Diğer">Diğer</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+
+                                <form *ngIf="materialReviewBoardForm" name="materialReviewBoardForm"
+                                    [formGroup]="materialReviewBoardForm">
+                                    <div class="h2 mt-12" fxFlexAlign="center">MALZEME İNCELEME KURULU ONAY</div>
+
+                                    <div fxLayout="column">
+                                        <div fxLayout="row" fxLayoutAlign="space-between">
+                                            <div class="h3 mr-8">Proje Sorumlusu : </div>
+                                            <mat-radio-group name="responsibleUserForProcect"
+                                                formControlName="responsibleUserForProcect" aria-label="Malzeme Onay">
+                                                <mat-radio-button value="Olduğu gibi kullan">Olduğu gibi kullan
+                                                </mat-radio-button>
+                                                <mat-radio-button value="Yeniden İşlem Yap">Yeniden İşlem Yap
+                                                </mat-radio-button>
+                                                <mat-radio-button value="İade">İade</mat-radio-button>
+                                                <mat-radio-button value="Hurda">Hurda</mat-radio-button>
+                                                <mat-radio-button value="Şartlı Kabul">Şartlı Kabul</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutAlign="space-between">
+                                            <div class="h3 mr-8">Kalite Sorumlusu : </div>
+                                            <mat-radio-group name="responsibleUserForQuality"
+                                                formControlName="responsibleUserForQuality" aria-label="Malzeme Onay">
+                                                <mat-radio-button value="Olduğu gibi kullan">Olduğu gibi kullan
+                                                </mat-radio-button>
+                                                <mat-radio-button value="Yeniden İşlem Yap">Yeniden İşlem Yap
+                                                </mat-radio-button>
+                                                <mat-radio-button value="İade">İade</mat-radio-button>
+                                                <mat-radio-button value="Hurda">Hurda</mat-radio-button>
+                                                <mat-radio-button value="Şartlı Kabul">Şartlı Kabul</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutAlign="space-between">
+                                            <div class="h3 mr-8">Giriş Kalite Sorumlusu : </div>
+                                            <mat-radio-group name="responsibleUserForInputQuality"
+                                                formControlName="responsibleUserForInputQuality"
+                                                aria-label="Malzeme Onay">
+                                                <mat-radio-button value="Olduğu gibi kullan">Olduğu gibi kullan
+                                                </mat-radio-button>
+                                                <mat-radio-button value="Yeniden İşlem Yap">Yeniden İşlem Yap
+                                                </mat-radio-button>
+                                                <mat-radio-button value="İade">İade</mat-radio-button>
+                                                <mat-radio-button value="Hurda">Hurda</mat-radio-button>
+                                                <mat-radio-button value="Şartlı Kabul">Şartlı Kabul</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutAlign="space-between">
+                                            <div class="h3 mr-8">Planlama Sorumlusu : </div>
+                                            <mat-radio-group name="responsibleUserForPlanning"
+                                                formControlName="responsibleUserForPlanning" aria-label="Malzeme Onay">
+                                                <mat-radio-button value="Olduğu gibi kullan">Olduğu gibi kullan
+                                                </mat-radio-button>
+                                                <mat-radio-button value="Yeniden İşlem Yap">Yeniden İşlem Yap
+                                                </mat-radio-button>
+                                                <mat-radio-button value="İade">İade</mat-radio-button>
+                                                <mat-radio-button value="Hurda">Hurda</mat-radio-button>
+                                                <mat-radio-button value="Şartlı Kabul">Şartlı Kabul</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutAlign="space-between">
+                                            <div class="h3 mr-8">Satınalma Sorumlusu : </div>
+                                            <mat-radio-group name="responsibleUserForPurchasing"
+                                                formControlName="responsibleUserForPurchasing"
+                                                aria-label="Malzeme Onay">
+                                                <mat-radio-button value="Olduğu gibi kullan">Olduğu gibi kullan
+                                                </mat-radio-button>
+                                                <mat-radio-button value="Yeniden İşlem Yap">Yeniden İşlem Yap
+                                                </mat-radio-button>
+                                                <mat-radio-button value="İade">İade</mat-radio-button>
+                                                <mat-radio-button value="Hurda">Hurda</mat-radio-button>
+                                                <mat-radio-button value="Şartlı Kabul">Şartlı Kabul</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-12" fxLayout="row" fxFlexAlign="center">
+                                        <div class="h3 mr-8">MALZEME İNCELEME KURULU KARAR : </div>
+                                        <mat-radio-group name="finalDecision" formControlName="finalDecision"
+                                            aria-label="Malzeme Karar">
+                                            <mat-radio-button value="Olduğu gibi kullan">Olduğu gibi kullan
+                                            </mat-radio-button>
+                                            <mat-radio-button value="Yeniden İşlem Yap">Yeniden İşlem Yap
+                                            </mat-radio-button>
+                                            <mat-radio-button value="İade">İade</mat-radio-button>
+                                            <mat-radio-button value="Hurda">Hurda</mat-radio-button>
+                                            <mat-radio-button value="Şartlı Kabul">Şartlı Kabul</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+
+                                </form>
+
+                                <div class="mt-12" fxLayout="row" fxFlexAlign="center">
+                                    <mat-checkbox fxFlexAlign="center" appearance="outline" floatLabel="always"
+                                        fxFlex="45" matInput name="cap" formControlName="cap">DÖF İsteği Başlatıldı Mı?
+                                    </mat-checkbox>
+                                    <mat-form-field *ngIf="formForm.value.cap" appearance="outline" floatLabel="always">
+                                        <mat-label>DÖF No.</mat-label>
+                                        <input matInput name="capNo" placeholder="DÖF No." formControlName="capNo" />
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                        <mat-label>Rapor Kapanış Tarihi</mat-label>
+                                        <input matInput name="reportClosingDate" [matDatepicker]="reportClosingDate"
+                                            placeholder="Rapor Kapanış Tarihi" formControlName="reportClosingDate">
+                                        <mat-datepicker-toggle matSuffix [for]="reportClosingDate">
+                                        </mat-datepicker-toggle>
+                                        <mat-datepicker #reportClosingDate></mat-datepicker>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always">
+                                        <mat-label>Kalite Sorumlusu</mat-label>
+                                        <input matInput name="responsibleUserForQuality" placeholder="Kalite Sorumlusu"
+                                            formControlName="responsibleUserForQuality" />
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </mat-tab>
+
+                    <mat-tab label="Uygunsuzluklar">
+
+                        <div fusePerfectScrollbar class="tab-content p-24">
+
+                            <button mat-raised-button class="mb-12" (click)="openNonConformanceDialog(null, false)">
+                                <span>Uygunsuzluk Ekle</span>
+                            </button>
+
+                            <dx-data-grid class="dx-card wide-card" [dataSource]="nonconformancesDataSource"
+                                [showBorders]="true" [focusedRowIndex]="0"
+                                [masterDetail]="{ enabled: true, template: 'detail' }" [columnAutoWidth]="true"
+                                [columnHidingEnabled]="true" [showRowLines]="true">
+
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]"
+                                    [showInfo]="true">
+                                </dxo-pager>
+
+                                <dxi-column dataField="reworkOrderNumber" caption="Rework Sıra No.">
+                                </dxi-column>
+                                <dxi-column dataField="discrepancyCode" caption="Hata Kodu">
+                                </dxi-column>
+                                <dxi-column dataField="description" caption="Tanım">
+                                </dxi-column>
+                                <dxi-column dataField="operations" caption="Yapılan İşlemler">
+                                </dxi-column>
+                                <dxi-column dataField="operatingUser" caption="İşlemi Gerçekleştiren">
+                                </dxi-column>
+                                <dxi-column dataField="responsibleUserForQuality" caption="Kalite Onay">
+                                </dxi-column>
+                                <dxi-column cellTemplate="düzenle" caption="Düzenle">
+                                </dxi-column>
+                                <dxi-column cellTemplate="sil" caption="Sil">
+                                </dxi-column>
+
+                                <div *dxTemplate="let data of 'düzenle'">
+                                    <button style="margin: 3px;color:white;background-color: #677790;height: 31px;"
+                                        (click)="openNonConformanceDialog(data.data, true)" type="button" class="btn ">
+                                        Düzenle
+                                    </button>
+                                </div>
+
+                                <div *dxTemplate="let data of 'sil'">
+                                    <button style="margin: 3px;color:white;background-color: #c80808;height: 31px;"
+                                        (click)="deleteNonconformance(data.data.reworkOrderNumber)" type="button" class="btn ">
+                                        Sil
+                                    </button>
+                                </div>
+
+                            </dx-data-grid>
+                        </div>
+                    </mat-tab>
+
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

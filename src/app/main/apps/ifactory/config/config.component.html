@@ -1,0 +1,117 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Departmanlar
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button (click)="openDialog(addDepartmant,'auto')"
+                class="add-product-button fuse-white mt-24 mt-md-0">
+                <span>Yeni Departman Ekle</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto;
+        padding: 10px;">
+
+            <mat-tab-group>
+                <mat-tab label="{{departman.name}}" *ngFor="let departman of departmant_list">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <app-departmans [data]="departman"></app-departmans>
+
+                    </div>
+
+                </mat-tab>
+
+            </mat-tab-group>
+
+            <ng-template #addDepartmant>
+                <div class="modal-body bg-gray">
+                    <div class="row">
+                        <div class="col-12 vertical-tabs">
+                            <div class="tab-content col-12 border-0">
+                                <div class="tab-pane active">
+                                    <div class="row">
+                                        <div class="col" fxFlex.gt-sm="100" style="margin: 10px;">
+            
+                                        
+                                            <form [formGroup]="registerForm">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <small
+                                                                class="text-muted"><strong>Fabrika:</strong>{{this.factory_informations.name}}.</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+            
+                                                        <div class="form-group">
+                                                           
+                                                            <mat-label class="text-gray">Telefon No</mat-label> 
+                                                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+            
+                                                            <input matInput formControlName="tel"
+                                                                [ngClass]="{ 'is-invalid': submitted && f.tel.errors }"
+                                                                class="form-control validation-field" #tel type="text" placeholder="Telefon No" >
+                                                            
+                                                            </mat-form-field>
+                                                            <div *ngIf="submitted && f.tel.errors" class="invalid-feedback"> 
+                                                               
+                                                                <div *ngIf="f.tel.errors.required">
+                                                                    Telefon Numarası Gereklidir .
+                                                                </div>
+                                                            </div>
+                                                            <small class="text-muted"><strong>Not:</strong>Telefon Numarası
+                                                                .</small>
+                                                          
+            
+                                                        </div>
+                                                     
+                                                    </div>
+                                            
+                                                </div>
+                                            </form>
+            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 bg-white text-center py-1">
+                                <button class="btn btn-success mr-1" type="submit"
+                                (click)="addDep($event,tel.value)"><span>Ekle</span></button>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

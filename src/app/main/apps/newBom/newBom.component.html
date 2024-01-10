@@ -1,0 +1,423 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div *ngIf="is_load_data == true && recete_ekran_ac==false && is_operasyon_data ==false">
+
+                </div>
+                <div *ngIf="is_load_data == false && recete_ekran_ac==true &&is_operasyon_data ==false">
+                    <button mat-icon-button class="mr-0 mr-sm-16" (click)="is_load_data=true;recete_ekran_ac=false" [routerLink]="'/apps/newBom'">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+                </div>
+                <div *ngIf="is_load_data == false && recete_ekran_ac==false && is_operasyon_data ==true">
+                    <button mat-icon-button class="mr-0 mr-sm-16" (click)="is_load_data=true;is_operasyon_data=false" [routerLink]="'/apps/newBom'">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+                </div>
+
+
+                <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+                    <div class="h2" *ngIf="is_load_data == true && recete_ekran_ac==false && is_operasyon_data ==false">
+                        Reçetelerini Yönet
+                        <div class="subtitle secondary-text">
+                            <span>Operasyon Detaylandırma</span>
+                        </div>
+                    </div>
+                    <div class="h2" *ngIf="is_load_data == false && recete_ekran_ac==true && is_operasyon_data ==false">
+                        Yeni Reçete Oluştur
+                        <div class="subtitle secondary-text">
+
+                        </div>
+                    </div>
+                    <div class="h2" *ngIf="is_load_data == false && recete_ekran_ac==false && is_operasyon_data ==true">
+                        Reçeteye Yeni Rota Ekle
+                        <div class="subtitle secondary-text">
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+
+
+            <mat-form-field class="example-form-field" appearance="outline">
+
+
+                <input #myInput matInput type="text" (input)="filterItem(myInput.value)" placeholder="Reçete Ara">
+                <button mat-button matSuffix mat-icon-button aria-mat-label="Clear" (click)="getAllBomsByFactory()">
+                    <mat-icon>close</mat-icon>
+                </button>
+
+            </mat-form-field>
+
+
+
+            <section>
+                <!--  -->
+                <mat-label>YENİ REÇETE OLUŞTUR</mat-label>
+                <div class="example-flex-container">
+                    <div class="example-button-container">
+                        <button mat-fab color="primary" (click)="receteOlusturEkran()" aria-mat-label="Example icon button with a add icon">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+
+
+                </div>
+
+            </section>
+
+            <!-- / APP TITLE -->
+
+
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+                <div *ngIf="is_load_data == true && recete_ekran_ac==false && is_operasyon_data ==false">
+                    <dx-data-grid id="gridContainer" [dataSource]="rows" [columnAutoWidth]="true" [masterDetail]="{ enabled: true, template: 'detail' }" keyExpr="_id" [showBorders]="true">
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+                        <dxi-column dataField="name" caption="Reçete"></dxi-column>
+                        <dxi-column cellTemplate="product" caption="Ürünler"></dxi-column>
+                        <dxi-column cellTemplate="date1" caption="Toplam Süre"></dxi-column>
+                        <dxi-column cellTemplate="operations" caption="Operayon"></dxi-column>
+                        <dxi-column cellTemplate="islem" caption="İşlem"></dxi-column>
+                        <div *dxTemplate="let datalar of 'product'">
+                            {{datalar.data.productName}}
+                        </div>
+                        <div *dxTemplate="let datalar of 'date1'">
+                            {{datalar.data.estTime | exponentialStrength}}
+                        </div>
+                        <div *dxTemplate="let datalar of 'operations'">
+                            <div *ngIf="datalar.data.route">
+                                <h5>{{ datalar.data.route.length}} <small>Operasyon</small></h5>
+                            </div>
+                        </div>
+                        <div *dxTemplate="let datalar of 'islem'">
+                            <button mat-fab class="cyan" (click)="this.selectedBomName = datalar.data.name;this.selectedBomID = datalar.data._id;bomaRoutaEkleme();this.getAllProductionByFactory(datalar.data)" aria-mat-label="Example icon button with a add icon">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <!-- <button
+                        (click)="this.selectedBomName = datalar.data.name;this.selectedBomID = datalar.data._id;openDialog(addYeniRoute,'auto');this.getAllProductionByFactory(datalar.data)"
+                        style="background-color:#52c6db;color:white" type="button" class="btn">
+                        <i class="fa fa-plus"></i>
+                    </button> -->
+                            <button mat-fab class="primary" ((click)="this.selectedBomName = datalar.data.name;this.selectedBomID = datalar.data._id;openDialog(updateRecete,'auto')" aria-mat-label="Example icon button with a edit icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+
+                            <button mat-fab class="warn" (click)="this.selectedBomName = datalar.data.name;this.selectedBomID = datalar.data._id;deleteBom()" aria-mat-label="Example icon button with a delete icon">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+
+                        </div>
+                        <div *dxTemplate="let a of 'detail'">
+
+                            <div *ngIf="a.data.route">
+                                <dx-data-grid [dataSource]="a.data.route" [showBorders]="true" [columnAutoWidth]="true">
+                                    <dxi-column cellTemplate="operation" caption="Operasyon"></dxi-column>
+                                    <dxi-column cellTemplate="input" caption="Girdi Ürün"></dxi-column>
+                                    <dxi-column cellTemplate="input_adet" caption="Adet"></dxi-column>
+                                    <dxi-column cellTemplate="output" caption="Çıkan Ürün"></dxi-column>
+                                    <dxi-column cellTemplate="output_adet" caption="Adet"></dxi-column>
+                                    <dxi-column cellTemplate="tahmini" caption="tahmin"></dxi-column>
+                                    <dxi-column cellTemplate="islem1" caption="İşlem"></dxi-column>
+
+                                    <div *dxTemplate="let datalar of 'operation'">
+                                        {{datalar.data.operation.name}}
+
+                                    </div>
+                                    <div *dxTemplate="let datalar of 'input'">
+                                        {{datalar.data.input.name}}
+
+                                    </div>
+                                    <div *dxTemplate="let datalar of 'input_adet'">
+
+                                        {{datalar.data.input.adet}}
+
+                                    </div>
+                                    <div *dxTemplate="let datalar of 'output'">
+                                        {{datalar.data.output.name}}
+                                    </div>
+                                    <div *dxTemplate="let datalar of 'output_adet'">
+                                        {{datalar.data.output.adet}}
+                                    </div>
+                                    <div *dxTemplate="let datalar of 'tahmini'">
+                                        <small>{{datalar.data.operation.estTime|exponentialStrength}}</small>
+                                    </div>
+                                    <div *dxTemplate="let datalar of 'islem1'">
+                                        <a style="cursor: pointer;color: #ea5b5b;" (click)="deleteRouteinsidebom(a.data._id,datalar.data.operation.id,datalar.data.operation.count)" class="cancel" aria-mat-label="Example icon button with a delete icon">
+                                            <mat-icon>delete</mat-icon>
+                                        </a>
+                                    </div>
+
+                                </dx-data-grid>
+
+                            </div>
+
+                        </div>
+                    </dx-data-grid>
+                </div>
+
+                <div *ngIf="recete_ekran_ac == true && is_load_data == false && is_operasyon_data==false">
+
+                    <div class="content">
+
+
+                        <form name="newBom" [formGroup]="newBom" class="product w-100-p" fxLayout="column" fxFlex>
+
+                            <mat-tab-group>
+                                <mat-tab mat-label="Basit Bilgiler">
+                                    <div class="tab-content p-24" fusePerfectScrollbar>
+                                        <mat-form-field appearance="outline" floatmat-label="always" class="w-100-p">
+                                            <mat-label>Reçete Adı</mat-label>
+                                            <input matInput placeholder="Reçete Adı" name="name" formControlName="name" required>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="outline" floatmat-label="always" class="w-100-p">
+                                            <mat-label>Nihai Parça/Ürün Seçiniz</mat-label>
+                                            <mat-select placeholder="Seçilen Ürün" formControlName="product">
+                                                <mat-option *ngFor="let product of this.productWithoutBomList" value="{{product._id}}">{{product.name}}</mat-option>
+
+                                            </mat-select>
+                                        </mat-form-field>
+
+
+                                        <mat-form-field appearance="outline" floatmat-label="always" class="w-100-p">
+                                            <mat-label>Aselsan Birim Seçiniz</mat-label>
+                                            <mat-select placeholder="Reçete Hizmet Tipi" formControlName="custom_bom">
+                                                <mat-option *ngFor="let custom of this.customData[0].customBoms" value="{{custom.id}}">{{custom.name}}</mat-option>
+
+                                            </mat-select>
+                                        </mat-form-field>
+
+
+                                    </div>
+
+
+                                </mat-tab>
+
+                            </mat-tab-group>
+
+                        </form>
+                        <button mat-raised-button class="save-product-button" (click)="add_new_bom()">
+                <span>EKLE</span>
+            </button>
+
+                    </div>
+                </div>
+
+                <div *ngIf="recete_ekran_ac == false && is_load_data == false && is_operasyon_data==true">
+                    <div class="content">
+                        <h4>{{selectedBomName |uppercase}}'ye route ekle</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col" fxFlex.gt-sm="100" style="margin: 10px;">
+                            <mat-card>
+                                <mat-card-content>
+
+
+                                    <section class="example-section">
+
+                                        <mat-radio-group [(ngModel)]="bomTypeSelect">
+                                            <mat-radio-button value="ParlatmaBasla" (change)="bomParlatmaStart()">
+                                                Parlatma Operasyonu
+                                            </mat-radio-button>
+                                            <br>
+                                            <mat-radio-button class="example-margin" value="Tumu">
+                                                Üretim Tüm Operasyonlar
+                                            </mat-radio-button>
+                                            <br>
+                                            <mat-radio-button class="example-margin" value="CentringHarici">
+                                                Centring Harici
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </section>
+
+
+                                </mat-card-content>
+                            </mat-card>
+
+                            <mat-card class="result">
+                                <mat-card-content>
+                                    <h2 class="example-h2">Result</h2>
+
+                                    <section class="example-section">
+                                        <div *ngIf="bomTypeSelect == 'ParlatmaBasla'">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>ÜRÜN SEÇİNİZ</mat-label>
+                                                        <mat-select [(value)]="selectProduct" [(ngModel)]="selectProduct" (ngModelChange)="selectItemsFonc($event)" (change)="gecici_urun_olustur(myInput1.value,myInput2.value,'null','null',pointIndex)" class="form-control custom-select">
+                                                            <mat-option value="{{product._id}},{{product.name}}" *ngFor="let product of productWithoutBomList; let i = index">
+                                                                {{product.name}} </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col">
+                                                    {{ilk_Operation.name}}/{{ilk_Operation.type}}
+                                                    <br> {{ikinci_Operation.name}}/{{ikinci_Operation.type}}
+                                                    <br> {{ucuncu_Operation.name}}/{{ucuncu_Operation.type}}
+                                                    <br> {{dorduncu_Operation.name}}/{{dorduncu_Operation.type}}
+                                                    <br> {{besinci_Operation.name}}/{{besinci_Operation.type}}
+                                                    <br> {{altinci_Operation.name}}/{{altinci_Operation.type}}
+                                                    <br>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div *ngIf="bomTypeSelect == 'Tumu'">
+                                            data geldi Tumu
+                                        </div>
+                                        <div *ngIf="bomTypeSelect == 'CentringHarici'">
+                                            data geldi CentringHarici
+                                        </div>
+                                    </section>
+                                </mat-card-content>
+                            </mat-card>
+                            <form [formGroup]="productForm" (ngSubmit)="yeni_route_ekle()">
+
+                                <div formArrayName="selling_points">
+                                    <div *ngFor="let item of sellingPoints.controls; let pointIndex=index;index as i" [formGroupName]="pointIndex">
+                                        <div class="form-group">
+                                            <div style="border: 1px solid;/* border-left-width: 12px; */border-color: #c1c1c1;">
+                                                <div class="row form-row" style="margin: 10px;">
+                                                    <div class="col" fxFlex.gt-sm="30" style="margin: 10px;">
+                                                        <mat-label class="text-gray">OPERASYON </mat-label>
+                                                        <mat-form-field appearance="outline" floatmat-label="always" class="w-100-p">
+                                                            <mat-select formControlName="operasyonAdi" #myInput1 [ngClass]="{ 'is-invalid': submitted && item.get('operasyonAdi').errors }" (change)="gecici_urun_olustur(myInput1.value,'null','null','null',pointIndex)" class="form-control custom-select" #input_operationID>
+                                                                <mat-option value="{{operation._id}},{{operation.name}},{{operation.code}},{{operation.time}},{{operation.type}}" *ngFor="let operation of OperationList; let i = index">
+                                                                    <div *ngIf="operation.type == 0">{{operation.name}} Normal Operasyon</div>
+                                                                    <div *ngIf="operation.type == 1">{{operation.name}} Kalite Kontrol</div>
+
+                                                                </mat-option>
+
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div *ngIf="submitted && item.get('operasyonAdi').errors" class="invalid-feedback">
+                                                            <div *ngIf="item.get('operasyonAdi').errors.required">
+                                                                Operasyon Adı Gereklidir
+                                                            </div>
+                                                        </div>
+                                                        <small class="text-muted"><strong>Not:</strong>Operasyon.</small>
+                                                    </div>
+
+                                                    <div class="col" fxFlex.gt-sm="30" style="margin: 10px;">
+                                                        <mat-label class="text-gray">GİREN ÜRÜN </mat-label>
+                                                        <mat-form-field appearance="outline" floatmat-label="always" class="w-100-p">
+
+
+                                                            <mat-select formControlName="girdiUrun" #myInput2 [ngClass]="{ 'is-invalid': submitted && item.get('girdiUrun').errors }" (change)="gecici_urun_olustur(myInput1.value,myInput2.value,'null','null',pointIndex)" class="form-control custom-select">
+                                                                <mat-option value="{{product._id}},{{product.name}}" *ngFor="let product of productWithoutBomList; let i = index">
+                                                                    {{product.name}} </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        <div *ngIf="submitted && item.get('girdiUrun').errors" class="invalid-feedback">
+                                                            <div *ngIf="item.get('girdiUrun').errors.required">
+                                                                Giren Ürün Gereklidir .
+                                                            </div>
+                                                        </div>
+                                                        <small class="text-muted"><strong>Not:</strong>Giren Ürün.
+                                                                <strong
+                                                                    (click)="openDialog(addStokTakibi,'auto')">ekle</strong></small>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col" fxFlex.gt-sm="30" style="margin: 10px;">
+                                                        <mat-label class="text-gray">ÇIKAN ÜRÜN </mat-label>
+
+                                                        <select *ngIf="!this.editedActived" formControlName="ciktiUrun" [ngClass]="{ 'is-invalid': submitted && item.get('ciktiUrun').errors }" class="form-control custom-select">
+                                                                <option value='999'>{{this.cikti_urunu_duzenli}}</option>
+                                                                <option value="{{product._id}},{{product.name}}" *ngFor="let product of productList; let i = index">
+                                                                    {{product.name}} </option>
+                                                            </select>
+
+                                                        <input *ngIf="this.editedActived" (input)="changeInputCiktiUrun($event.target.value)" placeholder="Çıkan Ürün Değiştiriniz" class="form-control" type="text" />
+                                                        <div *ngIf="submitted && item.get('ciktiUrun').errors" class="invalid-feedback">
+                                                            <div *ngIf="item.get('ciktiUrun').errors.required">
+                                                                Çıktı Ürün Gereklidir .
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <button style="margin: 3px;color:white;background-color: #677790;height: 31px;" *ngIf="!this.editedActived" class="btn btn-sm btn-success" (click)="this.editedActived=true;this.butona_basildi=true;">edit</button>
+                                                        <button style="margin: 3px;color:white;background-color: #00d9ff;height: 31px;" *ngIf="this.editedActived" class="btn btn-sm btn-primary" type="button" (click)="saveNewCiktiUrun(pointIndex);this.editedActived=false;this.butona_basildi=false;">Save</button>
+                                                        <button style="margin: 3px;color:white;background-color: red;height: 31px;" *ngIf="this.editedActived" class="btn btn-sm btn-danger" (click)="this.editedActived=false;">Cancel</button><br>
+                                                        <small class="text-muted"><strong>Not:</strong>Çıtkı
+                                                            Ürün.</small>
+                                                    </div>
+
+
+                                                </div>
+                                                <!--
+                                                            <div class="col-xl-1" style="text-align:right">
+                                                                <button class="btn btn-secondary rounded-0 mr-1" (click)="addSellingPoint()"><i class="fa fa-plus"></i></button>
+                                                                <button class="btn btn-secondary rounded-0 mr-1" (click)="deleteSellingPoint(pointIndex)"><i class="fa fa-trash"></i></button>
+                                                            </div>
+                                                        -->
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button [disabled]="butona_basildi" style="margin: 3px;color:white;background-color: #677790;height: 31px;" class="btn btn-block btn-secondary">ÜRÜN ROTASI
+                                        EKLE</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- / CONTENT -->
+
+
+
+
+
+
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

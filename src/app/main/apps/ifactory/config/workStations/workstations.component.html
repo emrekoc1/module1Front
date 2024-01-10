@@ -1,0 +1,9 @@
+<div class="work_stations" style="margin-top:16px" *ngFor="let station of data">
+    <div class="header">
+        İş İst.  : {{station.name}}
+    </div>
+    <div class="body">
+        <app-machines [data]="station.machines"></app-machines>
+    </div>
+    
+</div>

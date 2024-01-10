@@ -1,0 +1,172 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Montaj Reçete Yönetimi
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button [routerLink]="'/apps/montage/bom/single-bom'"
+                class="add-product-button fuse-white mt-24 mt-md-0">
+                <span>Yeni Reçete Ekle</span>
+            </button>
+
+
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto;
+        padding: 10px;">
+
+            <dx-data-grid class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true" [focusedRowIndex]="0"
+                [masterDetail]="{ enabled: true, template: 'detail' }" [columnAutoWidth]="true"
+                [columnHidingEnabled]="true" [showRowLines]="true">
+                <dxo-paging [pageSize]="10"></dxo-paging>
+                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]" [showInfo]="true">
+                </dxo-pager>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+                <dxi-column dataField="name" caption="Reçete Adı"></dxi-column>
+                <dxi-column cellTemplate="createdDate"  caption="Oluşturma Tarihi"></dxi-column>
+                <dxi-column cellTemplate="test_operations"  caption="Test Operasonlar"></dxi-column>
+                <dxi-column cellTemplate="qq_operations"  caption="Kalite K. Operayonlar"></dxi-column>
+                <dxi-column cellTemplate="check_list"  caption="Check List"></dxi-column>
+
+                <dxi-column cellTemplate="islem" caption="Reçeteye Git"></dxi-column>
+                <div *dxTemplate="let data of 'test_operations'">
+                    {{data.data.test_operations.length}}
+                </div>
+                <div *dxTemplate="let data of 'qq_operations'">
+                    {{data.data.quality_control_operations.length}}
+                </div>
+                <div *dxTemplate="let data of 'check_list'">
+                    {{data.data.check_list.length}}
+                </div>
+                <div *dxTemplate="let data of 'createdDate'">
+                    {{data.data.createdDate |date:'medium'}}
+                </div>
+                <div *dxTemplate="let data of 'islem'">
+                    <a [routerLink]="['/apps/montage/bom/single-bom',data.data._id]">Reçeteye Git</a>
+                </div>
+                <div *dxTemplate="let data of 'detail'">
+                    <div class="details-bom">
+                        <div class="qq_operations">
+                            <h6>Kalite Kontrol Operasyonları</h6>
+                            <dx-data-grid [dataSource]="data.data.quality_control_operations" [showBorders]="true" [columnAutoWidth]="true">
+                                <dxi-column cellTemplate="operation" caption="Operasyon"></dxi-column>
+                                <div *dxTemplate="let datalar of 'operation'">
+                                    {{datalar.data.operation.name}}
+                                </div>
+                            </dx-data-grid>
+                        </div>
+                        <div class="test_operations">
+                            <h6>Test Operasyonları</h6>
+                            <dx-data-grid [dataSource]="data.data.test_operations" [showBorders]="true" [columnAutoWidth]="true">
+                                <dxi-column cellTemplate="operation" caption="Operasyon"></dxi-column>
+                                <dxi-column cellTemplate="percente" caption="Test Yüzdesi"></dxi-column>
+                                <div *dxTemplate="let datalar of 'operation'">
+                                    {{datalar.data.operation.name}}
+                                </div>
+                                <div *dxTemplate="let datalar of 'percente'">
+                                    %{{datalar.data.test_quantity_percentage}}
+                                </div>
+                            </dx-data-grid>
+                        </div>
+                        <div class="check_list">
+                            <h6>Check List</h6>
+                            <dx-data-grid [dataSource]="data.data.check_list" [showBorders]="true" [columnAutoWidth]="true">
+                                <dxi-column cellTemplate="desc" caption="Açıklama"></dxi-column>
+                                <div *dxTemplate="let datalar of 'desc'">
+                                    {{datalar.data.desc}}
+                                </div>
+                            </dx-data-grid>
+                        </div>
+                    </div>
+                </div>
+
+            </dx-data-grid>
+
+            <div class="row">
+                <div class="col-xl-4" *ngFor="let bom of newBomList;index as j">
+
+                    <div class="card">
+                        <div class="card-header" style="display: flex;justify-content: space-between;">
+                            <h5>{{bom.name}}</h5>
+                            <button class="btn btn-danger btn-sm"
+                                (click)="this.selectedBomId = bom.i_id;openDialog(delete_bom)"> <i
+                                    class="fa fa-times"></i> </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="img">
+                                <div class="row" style="display: flex;justify-content: center;">
+                                    <div class="box" *ngFor="let part of bom.parts;let i=index">
+                                        <span *ngIf="part.partType==0">{{i}}</span>
+                                        <span *ngIf="part.partType==1">{{i}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <div class="description">
+                                    <p>{{ bom.parts.length }} ' parçalı reçete</p>
+                                </div>
+                                <div class="button">
+                                    <button class="btn btn-success btn-sm"
+                                        [routerLink]="['/apps/montage/bom/single-bom',bom._id]">REÇETE <i
+                                            class="fa fa-arrow-right"></i> </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                </div>
+
+            </div>
+
+            <ng-template #delete_bom>
+                Bu Reçete Silinemez Lütfen Reçeteyi Değiştiriniz .
+            </ng-template>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>
+
+<ng-template #updateNewBom>
+    <div class="modal-body bg-gray">
+        <div class="row">
+            <div class="col-12 vertical-tabs">
+                <div class="tab-content col-12 border-0">
+                    <div class="tab-pane active">
+                        updateNewBom
+                    </div>
+                </div>
+                <div class="col-xl-12 bg-white text-center py-1">
+                    updateNewBom
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,45 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+    <div class="menu">
+        <div class="icerik">
+            <ul>
+                <li [ngClass]="{ 'secilenClass': secilenMenu === 'Home' }" (click)="menuSecilen('Home')">Anasayfa</li>
+                <li [ngClass]="{ 'secilenClass': secilenMenu === 'Birim Ozel' }" (click)="menuSecilen('Birim Ozel')">Birim Özel</li>
+                <li [ngClass]="{ 'secilenClass': secilenMenu === 'Personel' }" (click)="menuSecilen('Personel')">Personel</li>
+                <li [ngClass]="{ 'secilenClass': secilenMenu === 'Takvim' }" (click)="menuSecilen('Takvim')">Takvim</li>
+                <li [ngClass]="{ 'secilenClass': secilenMenu === 'Dokuman' }" (click)="menuSecilen('Dokuman')">Doküman</li>
+            </ul>
+        </div>
+    </div>
+    <div class="center">
+       
+        <div class="content-card"   style="overflow-y: auto;">
+          <div *ngIf="secilenMenu === 'Home'">
+            <h4 style="text-align: center; vertical-align: center; font-size: large; font-weight: bold;">Birim İçi Haberler</h4>
+            <app-birim-home ></app-birim-home>
+          </div>
+          <div *ngIf="secilenMenu === 'Dokuman'">
+            <h4 style="text-align: center; vertical-align: center; font-size: large; font-weight: bold;">Birim İçi Dokumanlar</h4>
+            <app-departman-evrak-dokuman ></app-departman-evrak-dokuman>
+           
+          </div>
+          <div *ngIf="secilenMenu === 'Takvim'">
+            <h4 style="text-align: center; vertical-align: center; font-size: large; font-weight: bold;">Birim İçi Takvim</h4>
+            <img src="/assets/images/calismavar.jpg" alt="Resim">
+          </div>
+          <div *ngIf="secilenMenu === 'Personel'">
+            <h4 style="text-align: center; vertical-align: center; font-size: large; font-weight: bold;">Birim Personelleri</h4>
+            <img src="/assets/images/calismavar.jpg" alt="Resim">
+          </div>
+          <div *ngIf="secilenMenu === 'Birim Ozel'">
+            <h4 style="text-align: center; vertical-align: center; font-size: large; font-weight: bold;">Birim Personelleri</h4>
+             <app-birim-ozel ></app-birim-ozel>
+          </div>
+        
+
+
+          
+        </div>
+        <!-- / CENTER -->
+    </div>
+
+</div>

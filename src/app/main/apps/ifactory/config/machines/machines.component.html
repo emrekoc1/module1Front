@@ -1,0 +1,14 @@
+
+
+<div class="machines" >
+   <div class="machine" *ngFor="let machines of data">
+    <div class="header" (click)="this.openDialog(delete_machine_from_work_station_form);this.selected_machine_data= machines">
+        {{machines.name}}
+    </div>
+   </div>
+</div>
+
+<ng-template #delete_machine_from_work_station_form>
+    <p>Adı  : {{this.selected_machine_data.name}}</p>
+    <p>Kod : {{this.selected_machine_data.machineNumber}}</p>
+</ng-template>

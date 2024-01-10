@@ -1,0 +1,60 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+    
+            <!-- <span style="color:#000">Yeni Montaj Siparişi Ekle</span>
+        </button> -->
+            <!-- / ADD BUTTON -->
+      
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto; padding: 10px">
+            <div class="row">
+            
+               
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="h-300 w-100-p" fxLayoutAlign="center" style="padding: 10px;">
+                            <dx-data-grid id="gridContainer" title="Bordo Bilgileri" [dataSource]="calisma" keyExpr=""
+                                [showBorders]="true">
+
+                                <dxo-selection mode="single"></dxo-selection>
+
+                                <dxi-column dataField="user_name" width="15%" caption="Adı Soyadı"></dxi-column>
+                                <dxi-column dataField="user_sicil" width="15%" caption="TCKN"></dxi-column>
+                                <dxi-column dataField="kanun" width="15%" caption="Kanun"></dxi-column>
+                                <dxi-column dataField="ucret" width="15%" caption="Ücret G/S"></dxi-column>
+                                <dxi-column dataField="aylik_ucret" width="15%" caption="Aylık Ücret"></dxi-column>
+                                <dxi-column dataField="t_gun" width="15%" caption="T.Gün"></dxi-column>
+                                <dxi-column dataField="ssk_m" width="15%" caption="SSK M."></dxi-column>
+                                <dxi-column dataField="ssk_isc" width="15%" caption="SSK İşçi"></dxi-column>
+                                <dxi-column dataField="iss_isci" width="15%" caption="İşs.P.İşçi"></dxi-column>
+                                <dxi-column dataField="gvm" width="15%" caption="G.V.M"></dxi-column>
+                                <dxi-column dataField="gel_ver" width="15%" caption="Gel.Ver."></dxi-column>
+                                <dxi-column dataField="agi" width="15%" caption="AGİ"></dxi-column>
+                                <dxi-column dataField="ozel" width="15%" caption="Öz.Kesinti"></dxi-column>
+                                <dxi-column dataField="damga" width="15%" caption="Damga V"></dxi-column>
+                                <dxi-column dataField="net" width="15%" caption="N.Ödenen"></dxi-column>
+
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+
+
+
+                            </dx-data-grid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

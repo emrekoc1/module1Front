@@ -1,0 +1,71 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/home'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">duyru Raporları</div>
+                    <div class="subtitle secondary-text">
+                        <span>duyrular</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+
+
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+
+                <mat-tab-group>
+
+                    <mat-tab label="duyru Raporları">
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            <div id="printable" style="width: 1200px; height: 1000px;" fxLayout="row wrap"
+                                fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+                                <div class="course" style="padding: 1;height: 20rem;" fxFlex="100" fxFlex.gt-xs="100"
+                                    fxFlex.gt-sm="100" [@animate]="{value:'*',params:{y:'100%'}}">
+
+                                    <dx-data-grid id="gridContainer" title="Okunan Duyru" [dataSource]="dataSource"
+                                        keyExpr="" [showBorders]="true">
+
+                                        <dxo-selection mode="single"></dxo-selection>
+                                        <dxi-column dataField="user_name" width="30%" caption="İstek Sahibi"></dxi-column>
+                                        <dxi-column dataField="baslik" width="30%" caption="Baslık"></dxi-column>
+                                        <dxi-column dataField="aciklama" width="50%" caption="Açıklama"></dxi-column>
+                                        <dxo-paging [pageSize]="10"></dxo-paging>
+
+                                    </dx-data-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

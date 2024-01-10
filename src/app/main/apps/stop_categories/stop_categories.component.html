@@ -1,0 +1,619 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Kategorileri Yönetimi
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button [routerLink]="'/apps/stop_categories/add'"
+                class="add-product-button fuse-white mt-24 mt-md-0">
+                <span>Kategori Ekle</span>
+            </button>
+
+
+            <!-- / ADD BUTTON -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto;
+        padding: 10px;">
+
+            <div class="content">
+
+
+
+                <mat-tab-group [(selectedIndex)]="tabIndex" (selectedTabChange)="filter_data_source($event)">
+                    <mat-tab label="Duruş ">
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <dx-data-grid *ngIf="dataSourceLoaded" class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true"
+                                [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                                [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="true">
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]"
+                                    [showInfo]="true">
+                                </dxo-pager>
+                                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                                <dxi-column dataField="name" caption="Kategori Adı"></dxi-column>
+                                <dxi-column dataField="code" caption="Kod"></dxi-column>
+                                <dxi-column cellTemplate="type" caption="Kategori Tipi"></dxi-column>
+                                <dxi-column cellTemplate="date1" caption="Oluşturma Tarihi"></dxi-column>
+                                <dxi-column cellTemplate="date2" caption="Güncelleme"></dxi-column>
+                                <dxi-column cellTemplate="islem" caption="Sebep Ekle"></dxi-column>
+                                <dxi-column cellTemplate="update" caption="güncelle"></dxi-column>
+                                <dxi-column cellTemplate="delete" caption="sil"></dxi-column>
+                                <div *dxTemplate="let datalar of 'type'">
+                                    <label style="color: red;" *ngIf="datalar.data.type == 0">Duruş Kategorisi</label>
+                                    <label style="color: blue;" *ngIf="datalar.data.type == 1">Rework Kategorisi</label>
+                                    <label style="color: orange;" *ngIf="datalar.data.type == 2">Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: green;" *ngIf="datalar.data.type == 3">Montaj Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: gray;" *ngIf="datalar.data.type == 4">Montaj Rework/Tamir
+                                        Kategorisi</label>
+
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'date1'">
+                                    <div [innerHTML]="'TEXT' |timeago:datalar.data.createdDate">
+                                    </div>
+                                </div>
+                                <div *dxTemplate="let datalar of 'date2'">
+                                    <div [innerHTML]="'TEXT' |timeago:datalar.data.updatedDate">
+                                    </div>
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'islem'">
+                                    <button mat-raised-button color="accent" (click)="
+                                        this.selected_stop_categoryName=datalar.data.name;
+                                        this.selected_stop_categoryID = datalar.data._id;
+                                        openDialog(addStop_Reason_by_stop_Category,'auto')" type="button"
+                                       >
+                                        Sebep Ekle
+                                    </button>
+
+
+
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'update'">
+                                    <button mat-raised-button color="accent"  (click)="go_to_update_stop_category(datalar.data._id)" type="button"
+                                    >
+                                        Güncelle
+                                    </button>
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'delete'">
+                                    <button (click)="
+                                    this.selected_stop_categoryName=datalar.data.name;
+                                    this.selected_stop_categoryID = datalar.data._id;
+                                    openDialog(delete_stop_category_form,'auto')" type="button"
+                                    mat-raised-button color="warn">
+                                        sil
+                                    </button>
+                                </div>
+                                <div *dxTemplate="let a of 'detail'">
+                                    <div class="bulutify-row">
+
+                                        <div class="bulutify-column">
+                                            <dx-data-grid *ngIf="a.data.stop_reasons" [dataSource]="a.data.stop_reasons"
+                                                [showBorders]="true" [columnAutoWidth]="true"
+                                                [columnHidingEnabled]="true" [showRowLines]="true">
+                                                <dxi-column dataField="name" caption="Duruş Sebebi Adı"></dxi-column>
+                                                <dxi-column dataField="counter" caption="Kullanım Durumu">
+                                                </dxi-column>
+                                                <dxi-column cellTemplate="delete" caption="sil"></dxi-column>
+
+                                                <div *dxTemplate="let datalar of 'all'">
+                                                    {{datalar.data|json}}
+                                                </div>
+                                                <div *dxTemplate="let datalar of 'delete'">
+                                                    <button mat-raised-button color="warn"
+                                                        (click)="
+                                                        this.selected_stop_reason_id= datalar.data._id; 
+                                                        this.selected_stop_categoryID =a.data._id;
+                                                        openDialog(delete_stop_category_from_machine_form,'auto','10%');">sil</button>
+
+                                                </div>
+
+
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </dx-data-grid>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Rework">
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <dx-data-grid *ngIf="dataSourceLoaded" class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true"
+                                [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                                [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="true">
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]"
+                                    [showInfo]="true">
+                                </dxo-pager>
+                                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                                <dxi-column dataField="name" caption="Kategori Adı"></dxi-column>
+                                <dxi-column cellTemplate="type" caption="Kategori Tipi"></dxi-column>
+                                <dxi-column cellTemplate="date1" caption="Oluşturma Tarihi"></dxi-column>
+                                <dxi-column cellTemplate="islem" caption="İşlem"></dxi-column>
+                                <div *dxTemplate="let datalar of 'type'">
+                                    <label style="color: red;" *ngIf="datalar.data.type == 0">Duruş Kategorisi</label>
+                                    <label style="color: blue;" *ngIf="datalar.data.type == 1">Rework Kategorisi</label>
+                                    <label style="color: orange;" *ngIf="datalar.data.type == 2">Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: green;" *ngIf="datalar.data.type == 3">Montaj Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: gray;" *ngIf="datalar.data.type == 4">Montaj Rework/Tamir
+                                        Kategorisi</label>
+
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'date1'">
+                                    <div [innerHTML]="'TEXT' |timeago:datalar.data.createdDate">
+                                    </div>
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'islem'">
+                                    <button mat-raised-button color="accent" (click)="
+                                        this.selected_stop_categoryName=datalar.data.name;
+                                        this.selected_stop_categoryID = datalar.data._id;
+                                        openDialog(addStop_Reason_by_stop_Category,'auto')" type="button"
+                                        >
+                                        Sebep Ekle
+                                    </button>
+
+                                </div>
+                                <div *dxTemplate="let a of 'detail'">
+                                    <div class="bulutify-row">
+
+                                        <div class="bulutify-column">
+                                            <dx-data-grid *ngIf="a.data.stop_reasons" [dataSource]="a.data.stop_reasons"
+                                                [showBorders]="true" [columnAutoWidth]="true"
+                                                [columnHidingEnabled]="true" [showRowLines]="true">
+                                                <dxi-column dataField="name" caption="Duruş Sebebi Adı"></dxi-column>
+                                                <dxi-column dataField="counter" caption="Kullanım Durumu">
+                                                </dxi-column>
+                                                <dxi-column cellTemplate="delete" caption="sil"></dxi-column>
+
+                                                <div *dxTemplate="let datalar of 'all'">
+                                                    {{datalar.data|json}}
+                                                </div>
+                                                <div *dxTemplate="let datalar of 'delete'">
+                                                    <button mat-raised-button color="warn"
+                                                        (click)="
+                                                        this.selected_stop_reason_id= datalar.data._id; 
+                                                        this.selected_stop_categoryID =a.data._id;
+                                                        openDialog(delete_stop_category_from_machine_form,'auto','10%');">sil</button>
+
+                                                </div>
+
+
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </dx-data-grid>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Fire">
+
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <dx-data-grid *ngIf="dataSourceLoaded" class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true"
+                                [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                                [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="true">
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]"
+                                    [showInfo]="true">
+                                </dxo-pager>
+                                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                                <dxi-column dataField="name" caption="Kategori Adı"></dxi-column>
+                                <dxi-column cellTemplate="type" caption="Kategori Tipi"></dxi-column>
+                                <dxi-column cellTemplate="date1" caption="Oluşturma Tarihi"></dxi-column>
+                                <dxi-column cellTemplate="islem" caption="İşlem"></dxi-column>
+                                <div *dxTemplate="let datalar of 'type'">
+                                    <label style="color: red;" *ngIf="datalar.data.type == 0">Duruş Kategorisi</label>
+                                    <label style="color: blue;" *ngIf="datalar.data.type == 1">Rework Kategorisi</label>
+                                    <label style="color: orange;" *ngIf="datalar.data.type == 2">Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: green;" *ngIf="datalar.data.type == 3">Montaj Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: gray;" *ngIf="datalar.data.type == 4">Montaj Rework/Tamir
+                                        Kategorisi</label>
+
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'date1'">
+                                    <div [innerHTML]="'TEXT' |timeago:datalar.data.createdDate">
+                                    </div>
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'islem'">
+                                    <button mat-raised-button color="accent" (click)="
+                                        this.selected_stop_categoryName=datalar.data.name;
+                                        this.selected_stop_categoryID = datalar.data._id;
+                                        openDialog(addStop_Reason_by_stop_Category,'auto')" type="button"
+                                        >
+                                        Sebep Ekle
+                                    </button>
+
+                                </div>
+                                <div *dxTemplate="let a of 'detail'">
+                                    <div class="bulutify-row">
+
+                                        <div class="bulutify-column">
+                                            <dx-data-grid *ngIf="a.data.stop_reasons" [dataSource]="a.data.stop_reasons"
+                                                [showBorders]="true" [columnAutoWidth]="true"
+                                                [columnHidingEnabled]="true" [showRowLines]="true">
+                                                <dxi-column dataField="name" caption="Duruş Sebebi Adı"></dxi-column>
+                                                <dxi-column dataField="counter" caption="Kullanım Durumu">
+                                                </dxi-column>
+                                                <dxi-column cellTemplate="delete" caption="sil"></dxi-column>
+
+                                                <div *dxTemplate="let datalar of 'all'">
+                                                    {{datalar.data|json}}
+                                                </div>
+                                                <div *dxTemplate="let datalar of 'delete'">
+                                                    <button mat-raised-button color="warn"
+                                                        (click)="
+                                                        this.selected_stop_reason_id= datalar.data._id; 
+                                                        this.selected_stop_categoryID =a.data._id;
+                                                        openDialog(delete_stop_category_from_machine_form,'auto','10%');">sil</button>
+                                                </div>
+
+
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </dx-data-grid>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Montaj Fire">
+
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <dx-data-grid *ngIf="dataSourceLoaded" class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true"
+                                [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                                [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="true">
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]"
+                                    [showInfo]="true">
+                                </dxo-pager>
+                                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                                <dxi-column dataField="name" caption="Kategori Adı"></dxi-column>
+                                <dxi-column cellTemplate="type" caption="Kategori Tipi"></dxi-column>
+                                <dxi-column cellTemplate="date1" caption="Oluşturma Tarihi"></dxi-column>
+                                <dxi-column cellTemplate="islem" caption="İşlem"></dxi-column>
+                                <div *dxTemplate="let datalar of 'type'">
+                                    <label style="color: red;" *ngIf="datalar.data.type == 0">Duruş Kategorisi</label>
+                                    <label style="color: blue;" *ngIf="datalar.data.type == 1">Rework Kategorisi</label>
+                                    <label style="color: orange;" *ngIf="datalar.data.type == 2">Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: green;" *ngIf="datalar.data.type == 3">Montaj Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: gray;" *ngIf="datalar.data.type == 4">Montaj Rework/Tamir
+                                        Kategorisi</label>
+
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'date1'">
+                                    <div [innerHTML]="'TEXT' |timeago:datalar.data.createdDate">
+                                    </div>
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'islem'">
+                                    <button mat-raised-button color="accent" (click)="
+                                        this.selected_stop_categoryName=datalar.data.name;
+                                        this.selected_stop_categoryID = datalar.data._id;
+                                        openDialog(addStop_Reason_by_stop_Category,'auto')" type="button"
+                                        >
+                                        Sebep Ekle
+                                    </button>
+
+                                </div>
+                                <div *dxTemplate="let a of 'detail'">
+                                    <div class="bulutify-row">
+
+                                        <div class="bulutify-column">
+                                            <dx-data-grid *ngIf="a.data.stop_reasons" [dataSource]="a.data.stop_reasons"
+                                                [showBorders]="true" [columnAutoWidth]="true"
+                                                [columnHidingEnabled]="true" [showRowLines]="true">
+                                                <dxi-column dataField="name" caption="Duruş Sebebi Adı"></dxi-column>
+                                                <dxi-column dataField="counter" caption="Kullanım Durumu">
+                                                </dxi-column>
+                                                <dxi-column cellTemplate="delete" caption="sil"></dxi-column>
+
+                                                <div *dxTemplate="let datalar of 'all'">
+                                                    {{datalar.data|json}}
+                                                </div>
+                                                <div *dxTemplate="let datalar of 'delete'">
+                                                    <button mat-raised-button color="warn"
+                                                        (click)="
+                                                        this.selected_stop_reason_id= datalar.data._id; 
+                                                        this.selected_stop_categoryID =a.data._id;
+                                                        openDialog(delete_stop_category_from_machine_form,'auto','10%');">sil</button>
+
+                                                </div>
+
+
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </dx-data-grid>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Monta Tamir/Rework">
+
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+                            <dx-data-grid *ngIf="dataSourceLoaded" class="dx-card wide-card" [dataSource]="dataSource" [showBorders]="true"
+                                [focusedRowIndex]="0" [masterDetail]="{ enabled: true, template: 'detail' }"
+                                [columnAutoWidth]="true" [columnHidingEnabled]="true" [showRowLines]="true">
+                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[5, 10, 20]"
+                                    [showInfo]="true">
+                                </dxo-pager>
+                                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                                <dxi-column dataField="name" caption="Kategori Adı"></dxi-column>
+                                <dxi-column cellTemplate="type" caption="Kategori Tipi"></dxi-column>
+                                <dxi-column cellTemplate="date1" caption="Oluşturma Tarihi"></dxi-column>
+                                <dxi-column cellTemplate="islem" caption="İşlem"></dxi-column>
+                                <div *dxTemplate="let datalar of 'type'">
+                                    <label style="color: red;" *ngIf="datalar.data.type == 0">Duruş Kategorisi</label>
+                                    <label style="color: blue;" *ngIf="datalar.data.type == 1">Rework Kategorisi</label>
+                                    <label style="color: orange;" *ngIf="datalar.data.type == 2">Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: green;" *ngIf="datalar.data.type == 3">Montaj Fire/Hurda
+                                        Kategorisi</label>
+                                    <label style="color: gray;" *ngIf="datalar.data.type == 4">Montaj Rework/Tamir
+                                        Kategorisi</label>
+
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'date1'">
+                                    <div [innerHTML]="'TEXT' |timeago:datalar.data.createdDate">
+                                    </div>
+                                </div>
+
+                                <div *dxTemplate="let datalar of 'islem'">
+                                    <button mat-flat-button color="accent" (click)="
+                                        this.selected_stop_categoryName=datalar.data.name;
+                                        this.selected_stop_categoryID = datalar.data._id;
+                                        openDialog(addStop_Reason_by_stop_Category,'auto')" type="button"
+                                        >
+                                        Sebep Ekle
+                                    </button>
+
+                                </div>
+                                <div *dxTemplate="let a of 'detail'">
+                                    <div class="bulutify-row">
+
+                                        <div class="bulutify-column">
+                                            <dx-data-grid *ngIf="a.data.stop_reasons" [dataSource]="a.data.stop_reasons"
+                                                [showBorders]="true" [columnAutoWidth]="true"
+                                                [columnHidingEnabled]="true" [showRowLines]="true">
+                                                <dxi-column dataField="name" caption="Duruş Sebebi Adı"></dxi-column>
+                                                <dxi-column dataField="counter" caption="Kullanım Durumu">
+                                                </dxi-column>
+                                                <dxi-column cellTemplate="delete" caption="sil"></dxi-column>
+
+                                                <div *dxTemplate="let datalar of 'all'">
+                                                    {{datalar.data|json}}
+                                                </div>
+                                                <div *dxTemplate="let datalar of 'delete'">
+                                                    <button mat-fab color="warn" type="button"
+                                                        (click)="
+                                                        this.selected_stop_reason_id= datalar.data._id; 
+                                                        this.selected_stop_categoryID =a.data._id;
+                                                        openDialog(delete_stop_category_from_machine_form,'auto','10%'); " ><mat-icon>home</mat-icon></button>
+
+                                                </div>
+
+
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </dx-data-grid>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+
+
+
+
+            </div>
+
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>
+
+
+<ng-template #addStop_Reason_by_stop_Category>
+    <div class="modal-body bg-gray">
+        <div class="row">
+            <div class="col-12 vertical-tabs">
+                <div class="tab-content col-12 border-0">
+                    <div class="tab-pane active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4>{{this.selected_stop_categoryName}}'e duruş ekliyorsunuz .</h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-7" fxFlex.gt-sm="40"style="margin: 10px;">
+                                                <div class="form-group">
+                                                    <mat-label>Sebep Adı</mat-label>
+                                                    <mat-form-field appearance="outline" placeholder="Sebep Adı" floatLabel="always" class="w-100-p">
+                                                         <input matInput class="form-control validation-field" #name type="text">
+                                                     </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="col-5" fxFlex.gt-sm="40"style="margin: 10px;">
+                                                <div class="form-group">
+                                                    <mat-label>Sebep Kodu</mat-label>
+                                                    <mat-form-field appearance="outline" placeholder="Sebep Kodu" floatLabel="always" class="w-100-p">
+                                                         <input matInput class="form-control validation-field" #kod type="text">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-4" fxFlex.gt-sm="20"style="margin: 10px;">
+                                                <div class="form-group">
+                                                    <mat-label>Planlı Minumum Duruş Süresi</mat-label>
+                                                   <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                         <input matInput class="form-control validation-field" #min_sure type="text">
+                                                     </mat-form-field>
+                                                     <small class="text-muted"><strong>Not:</strong>Zorunlu Alan Değil</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-2" fxFlex.gt-sm="20"style="margin: 10px;">
+                                                <div class="form-group">
+                                                    <mat-label>Birim</mat-label>
+                                                   <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                         <mat-select #min_sure_birim class="form-control custom-select">
+                                                        <mat-option value="dakika" selected>Birim seçiniz</mat-option>
+                                                        <mat-optgroup label="süre">
+                                                            <mat-option value="dakika">dakika</mat-option>
+                                                            <mat-option value="saat">saat</mat-option>
+                                                            <mat-option value="gün">gün</mat-option>
+                                                        </mat-optgroup>
+                                                    </mat-select> </mat-form-field>
+                                                    <small class="text-muted"><strong>Not:</strong>Zorunlu Alan Değil</small>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-4" fxFlex.gt-sm="20"style="margin: 10px;">
+                                                <div class="form-group">
+                                                    <mat-label>Planlı Maksimum Duruş Süresi</mat-label>
+                                                  <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                         <input matInput class="form-control validation-field" #max_sure type="text">
+                                                    </mat-form-field>
+                                                    <small class="text-muted"><strong>Not:</strong>Zorunlu Alan Değil</small>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-2" fxFlex.gt-sm="20"style="margin: 10px;">
+                                                <div class="form-group">
+                                                    <mat-label>Birim</mat-label>
+                                                 <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                                         <mat-select #max_sure_birim class="form-control custom-select">
+                                                        <mat-option value="dakika" selected>Birim seçiniz</mat-option>
+                                                        <mat-optgroup label="süre">
+                                                            <mat-option value="dakika">dakika</mat-option>
+                                                            <mat-option value="saat">saat</mat-option>
+                                                            <mat-option value="gün">gün</mat-option>
+                                                        </mat-optgroup>
+                                                    </mat-select>
+                                                 </mat-form-field>
+                                                 <small class="text-muted"><strong>Not:</strong>Zorunlu Alan Değil</small>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 bg-white text-center py-1">
+                    <button class="btn btn-success mr-1" type="submit"
+                        (click)="new_add_stop_reason_by_stop_category_ts($event,name.value,kod.value,min_sure.value,min_sure_birim.value,max_sure.value,max_sure_birim.value)"><span>Ekle</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #delete_stop_category_from_machine_form style="text-align: center;">
+    <div class="bulutify_row" style="width: 100%;text-align: center;">
+        <button mat-raised-button color="warn" (click)="delete_stop_reason_from_stop_category()">sil</button>
+    </div>
+
+</ng-template>
+
+<ng-template #delete_stop_category_form style="text-align: center;">
+    
+    <div class="modal-body bg-gray">
+        <div class="row">
+            <div class="col-12 vertical-tabs">
+                <div class="tab-content col-12 border-0">
+                    <div class="tab-pane active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <strong>{{selected_stop_categoryName}}</strong> isimli kategoriyi silmek istediğinize emin misiniz?
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 bg-white text-center py-1">
+                    <button class="btn btn-danger btn-block" (click)="delete_stop_category()">Evet</button>
+                    <button class="btn btn-danger btn-block" (click)="close()">Vazgeç</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bulutify_row" style="width: 100%;text-align: center;">
+        
+    </div>
+
+</ng-template>

@@ -1,0 +1,18 @@
+.example-card {
+    max-width: 20%;
+  }
+
+
+  
+
+
+  .resim {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* İçeriği yüksekliğe sığdırmak için */
+  }
+.resim img {
+  border-radius: 50%;
+
+}

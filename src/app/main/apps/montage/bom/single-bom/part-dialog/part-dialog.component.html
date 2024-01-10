@@ -1,0 +1,156 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Dürbün/Parça {{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form *ngIf="!loading" [formGroup]="partFormGroup">
+
+            <mat-tab-group>
+
+                <mat-tab label="Temel Bilgiler">
+
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Dürbün/Parça Adı</mat-label>
+                            <input matInput placeholder="Dürbün/Parça Adı" name="partName" formControlName="partName"
+                                required />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Atanan Kişi</mat-label>
+                            <mat-select placeholder="Atanan Kişi" name="isAssinged" formControlName="isAssinged"
+                                required>
+                                <mat-select-search [items]="operators" [filterProperty]="'name'" [placeholderLabel]="'Atanan Kişi'"
+                                    (getFilteredItems)="getFilteredOperators($event)">
+                                </mat-select-search>
+                                <mat-option *ngFor="let operator of filteredOperators" [value]="operator.name">
+                                    {{operator.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                </mat-tab>
+
+                <mat-tab label="Alt Parçalar ve Operasyonları">
+
+                    <div class="tab-content p-24" fusePerfectScrollbar
+                        *ngFor="let route of RoutesControllers; let iRoutes = index">
+
+                        <button mat-raised-button class="add-part-button"
+                            (click)="openOperationDialog('add', null, iRoutes, null)">
+                            <span>Operasyon Ekle</span>
+                        </button>
+
+                        <mat-accordion *ngIf="GetOperationArray(iRoutes).controls.length > 0" class="headers-align">
+
+                            <mat-expansion-panel
+                                *ngFor="let operation of GetOperationArray(iRoutes).controls; let i = index">
+
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title><span class="text-bold">{{i + 1}}. Operasyon: </span>{{operation.get('operationName').value.name}}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        <div>
+                                            <span class="text-bold">Çıktı: </span>{{operation.get('outputs').value}}
+                                        </div>
+                                        <div>
+                                            <!-- <button mat-icon-button (click)="openOperationDialog('add', null, iRoutes, i)">
+                                                <mat-icon class="blue-fg">add</mat-icon>
+                                            </button> -->
+                                            <button mat-icon-button
+                                                (click)="openOperationDialog('edit', operation, iRoutes, i)">
+                                                <mat-icon class="blue-fg">edit</mat-icon>
+                                            </button>
+                                            <button mat-icon-button
+                                                (click)="deleteOperation($event, iRoutes, i)">
+                                                <mat-icon class="red-fg">remove</mat-icon>
+                                            </button>
+                                        </div>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <mat-accordion class="headers-align">
+
+                                    <mat-expansion-panel
+                                        *ngFor="let input of operation.get('inputs').controls; let iInput = index">
+
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title><span class="text-bold">{{i + 1}}. Girdi: </span> {{ input.get('p_name').value.name }}
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                <div>
+                                                    {{getInputTypeText(input.get('p_type').value)}}
+                                                </div>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+
+                                        <mat-list>
+                                            <mat-list-item>
+                                                <h3 matLine>Planlanan Miktar</h3>
+                                                <p matLine>
+                                                    <span class="secondary-text">{{input.get('p_planned_quantity').value}}</span>
+                                                </p>
+                                            </mat-list-item>
+                                        </mat-list>
+
+                                    </mat-expansion-panel>
+
+                                </mat-accordion>
+                                <div class="p-12">
+                                    <!-- <mat-form-field [formGroup]="operation.get('operationTime')" appearance="outline"
+                                        floatLabel="always" class="w-100-p">
+                                        <mat-label>Gün</mat-label>
+                                        <input matInput #operationDay placeholder="Gün" name="operationDay"
+                                            type="number" formControlName="day" required
+                                            (change)="change(iRoutes, i, operationDay.value, operationHour.value, operationMinute.value)" />
+                                    </mat-form-field>
+
+                                    <mat-form-field [formGroup]="operation.get('operationTime')" appearance="outline"
+                                        floatLabel="always" class="w-100-p">
+                                        <mat-label>Saat</mat-label>
+                                        <input matInput #operationHour placeholder="Saat" name="operationDay"
+                                            type="number" formControlName="hour" required
+                                            (change)="change(iRoutes, i, operationDay.value, operationHour.value, operationMinute.value)" />
+                                    </mat-form-field>
+
+                                    <mat-form-field [formGroup]="operation.get('operationTime')" appearance="outline"
+                                        floatLabel="always" class="w-100-p">
+                                        <mat-label>Dakika</mat-label>
+                                        <input matInput #operationMinute placeholder="Dakika" name="operationMinute"
+                                            type="number" formControlName="minute" required
+                                            (change)="change(iRoutes, i, operationDay.value, operationHour.value, operationMinute.value)" />
+                                    </mat-form-field> -->
+                                </div>
+
+                            </mat-expansion-panel>
+
+                        </mat-accordion>
+
+                    </div>
+
+                </mat-tab>
+
+            </mat-tab-group>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-button class="save-button" (click)="save()" [disabled]="partForm.invalid" aria-label="Kaydet">
+            Kaydet
+        </button>
+
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/egitimler'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Video Ekle</div>
+                    <div class="subtitle secondary-text">
+                        <span>Egitim</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+            <button mat-raised-button class="save-product-button"  (click)="onMultipleSubmit()">
+                <span>Video Ekle</span>
+            </button>
+
+
+           
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+               
+                <form name="form" [formGroup]="form" class="product w-100-p" fxLayout="column" fxFlex>
+                    <mat-tab-group>
+
+                        <mat-tab label="Haber Bilgileri">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Video Başlığı</mat-label>
+                                    <input matInput placeholder="Video Başlığı" name="baslik" formControlName="baslik"
+                                        required />
+                                </mat-form-field>
+
+                             
+                              
+                                <div class="mat-form-field w-100-p">
+                                    <mat-label>Eğitim Video Ekle</mat-label>
+                                   <input type="file" name="images" multiple (change)="selectMultipleImage($event)" />
+                                </div>
+                           </div>
+
+                           <div class="upload-progress">
+                            <div class="progress-bar" [style.width.%]="uploadProgress"></div>
+                            <div class="progress-text">{{ uploadProgress.toFixed(0) }}%</div>
+                            <div class="progress-text">{{ uploadProgress1 }}</div>
+                        </div>
+                        </mat-tab>
+                    </mat-tab-group>
+
+                    
+                </form>
+                
+              
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

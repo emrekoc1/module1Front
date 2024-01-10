@@ -1,0 +1,272 @@
+<div id="config" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#3296c8"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header " style="background-color:#3296c8" fxLayout="column" fxLayoutAlign="center center"
+            fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{
+                        value: '*',
+                        params: { delay: '50ms', scale: '0.2' }
+                    }">
+                    notifications_active
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', x: '-25px' }
+                    }" style="color:white">
+                    Kullanıcı Profili
+
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- <span style="color:#000">Yeni Montaj Siparişi Ekle</span>
+        </button> -->
+            <!-- / ADD BUTTON -->
+            <!-- ADD BUTTON -->
+            <button mat-raised-button class="mat-focus-indicator primary mat-button mat-button-base"
+                [routerLink]="'/apps/duyru/add-duyrular'" *ngIf="user_type === 1">
+                <span style="color:#000!important">duyru Ekle</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <!-- CONTENT CARD -->
+        <div class="content-card" style="overflow-y: auto; padding: 10px">
+
+            <div id="printable" class="courses" fxLayout="row wrap" fxLayoutAlign="center"
+                [@animateStagger]="{value:'50'}">
+                <div class="course" style="padding: 1;height: 20rem;" fxFlex="100" fxFlex.gt-xs="100" fxFlex.gt-sm="100"
+                    [@animate]="{value:'*',params:{y:'100%'}}">
+
+
+                    <!--Profil Alanı-->
+                    <div class="course" id="course" style="padding: 1;height: 20rem;" fxFlex="20" fxFlex.gt-xs="20"
+                        fxFlex.gt-sm="20" [@animate]="{value:'*',params:{y:'100%'}}">
+                        <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                            <div class="content" fxLayout="column" fxLayoutAlign="  " fxFlex="1 1 auto">
+                                <div class="box_type bosta">
+                                    <div class="video-contents">
+                                        <div class=""
+                                            style="background-color: aliceblue;border-radius: 10%;padding: 20px;">
+                                            <div class="resim">
+                                                <img [src]="profil.photo" alt="">
+                                            </div>
+                                            <div class="user-bilgi">
+                                                <p> Adı:{{profil.name}}</p>
+                                                <p> Doğrum Tarihi:{{profil.dogumTarih}}</p>
+                                                <p> İş Başlangıç :{{profil.isBaslangic}}</p>
+                                                <p> Birimi :{{profil.birim}}</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--Profil Alanı Bitti-->
+                    <!--Orta Alan-->
+                    <div class="course" style="padding: 1;height: 20rem;" fxFlex="33" fxFlex.gt-xs="33"
+                        fxFlex.gt-sm="33" [@animate]="{value:'*',params:{y:'100%'}}">
+                        <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+
+                            <div class="content" fxLayout="column" fxLayoutAlign="center center"
+                                style="margin: 10px 0 20px 20px;" fxFlex="1 1 auto">
+                                <div class="" style="background-color: #8dd4f8;border-radius: 10%;padding: 30px; ">
+                                    <h1> Birim Arkadaşları</h1>
+                                    <div id="printable" class="courses" fxLayout="row wrap" fxLayoutAlign="center"
+                                        [@animateStagger]="{value:'50'}">
+
+                                        <div class="course" style="padding: 1;height: 5rem;" fxFlex="20"
+                                            fxFlex.gt-xs="20" fxFlex.gt-sm="25"
+                                            [@animate]="{value:'*',params:{y:'100%'}}" *ngFor="let birim of birim">
+                                            <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+                                                <div class="content" fxLayout="column" fxLayoutAlign="center center"
+                                                    fxFlex="1 1 auto">
+                                                    <div class="box_type bosta">
+                                                        <div class="video-content">
+                                                            <div class="" *ngIf="yenile">
+                                                                <div class="resim">
+                                                                    <img [src]="birim.photo" alt=""
+                                                                        style="width: 40%;height: inherit;">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="content" fxLayout="column" fxLayoutAlign="center center"
+                                style="margin: 10px 0 20px 20px;" fxFlex="1 1 auto">
+                                <div class="box_type bosta">
+                                    <div class="video-content">
+                                        <div class="" style="border-radius: 2%;padding: 20px;">
+                                            <h3 style="text-align: center;">İzin Geçmişim</h3>
+                                            <dx-data-grid id="gridContainer" title="Üzerimdeki İşler"
+                                                [dataSource]="izinler" keyExpr="" [showBorders]="true">
+
+                                                <dxo-selection mode="single"></dxo-selection>
+
+                                                <dxi-column dataField="izintarihi" width="15%"
+                                                    caption="İzin Tarihi"></dxi-column>
+                                                <dxi-column dataField="izinligun" width="15%"
+                                                    caption="İzin Gün Sayısı"></dxi-column>
+                                                <dxi-column dataField="izinbitis" width="15%"
+                                                    caption="İzin Bitiş"></dxi-column>
+
+
+                                                <dxo-paging [pageSize]="10"></dxo-paging>
+
+
+
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--Orta Alan bitti-->
+                    <!--3. Alan Başlangıç-->
+                    <div class="course" style="padding: 1;height: 20rem;" fxFlex="40" fxFlex.gt-xs="33"
+                        fxFlex.gt-sm="40" [@animate]="{value:'*',params:{y:'100%'}}">
+                        <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+
+                            <div class="content" fxLayout="column" style="padding: 0;font-size:x-large"
+                                fxLayoutAlign="center center" fxFlex="1 1 auto">
+
+                            </div>
+
+                            <div class="content" fxLayout="column" fxLayoutAlign="center center"
+                                style="margin: 10px 0 20px 20px;" fxFlex="1 1 auto">
+                                <div class="box_type bosta">
+                                    <div class="video-content">
+                                        <div class=""
+                                            style="background-color: #d6e7c8;border-radius: 2%;padding: 20px;">
+                                            <h3 style="text-align: center;">Üzerimdeki İşler</h3>
+                                            <dx-data-grid id="gridContainer" title="Üzerimdeki İşler"
+                                                [dataSource]="appointmentsData" keyExpr="" [showBorders]="true"
+                                                (rowPrepared)="onRowPrepared($event)">
+                                                <dxo-selection mode="single"></dxo-selection>
+                                                <dxi-column dataField="text" width="40%"
+                                                    caption="Görev Adı"></dxi-column>
+                                                <dxi-column dataField="startDate" width="30%" caption="Başlama Tarihi"
+                                                    [cellTemplate]="startDateTemplate"></dxi-column>
+                                                <dxi-column dataField="endDate" width="30%" caption="Bitiş Tarihi"
+                                                    [cellTemplate]="endDateTemplate"></dxi-column>
+                                                <dxo-paging [pageSize]="10"></dxo-paging>
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box_type bosta">
+                                    <div class="video-content">
+                                        <div class=""
+                                            style="background-color: #d6e7c8;border-radius: 2%;padding: 20px;">
+                                            <h3 style="text-align: center;">Anketlerim</h3>
+                                            <dx-data-grid id="gridContainer" title="Üzerimdeki İşler"
+                                                [dataSource]="calismaDuzelt" keyExpr="" [showBorders]="true"(rowPrepared)="onRowPreparedAnket($event)">
+
+                                                <dxo-selection mode="single"></dxo-selection>
+
+                                                <dxi-column dataField="duyru_basligi" width="50%"
+                                                    caption="Anket Başlığı"></dxi-column>
+                                                <dxi-column dataField="duyru_aciklama" width="50%"
+                                                    caption="Anket Açıklaması"></dxi-column>
+                                           
+
+
+                                                <dxo-paging [pageSize]="10"></dxo-paging>
+
+
+
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box_type bosta">
+                                    <div class="video-content">
+                                        <div class=""
+                                            style="background-color: #d6e7c8;border-radius: 2%;padding: 20px;">
+                                            <h3 style="text-align: center;">duyrularım</h3>
+                                            <dx-data-grid id="gridContainer" title="Üzerimdeki İşler"
+                                                [dataSource]="duyruCalisma" keyExpr="" [showBorders]="true" (rowPrepared)="onRowPreparedDuyru($event)">
+
+                                                <dxo-selection mode="single"></dxo-selection>
+
+                                                <dxi-column dataField="duyru_basligi" width="50%"
+                                                    caption="Duyru Başlığı"></dxi-column>
+                                                <dxi-column dataField="duyru_aciklama" width="50%"
+                                                    caption="Duyru Aciklaması"></dxi-column>
+                                           
+
+
+                                                <dxo-paging [pageSize]="10"></dxo-paging>
+
+
+
+                                            </dx-data-grid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content" fxLayout="column" fxLayoutAlign="center center"
+                                style="margin: 50px 0 20px 20px;" fxFlex="1 1 auto">
+                                <div class="box_type bosta">
+                                    <div class="video-content">
+                                        <div class=""
+                                            style="background-color: #f7e0e0;border-radius: 2%;padding: 20px;">
+                                            <h3 style="text-align: center;">Katıldığım Eğitimler</h3>
+                                            <p><span>Lorem omnis placeat eius accusamus nesciunt amet excepturi
+                                                    voluptate numquam alias, possimus nemo laborum itaque perferendis
+                                                    incidunt quidem modi quibusdam! Corrupti.sit amet consectetur
+                                                    adipisicing elit. Quisquam accusantium, molestiae aut eum natus
+                                                    impedit assumenda corporis et</span></p>
+                                            <p><span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam
+                                                    accusantium, molestiae aut eum natus impedit assumenda corporis et
+                                                    sit amet consectetur adipisicing elit. Quisquam accusantium,
+                                                    molestiae aut eum natus impedit assumenda corporis et
+                                                    possimus quia dolores! Accusamus consequuntur delectus dolore dicta
+                                                    inventore. Hic, quaerat fugiat.
+                                                </span><span>Ea perspiciatis pariatur explicabo temporibus optio
+                                                    aspernatur suscipit
+                                                    quaerat nostrum? Nemo in nobis sunt minus, explicabo vero dolor,
+                                                    distinctio maiores tempora magnam mollitia aliquid magni repellat
+                                                    quia, aut quasi porro.</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--3. Alan bitti-->
+
+                </div>
+
+            </div>
+
+            <!-- / CONTENT CARD -->
+        </div>
+        <!-- / CENTER -->
+    </div>
+
+</div>

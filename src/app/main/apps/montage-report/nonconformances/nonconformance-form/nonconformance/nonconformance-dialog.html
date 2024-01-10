@@ -1,0 +1,57 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form [formGroup]="nonconfForm" fxLayout="column" fxLayoutAlign="center">
+
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Rework Sıra No.</mat-label>
+                <input matInput placeholder="Rework Sıra No." name="reworkOrderNumber"
+                    formControlName="reworkOrderNumber" required type="number" min="0" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Hata Kodu</mat-label>
+                <input matInput placeholder="Hata Kodu" name="discrepancyCode" formControlName="discrepancyCode"
+                    required />
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Tanım</mat-label>
+                <input matInput placeholder="Tanım" name="description" formControlName="description" required />
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Yapılan İşlemler</mat-label>
+                <input matInput placeholder="Yapılan İşlemler" name="operations" formControlName="operations"
+                    required />
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>İşlemi Gerçekleştiren</mat-label>
+                <input matInput placeholder="İşlemi Gerçekleştiren" name="operatingUser" formControlName="operatingUser"
+                    required />
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Kalite Onay</mat-label>
+                <input matInput placeholder="Kalite Onay" name="responsibleUserForQuality"
+                    formControlName="responsibleUserForQuality" required />
+            </mat-form-field>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-button class="save-button" (click)="matDialogRef.close([nonconfForm])"
+            [disabled]="nonconfForm.invalid" aria-label="Kaydet">
+            {{submitTitle}}
+        </button>
+
+    </div>
+</div>

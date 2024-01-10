@@ -1,0 +1,92 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+  <!-- TOP BACKGROUND -->
+  <div class="top-bg " style="background-color:#0074b4"></div>
+  <!-- / TOP BACKGROUND -->
+
+  <!-- CENTER -->
+  <div class="center">
+      <!-- HEADER -->
+      <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+          <!-- APP TITLE -->
+          <div fxLayout="row" fxLayoutAlign="start center">
+              <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/home'">
+                  <mat-icon>arrow_back</mat-icon>
+              </button>
+
+              <div fxLayout="column" fxLayoutAlign="start start"
+                  [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                  <div class="h2">Yapilacaklar Listesi</div>
+                  <div class="subtitle secondary-text">
+                      <span>Yapilacaklar</span>
+                  </div>
+              </div>
+          </div>
+          <!-- / APP TITLE -->
+
+
+          <button mat-raised-button class="save-product-button" [routerLink]="'/apps/home'">
+              <span>İş Ekle</span>
+          </button>
+
+
+
+      </div>
+      <!-- / HEADER -->
+
+      <!-- CONTENT CARD -->
+      <div class="content-card">
+          <!-- CONTENT -->
+          <div class="content">
+
+
+              <mat-tab-group>
+
+                  <mat-tab label="">
+                      <table class="mat-elevation-z8">
+                          <thead>
+                            <tr >
+                              <th>İs Kodu</th>
+                              <th>İş Başlığı</th>
+                              <th>Başlangıç</th>
+                              <th>Bitiş</th>
+                              <th>Durumu</th>
+                              <th>İlişkili ToDo</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <tr *ngFor="let data of data" [ngStyle]="getTaskColor(data)">
+                            <td>
+                              {{data.id}}
+                            </td>
+                            <td>
+                               {{data.name}}
+                            </td>
+                            <td>
+                              {{data.start_date  | date: 'dd/MM/yyyy'}}
+                            </td>
+                            <td>
+                              {{data.end_date | date: 'dd/MM/yyyy'}}
+                            </td>
+                            <td>
+                              {{data.statu_name}}
+                            </td>
+                            <td>
+                              {{data.ust_is }}
+                            </td>
+                          </tr>
+                   
+                          </tbody>
+                        </table>
+                        
+                   
+                  </mat-tab>
+              </mat-tab-group>
+
+
+          </div>
+          <!-- / CONTENT -->
+      </div>
+      <!-- / CONTENT CARD -->
+  </div>
+  <!-- / CENTER -->
+</div>

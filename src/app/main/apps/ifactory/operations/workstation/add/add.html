@@ -1,0 +1,94 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg cyan"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header cyan" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/ifactory/managament/w'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+                    <div class="h2">
+                        Yeni Departman Ekle
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>İstasyona Git</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <button mat-raised-button class="save-product-button"
+                [disabled]=" new_work_station_form.invalid || this.is_click " (click)="add_new_operation()">
+                <span>EKLE</span>
+            </button>
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+                <form name="new_work_station_form" [formGroup]="new_work_station_form" class="product w-100-p"
+                    fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+                        <mat-tab label="Basit Bilgiler">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Adı</mat-label>
+                                    <input matInput placeholder="İş İstasyon Adı" name="name" formControlName="name"
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Kod</mat-label>
+                                    <input matInput placeholder="İş İstasyon Kodu" name="code" formControlName="code"
+                                        required>
+                                </mat-form-field>  
+                                 <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Departman Seçiniz</mat-label>
+                                    <mat-select 
+                                        placeholder="Departman" formControlName="departmant">
+                                        <mat-option *ngFor="let dep of all_departmants" value="{{dep._id}}">
+                                            {{dep.name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                        </mat-tab>
+               
+
+
+
+                    </mat-tab-group>
+
+
+
+                </form>
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

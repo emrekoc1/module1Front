@@ -1,0 +1,25 @@
+
+
+  .video-list{
+    padding-top:10px ;
+    padding-left:10px ;
+    position: relative;
+    height: auto;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .video-list:hover{
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+
+  .video-list .custom-links {
+    color: black; /* Yazı rengini siyah olarak ayarladık */
+    font-size: 16px; /* Font boyutunu 16 piksel olarak ayarladık, ihtiyaca göre değiştirin */
+    text-decoration: none; /* Altı çizilmesini kaldırır */
+  }
+
+  .video-list .custom-links:hover {
+    text-decoration: none; /* Fare imleci üzerine gelindiğinde altı çizilmesini kaldırır */
+  }

@@ -1,0 +1,122 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Operasyon {{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <form *ngIf="!loading" [formGroup]="operationFormGroup">
+
+            <mat-tab-group>
+
+                <mat-tab label="Temel Bilgiler">
+
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Operasyon</mat-label>
+                            <mat-select placeholder="Operasyon" name="operationName" formControlName="operationName"
+                                required>
+                                <mat-select-search [items]="operations" [filterProperty]="'name'" [placeholderLabel]="'Operasyon'"
+                                    (getFilteredItems)="getFilteredOperations($event)">
+                                </mat-select-search>
+                                <mat-option *ngFor="let oprtn of filteredOperations" [value]="oprtn">
+                                    {{oprtn.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                            <mat-label>Çıktı</mat-label>
+                            <input matInput placeholder="Çıktı" name="outputs" formControlName="outputs" required />
+                        </mat-form-field>
+
+                        <mat-form-field [formGroup]="operationFormGroup.get('operationTime')" appearance="outline"
+                            floatLabel="always" class="w-100-p">
+                            <mat-label>Gün</mat-label>
+                            <input matInput #operationDay placeholder="Gün" name="operationDay" type="number"
+                                formControlName="day" required
+                                (change)="change(operationDay.value, operationHour.value, operationMinute.value)" />
+                        </mat-form-field>
+
+                        <mat-form-field [formGroup]="operationFormGroup.get('operationTime')" appearance="outline"
+                            floatLabel="always" class="w-100-p">
+                            <mat-label>Saat</mat-label>
+                            <input matInput #operationHour placeholder="Saat" name="operationDay" type="number"
+                                formControlName="hour" required
+                                (change)="change(operationDay.value, operationHour.value, operationMinute.value)" />
+                        </mat-form-field>
+
+                        <mat-form-field [formGroup]="operationFormGroup.get('operationTime')" appearance="outline"
+                            floatLabel="always" class="w-100-p">
+                            <mat-label>Dakika</mat-label>
+                            <input matInput #operationMinute placeholder="Dakika" name="operationMinute" type="number"
+                                formControlName="minute" required
+                                (change)="change(operationDay.value, operationHour.value, operationMinute.value)" />
+                        </mat-form-field>
+
+                        <button mat-raised-button class="add-part-button" (click)="openInputDialog('add', null, null)">
+                            <span>Girdi Ekle</span>
+                        </button>
+
+                        <mat-accordion *ngIf="Inputs.controls.length > 0" class="headers-align">
+
+                            <mat-expansion-panel
+                                *ngFor="let input of operationFormGroup.get('inputs').controls; let i = index">
+
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title><span class="text-bold">{{i + 1}}. Girdi: </span> {{
+                                        input.get('p_name').value.name }}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        <div>
+                                            {{getInputTypeText(input.get('p_type').value)}}
+                                        </div>
+                                        <div>
+                                            <button mat-icon-button (click)="openInputDialog('edit', input, i)">
+                                                <mat-icon class="blue-fg">edit</mat-icon>
+                                            </button>
+                                            <button mat-icon-button (click)="deleteInput($event, i)">
+                                                <mat-icon class="red-fg">remove</mat-icon>
+                                            </button>
+                                        </div>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <mat-list>
+                                    <mat-list-item>
+                                        <h3 matLine>Planlanan Miktar</h3>
+                                        <p matLine>
+                                            <span
+                                                class="secondary-text">{{input.get('p_planned_quantity').value}}</span>
+                                        </p>
+                                    </mat-list-item>
+                                </mat-list>
+
+                            </mat-expansion-panel>
+
+                        </mat-accordion>
+
+                    </div>
+
+                </mat-tab>
+
+            </mat-tab-group>
+
+        </form>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button mat-button class="save-button" (click)="save()" [disabled]="operationForm.invalid" aria-label="Kaydet">
+            Kaydet
+        </button>
+
+    </div>
+</div>

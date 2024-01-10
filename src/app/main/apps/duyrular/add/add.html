@@ -1,0 +1,94 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/duyru'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Yeni Duyuru</div>
+                    <div class="subtitle secondary-text">
+                        <span>Duyurular</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+
+
+
+            <button mat-raised-button class="save-product-button" (click)="addBatch()">
+                <span>EKLE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <form name="batchForm" [formGroup]="batchForm" class="product w-100-p" fxLayout="column" fxFlex>
+                    <mat-tab-group>
+
+                        <mat-tab label="Duyuru Bilgileri">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Duyuru Başlığı</mat-label>
+                                    <input matInput placeholder="Duyuru Başlığı" name="name" formControlName="baslik"
+                                        required />
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Duyuru Açıklaması</mat-label>
+                                    <input matInput placeholder="Duyuru Açıklaması" name="name"
+                                        formControlName="aciklama" required />
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Öncelik</mat-label>
+                                    <mat-select placeholder="Duyuru Önceliği" name="name" formControlName="oncelik"
+                                        required>
+                                        <mat-option value="1">YÜKSEK</mat-option>
+                                        <mat-option value="2">ORTA </mat-option>
+                                        <mat-option value="3">DÜŞÜK</mat-option>
+                                    </mat-select>
+
+
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Yayın Departmanı</mat-label>
+                                    <mat-select placeholder="Duyuru Önceliği" name="name"
+                                        (selectionChange)="onChangeDepartman($event)" formControlName="departman"
+                                        required multiple>
+                                        <mat-option value="0">Tüm Departmanlar</mat-option>
+                                        <mat-option *ngFor="let calisma of departman"
+                                            value="{{calisma.id}}">{{calisma.description}}</mat-option>
+
+                                    </mat-select>
+
+                                </mat-form-field>
+                                <mat-slide-toggle formControlName="isactive" name="isactive">Kullanıcı Aktif</mat-slide-toggle>
+                            </div>
+                        </mat-tab>
+
+
+
+                    </mat-tab-group>
+                </form>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,132 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg " style="background-color:#0074b4"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header" style="background-color:#0074b4" fxLayout="row" fxLayoutAlign="space-between center">
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/apps/duyru'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">Duyru Raporları</div>
+                    <div class="subtitle secondary-text">
+                        <span>Duyrular</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+
+
+
+
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+
+                <mat-tab-group>
+
+                    <mat-tab label="Duyru Raporları">
+                        <div class="tab-content p-24" fusePerfectScrollbar>
+
+                            <div id="printable" style="width: 1200px; height: 1000px;" fxLayout="row wrap"
+                                fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+                                <div class="course" style="padding: 1;height: 20rem;" fxFlex="100" fxFlex.gt-xs="100"
+                                    fxFlex.gt-sm="100" [@animate]="{value:'*',params:{y:'100%'}}">
+                                    <div class="course" id="course" style="padding: 1;height: 20rem;" fxFlex="100"
+                                        fxFlex.gt-xs="100" fxFlex.gt-sm="100"
+                                        [@animate]="{value:'*',params:{y:'100%'}}">
+                                       
+
+
+                                            
+                                                        <div *ngIf="datageldi" class="course" style="padding: 20;height: 20rem; "
+                                                            fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="50"
+                                                            [@animate]="{value:'*',params:{y:'50%'}}">
+                                                            <div class="conteiner">
+                                                                <h3>Duyru Genel Bakış</h3>
+                                                                <p> Açılan Duyru Sayısı : {{duyruData.length}}</p><br>
+                                                                <p>Okunan Duyru Sayısı : {{okunanDuyru}}</p><br>
+                                                                <p> Yayınlanan Birim/Duyru Oranı:</p><br>
+                                                                <p> En Çok Duyru Yapılan Birim:</p>
+                                                            </div>
+                                                        </div>
+
+
+                                             
+
+                                                        <div class="course" style="padding: 20;height: 20rem; "
+                                                            fxFlex="50" fxFlex.gt-xs="50" fxFlex.gt-sm="50"
+                                                            [@animate]="{value:'*',params:{y:'50%'}}">
+                                                            <div class="conteiner">
+                                                                <h3>Duyru Okuyanları</h3>
+                                                                <mat-form-field appearance="outline" floatLabel="always"
+                                                                    class="w-100-p">
+                                                                    <mat-label>Yayın Departmanı</mat-label>
+                                                                    <mat-select placeholder="Duyru Önceliği"
+                                                                        name="departman" formControlName="departman"
+                                                                        (selectionChange)="onChangeDepartman($event)"
+                                                                        required>
+
+                                                                        <mat-option *ngFor="let duyru of duyruData"
+                                                                            [value]="duyru.id">{{duyru.duyru_basligi}}</mat-option>
+
+                                                                    </mat-select>
+
+                                                                </mat-form-field>
+                                                                <dx-data-grid id="gridContainer" title="Okunan Duyru"
+                                                                    [dataSource]="dataSource" keyExpr=""
+                                                                    [showBorders]="true">
+
+                                                                    <dxo-selection mode="single"></dxo-selection>
+                                                                    <dxi-column dataField="departman" width="15%"
+                                                                        caption="Departman Numarası"></dxi-column>
+                                                                    <dxi-column dataField="sicil" width="15%"
+                                                                        caption="Sicil Numarası"></dxi-column>
+                                                                    <dxi-column dataField="user_name" width="50%"
+                                                                        caption="Adı Soyadı"></dxi-column>
+
+
+
+                                                                    <dxo-paging [pageSize]="10"></dxo-paging>
+
+
+
+                                                                </dx-data-grid>
+
+                                                            </div>
+                                                        </div>
+                                                  
+
+                                          
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+
+
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

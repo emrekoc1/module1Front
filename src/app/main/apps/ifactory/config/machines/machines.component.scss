@@ -1,0 +1,22 @@
+.machines{
+    margin: 10px;
+    display: flex;
+}
+.machines .machine{
+    width: 100px;
+}
+.machines .machine .header{
+    background-color: #0aa3b3;
+    margin: 10px;
+    font-size: 11px;
+    color:White;
+    height: 50px;
+    text-align: center;
+    text-emphasis: none;
+    padding: 10px;
+    cursor: pointer;
+    &:hover {
+        background-color: green;
+	}
+    
+}
