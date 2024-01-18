@@ -62,7 +62,7 @@ export class BirimOzelComponent implements OnInit {
     
     }
     planlamayaGit(){
-        let url = "https://planlama.aho.com"
+        let url = "http://planlama.aho.com"
         window.open(url)
     }
     bakimOnarimGit(){
